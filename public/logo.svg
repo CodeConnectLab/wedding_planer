@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72" fill="none">
+  <!-- Diamond ornament left -->
+  <path d="M12 36 L19 27 L26 36 L19 45 Z" fill="#C9A96E"/>
+  <path d="M15.5 36 L19 31 L22.5 36 L19 41 Z" fill="#1C1008"/>
+
+  <!-- WAH - large serif style -->
+  <text x="35" y="46"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="30"
+    font-weight="700"
+    letter-spacing="4"
+    fill="#1C1008">WAH</text>
+
+  <!-- Thin gold underline -->
+  <line x1="35" y1="51" x2="148" y2="51" stroke="#C9A96E" stroke-width="1"/>
+
+  <!-- MOMENTZ - small caps tracking -->
+  <text x="35" y="64"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="11.5"
+    font-weight="400"
+    letter-spacing="7"
+    fill="#C9A96E">MOMENTZ</text>
+
+  <!-- Diamond ornament right -->
+  <path d="M274 36 L281 27 L288 36 L281 45 Z" fill="#C9A96E"/>
+  <path d="M277.5 36 L281 31 L284.5 36 L281 41 Z" fill="#1C1008"/>
+</svg>
