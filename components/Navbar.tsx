@@ -201,8 +201,10 @@ export default function Navbar() {
 
             {/* Mobile Menu Button */}
             <button
-              className={`lg:hidden text-2xl transition-colors duration-300 p-2 ${
-                isScrolled ? 'text-primary' : 'text-white'
+              className={`lg:hidden text-2xl transition-all duration-300 p-2 rounded-xl ${
+                isScrolled
+                  ? 'text-primary'
+                  : 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]'
               }`}
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
@@ -227,9 +229,9 @@ export default function Navbar() {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } lg:hidden overflow-y-auto`}
       >
-        <div className="p-6 pt-8">
-          {/* Close button */}
-          <div className="flex justify-between items-center mb-8">
+        <div className="p-6 pt-6">
+          {/* Close button — sits below the fixed navbar (h-20 = 80px) */}
+          <div className="flex justify-between items-center mb-6 mt-20">
             <div className="relative w-40 h-12">
               <Image src="/logo.svg" alt="WAH Momentz" fill className="object-contain object-left" />
             </div>
