@@ -7,12 +7,17 @@ export async function GET() {
     await connectDB();
     let footerSettings = await FooterSettings.findOne();
     
-    // Create default settings if none exist
     if (!footerSettings) {
       footerSettings = new FooterSettings({});
       await footerSettings.save();
     }
-    
+
+    // Auto-migrate old logo path
+    if (footerSettings.logo === '/logo.png') {
+      footerSettings.logo = '/logo.svg';
+      await footerSettings.save();
+    }
+
     return NextResponse.json(footerSettings);
   } catch (error) {
     console.error('Error fetching footer settings:', error);

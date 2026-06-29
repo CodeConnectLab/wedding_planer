@@ -8,8 +8,8 @@ export async function POST(request: NextRequest) {
     const { email, password } = await request.json();
 
     // Simple check for demo without MongoDB
-    if (email === 'admin@portfolio.com' && password === 'admin123') {
-      const token = generateToken({ id: '1', email: 'admin@portfolio.com' });
+    if (email === 'admin@wahmomentz.com' && password === 'admin123') {
+      const token = generateToken({ id: '1', email: 'admin@wahmomentz.com' });
 
       const response = NextResponse.json({ success: true, token });
       response.cookies.set('token', token, {

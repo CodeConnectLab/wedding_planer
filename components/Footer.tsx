@@ -97,7 +97,11 @@ export default function Footer() {
     copyrightText: 'WAH Momentz. All Rights Reserved.',
   };
 
-  const settings = footerSettings || defaultSettings;
+  const rawSettings = footerSettings || defaultSettings;
+  const settings = {
+    ...rawSettings,
+    logo: rawSettings.logo === '/logo.png' ? '/logo.svg' : (rawSettings.logo || '/logo.svg'),
+  };
 
   const socialLinks = [
     { url: settings.instagramUrl, icon: FaInstagram, label: 'Instagram' },
@@ -131,7 +135,7 @@ export default function Footer() {
                 src={settings.logo}
                 alt={settings.companyName}
                 fill
-                className="object-contain brightness-0 invert"
+                className="object-contain"
               />
             </div>
             <p className="text-warmgray text-sm leading-relaxed mb-6 max-w-xs">
