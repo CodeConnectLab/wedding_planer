@@ -16,42 +16,42 @@ const destinations = [
     city: 'Udaipur',
     country: 'Rajasthan, India',
     desc: 'The City of Lakes — floating palace venues, zenana mehandi, and breathtaking sunsets over Lake Pichola.',
-    img: 'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=800&fit=crop',
+    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=800&fit=crop',
     tag: 'Most Popular',
   },
   {
     city: 'Jaipur',
     country: 'Rajasthan, India',
     desc: 'The Pink City — majestic forts, vibrant culture, and opulent palace hotels for royal Indian weddings.',
-    img: 'https://images.unsplash.com/photo-1512100937151-dce8f0814c3d?w=600&h=800&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop',
     tag: 'Royal Heritage',
   },
   {
     city: 'Goa',
     country: 'India',
     desc: 'Golden beaches, colonial churches, lush resorts — the perfect setting for intimate or lavish beach weddings.',
-    img: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&h=800&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop',
     tag: 'Beach Wedding',
   },
   {
     city: 'Kerala',
     country: 'India',
     desc: 'Backwaters, houseboats, lush tea gardens, and traditional Kerala ceremonies set in paradise.',
-    img: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&h=800&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop',
     tag: 'Tropical',
   },
   {
     city: 'Bali',
     country: 'Indonesia',
     desc: 'Temple ceremonies, terraced rice fields, and luxury clifftop villas for the most romantic international backdrop.',
-    img: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&h=800&fit=crop',
+    img: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=800&fit=crop',
     tag: 'International',
   },
   {
     city: 'Tuscany',
     country: 'Italy',
     desc: 'Rolling vineyards, Renaissance villas, and world-class cuisine for a truly fairy-tale European wedding.',
-    img: 'https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?w=600&h=800&fit=crop',
+    img: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=800&fit=crop',
     tag: 'International',
   },
 ];
@@ -80,7 +80,7 @@ export default function DestinationWeddingsPage() {
         <section className="relative min-h-[85vh] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=1920&h=1080&fit=crop"
+              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=1080&fit=crop"
               alt="Destination Weddings"
               fill className="object-cover"
               priority

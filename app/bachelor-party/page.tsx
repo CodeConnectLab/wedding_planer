@@ -53,7 +53,7 @@ export default function BachelorPartyPage() {
         <section className="relative min-h-[75vh] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=1920&h=1080&fit=crop"
+              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=1080&fit=crop"
               alt="Bachelor Party"
               fill className="object-cover"
               priority
@@ -127,7 +127,7 @@ export default function BachelorPartyPage() {
               <div className="relative" data-aos="fade-left" data-aos-delay="100">
                 <div className="relative h-[480px] rounded-3xl overflow-hidden shadow-premium">
                   <Image
-                    src="https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=800&h=900&fit=crop"
+                    src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&h=900&fit=crop"
                     alt="Friends celebrating"
                     fill className="object-cover"
                   />
@@ -229,8 +229,8 @@ export default function BachelorPartyPage() {
               {[
                 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=400&h=400&fit=crop',
                 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=400&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&h=400&fit=crop',
               ].map((src, i) => (
                 <div
                   key={i}

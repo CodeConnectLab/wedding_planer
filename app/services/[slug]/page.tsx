@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -28,7 +28,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Where Visions Become Reality',
     heroTagline: 'Transforming venues into breathtaking dreamscapes — each detail chosen with intention.',
     description: 'Our wedding décor philosophy begins with your story. Whether you dream of opulent floral canopies dripping with roses, minimalist ivory elegance, or a Rajasthani-inspired riot of colour, our décor team translates your vision into a living, breathing environment. We handle everything — from entrance arches and mandap design to centrepieces, lighting, drapery, and the final finishing touches that make a venue unmistakably yours.',
-    heroImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Full venue décor concept and mood boarding',
       'Floral design — fresh, dried, and silk arrangements',
@@ -51,10 +51,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Royal', price: 'Custom', features: ['All Signature inclusions', '3D venue visualisation', 'Custom fabrication', 'Ceiling installations', 'International florals', 'Multiple event spaces'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'venue-management', label: 'Venue Management' },
@@ -71,7 +71,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Moments Preserved Forever',
     heroTagline: 'Cinematic storytelling that captures the emotion, movement, and poetry of your day.',
     description: 'Your wedding day unfolds in a series of irreplaceable moments — the catch of breath as the doors open, the laughter-soaked chaos of the baraat, the stillness of a vow exchanged. Our photography and cinematography partners are masters of capturing what words cannot. From editorial-style couple portraits to emotional documentary coverage, every frame is composed with artistic intention and technical excellence.',
-    heroImage: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Pre-wedding engagement shoots',
       'Full wedding day documentary coverage',
@@ -94,10 +94,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Heirloom', price: 'Custom', features: ['Lead photographer + 2 associates', 'Full film team', 'All events coverage', 'Same-day edit', 'Premium album', 'International travel possible'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
@@ -114,7 +114,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'A Feast for Every Sense',
     heroTagline: 'Curated menus that celebrate culinary heritage and delight every guest.',
     description: 'Food is at the heart of every great Indian celebration — a reflection of family, region, and generosity. Our catering partners include India\'s finest caterers across pan-Indian, Mughlai, South Indian, Continental, and fusion cuisine, as well as specialist chefs for dietary requirements. We design menus that balance tradition with innovation, presentation with abundance, and flavour with flair.',
-    heroImage: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=1400&h=800&fit=crop',
     features: [
       'Bespoke menu design for each event',
       'Live cooking stations (chaat, kebab, pasta, dessert)',
@@ -137,10 +137,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Royal', price: 'Custom', features: ['Multi-cuisine', 'Celebrity chef option', 'Custom live stations', 'Beverage service', 'International menu items', 'Complete F&B management'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'venue-management', label: 'Venue Management' },
@@ -181,9 +181,9 @@ const services: Record<string, ServiceDetail> = {
     ],
     gallery: [
       'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1559656914-a30970c1affd?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
@@ -200,7 +200,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'The Heartbeat of Celebration',
     heroTagline: 'Performances, beats, and spectacles that keep your celebration alive long after midnight.',
     description: 'A great wedding has a rhythm — the DJ who reads the dance floor, the live band that makes aunties forget their age, the surprise act that no one saw coming. Royal Affairs curates premium entertainment — from Bollywood DJs and live classical ensembles to celebrity performers, dhol players, fireworks, laser shows, and custom choreography — to create a celebration that your guests will talk about for years.',
-    heroImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Premium Bollywood and EDM DJs',
       'Live wedding bands — Sufi, jazz, folk, fusion',
@@ -223,9 +223,9 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Royal', price: 'Custom', features: ['Celebrity performer', 'Full production', 'Custom LED stage', 'Pyrotechnics', 'Drone light show', 'Multi-event entertainment planning'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1468359601543-843bfaef291a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
@@ -243,7 +243,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'The Perfect Setting Awaits',
     heroTagline: 'Finding and flawlessly running your ideal venue — from palace to poolside.',
     description: 'The right venue sets the entire tone. Whether you envision a grand heritage haveli in Rajasthan, a lush garden in the Nilgiris, a ballroom in a five-star city hotel, or a beachside celebration in Goa, our venue specialists have the relationships and expertise to find and secure the ideal space. We also provide complete venue operations management — staffing, logistics, permits, and day-of coordination — so everything runs seamlessly.',
-    heroImage: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Venue search and shortlisting across India',
       'Site visits and venue assessment',
@@ -266,10 +266,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Destination Package', price: 'Custom', features: ['Multi-venue management', 'Destination logistics', 'Guest accommodation coordination', 'Transport management', 'Full operations team'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1519167758481-83f29c8a4a8e?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1470229538611-16ba8c7ffbd7?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
@@ -286,7 +286,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Your First Adventure Together',
     heroTagline: 'Seamlessly planned journeys to the world\'s most romantic destinations.',
     description: 'Your honeymoon is the first chapter of your married life — and it deserves to be extraordinary. Our honeymoon planning service designs personalised itineraries for couples who want their post-wedding escape to be as thoughtfully curated as their wedding. From Maldivian overwater villas and European château stays to backpacker-chic Bali and safari adventures in Kenya, we handle every booking, transfer, and surprise so you can simply be present with each other.',
-    heroImage: 'https://images.unsplash.com/photo-1540202404-a2f29016b523?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Personalised destination consultation',
       'Bespoke itinerary design',
@@ -309,10 +309,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Grand Voyage', price: 'Custom', features: ['Custom duration', 'Luxury properties only', 'Full concierge service', 'Private jet option', 'Daily experiences', 'Dedicated travel host'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1540202404-a2f29016b523?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'destination-weddings', label: 'Destination Weddings' },
@@ -329,7 +329,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Celebrate the Journey Continued',
     heroTagline: 'From intimate dinners to grand vow renewals — honouring love that grows.',
     description: 'Every anniversary is a milestone worth marking — whether it\'s your first year together or your twenty-fifth. Royal Affairs designs anniversary celebrations that reflect how your relationship has evolved: intimate candlelit dinners in extraordinary settings, surprise birthday and anniversary parties, and grand vow renewal ceremonies with all the people who matter most. We take care of every detail so you can be fully present.',
-    heroImage: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Intimate private dining arrangements',
       'Surprise party planning and execution',
@@ -352,10 +352,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Grand Vow Renewal', price: 'Custom', features: ['Full ceremony planning', 'Venue + décor', 'All guests managed', 'Photography + film', 'Reception dinner', 'Surprise elements'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'honeymoon', label: 'Honeymoon Planning' },
@@ -396,9 +396,9 @@ const services: Record<string, ServiceDetail> = {
     ],
     gallery: [
       'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'bachelor-party', label: 'Bachelor Party' },
@@ -415,7 +415,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'The First Glimpse of Your Wedding',
     heroTagline: 'Exquisite invitations that set the tone before a single decoration is placed.',
     description: 'Your wedding invitation is the first experience your guests have of your celebration — a preview of the beauty and thoughtfulness to come. Our invitation design service creates bespoke stationery suites that reflect your personal aesthetic, from ultra-luxurious boxed invitations with wax seals and hand-tied ribbons to elegant minimalist cards with foil letterpress typography. We handle design, production, and dispatch.',
-    heroImage: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Bespoke invitation suite design',
       'Boxed luxury invitation packages',
@@ -438,10 +438,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Royal Box', price: 'Custom', features: ['Full stationery suite', 'Bespoke keepsake box', 'Premium materials', 'Hand-calligraphy', 'Dispatch management', 'Digital version'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1560264418-c4445382edbc?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
@@ -457,7 +457,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Where Style Takes Centre Stage',
     heroTagline: 'Professionally produced fashion and trousseau events that celebrate your brand or bridal style.',
     description: 'Royal Affairs produces fashion shows and trousseau events for designer brands, couture houses, jewellery brands, and private clients. Whether you\'re launching a bridal collection, hosting a trousseau preview for family, or producing a gala fashion evening at your wedding celebration, our production team brings the runway to life with professional staging, lighting, choreography, and model coordination.',
-    heroImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Full runway production and staging',
       'Lighting design and technical production',
@@ -480,10 +480,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Gala Production', price: 'Custom', features: ['Premium venue', 'Custom staging', 'Celebrity guests option', 'Full media coordination', 'Live streaming', 'Post-show dinner'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'entertainment', label: 'Entertainment' },
@@ -500,7 +500,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Celebrating Excellence, Brilliantly',
     heroTagline: 'Memorable award ceremonies and gala dinners that honour achievement in unforgettable style.',
     description: 'An award night is more than a ceremony — it\'s a moment of recognition, celebration, and brand prestige. Royal Affairs produces award nights and gala dinners that leave recipients and guests genuinely moved. From intimate industry awards with 50 guests to grand national galas for 500+, we handle every element — concept, staging, entertainment, production, and the seamless execution that makes your event a landmark occasion.',
-    heroImage: 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=1400&h=800&fit=crop',
     features: [
       'Award ceremony concept and design',
       'Trophy and award design',
@@ -523,10 +523,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'National Gala', price: 'Custom', features: ['500+ guests', 'Premium venue', 'Full production', 'Multi-act entertainment', 'Red carpet setup', 'Press coordination', 'Broadcast-quality production'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'corporate-events', label: 'Corporate Events' },
@@ -543,7 +543,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Ideas That Resonate, Events That Inspire',
     heroTagline: 'Meticulously planned conferences that create meaningful connections and lasting impact.',
     description: 'A well-executed conference or summit is a powerful platform — for ideas, for networking, and for your brand. Royal Affairs manages corporate conferences, leadership summits, industry panels, product launch events, and multi-day conventions with the same attention to detail and quality standards we bring to every event. From intimate 30-person offsites to 1,000-delegate conventions, we plan and execute with precision.',
-    heroImage: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=1400&h=800&fit=crop',
     features: [
       'Conference concept and theme development',
       'Venue sourcing and management',
@@ -566,10 +566,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Convention', price: 'Custom', features: ['300+ delegates', 'Multi-day format', 'Full delegate management', 'Media coordination', 'Sponsor management', 'Live streaming', 'App or digital programme'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'corporate-events', label: 'Corporate Events' },
@@ -586,7 +586,7 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Experiences That Inspire',
     heroTagline: 'Precision-planned corporate events with a luxury touch that leaves a lasting impression.',
     description: 'Corporate events are a powerful expression of brand identity and team culture. Royal Affairs brings the same meticulous attention to detail and creative excellence we apply to weddings to conferences, product launches, dealer meets, award nights, and team celebrations. We understand that a successful corporate event delivers measurable results — engagement, brand recall, and inspiration — alongside a seamless experience.',
-    heroImage: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&h=800&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Conference and seminar management',
       'Product launch events',
@@ -609,10 +609,10 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Brand Activation', price: 'Custom', features: ['Concept + creative', 'Experiential design', 'Full production', 'Social media integration', 'Measurement framework'] },
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
     ],
     relatedServices: [
       { slug: 'entertainment', label: 'Entertainment' },

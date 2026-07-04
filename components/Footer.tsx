@@ -33,16 +33,16 @@ const weddingLinks = [
   { label: 'Wedding Décor', href: '/services/wedding-decor' },
   { label: 'Photography & Film', href: '/services/photography' },
   { label: 'Mehndi & Beauty', href: '/services/mehndi' },
-  { label: 'Catering', href: '/services/catering' },
-  { label: 'Entertainment', href: '/services/entertainment' },
+  { label: 'Bachelor Party', href: '/bachelor-party' },
+  { label: 'Honeymoon Packages', href: '/services/honeymoon' },
 ];
 
 const eventLinks = [
-  { label: 'Bachelor Party', href: '/bachelor-party' },
-  { label: 'Honeymoon Packages', href: '/services/honeymoon' },
+  { label: 'Bachelorette Party', href: '/services/bachelorette' },
   { label: 'Corporate Events', href: '/services/corporate-events' },
   { label: 'Award Nights', href: '/services/award-nights' },
   { label: 'Fashion Shows', href: '/services/fashion-shows' },
+  { label: 'Anniversary Party', href: '/services/anniversary' },
   { label: 'Conference & Expo', href: '/services/conference' },
 ];
 
@@ -120,7 +120,7 @@ export default function Footer() {
         <div
           className="w-full h-full"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #C9A96E 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, #C2185B 1px, transparent 0)`,
             backgroundSize: '40px 40px',
           }}
         />

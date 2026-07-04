@@ -154,7 +154,7 @@ export default function ContactPage() {
                 {/* Photo */}
                 <div className="relative h-48 rounded-2xl overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop"
+                    src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop"
                     alt="Our studio"
                     fill className="object-cover"
                   />

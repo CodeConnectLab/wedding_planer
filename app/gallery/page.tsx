@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -28,14 +28,14 @@ interface Category {
 
 const placeholderWeddings = [
   { _id: '1', title: 'A Royal Rajput Affair', slug: '#', images: ['https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'], location: 'Udaipur, Rajasthan', year: 2024, clientName: 'Ananya & Vikram', weddingStyle: 'Royal Heritage' },
-  { _id: '2', title: 'Garden Enchantment', slug: '#', images: ['https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=800&fit=crop'], location: 'Bangalore', year: 2024, clientName: 'Priya & Arjun', weddingStyle: 'Garden Wedding' },
-  { _id: '3', title: 'Goa Beach Wedding', slug: '#', images: ['https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&h=800&fit=crop'], location: 'Goa', year: 2024, clientName: 'Meera & Rohit', weddingStyle: 'Destination' },
-  { _id: '4', title: 'Palace of Dreams', slug: '#', images: ['https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&h=800&fit=crop'], location: 'Jaipur, Rajasthan', year: 2023, clientName: 'Kavya & Siddharth', weddingStyle: 'Royal Heritage' },
-  { _id: '5', title: 'Backwaters Romance', slug: '#', images: ['https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=800&fit=crop'], location: 'Kerala', year: 2023, clientName: 'Nisha & Pranav', weddingStyle: 'Destination' },
-  { _id: '6', title: 'Delhi Winter Wedding', slug: '#', images: ['https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?w=600&h=800&fit=crop'], location: 'New Delhi', year: 2023, clientName: 'Riya & Kabir', weddingStyle: 'Intimate' },
-  { _id: '7', title: 'Himalayan Retreat', slug: '#', images: ['https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&h=800&fit=crop'], location: 'Mussoorie', year: 2023, clientName: 'Anjali & Nikhil', weddingStyle: 'Destination' },
-  { _id: '8', title: 'Heritage Haveli Celebration', slug: '#', images: ['https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=800&fit=crop'], location: 'Jodhpur', year: 2022, clientName: 'Deepa & Rahul', weddingStyle: 'Royal Heritage' },
-  { _id: '9', title: 'A Modern Mumbai Love Story', slug: '#', images: ['https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&h=800&fit=crop'], location: 'Mumbai', year: 2022, clientName: 'Simran & Aryan', weddingStyle: 'Modern' },
+  { _id: '2', title: 'Garden Enchantment', slug: '#', images: ['https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'], location: 'Bangalore', year: 2024, clientName: 'Priya & Arjun', weddingStyle: 'Garden Wedding' },
+  { _id: '3', title: 'Goa Beach Wedding', slug: '#', images: ['https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'], location: 'Goa', year: 2024, clientName: 'Meera & Rohit', weddingStyle: 'Destination' },
+  { _id: '4', title: 'Palace of Dreams', slug: '#', images: ['https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'], location: 'Jaipur, Rajasthan', year: 2023, clientName: 'Kavya & Siddharth', weddingStyle: 'Royal Heritage' },
+  { _id: '5', title: 'Backwaters Romance', slug: '#', images: ['https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'], location: 'Kerala', year: 2023, clientName: 'Nisha & Pranav', weddingStyle: 'Destination' },
+  { _id: '6', title: 'Delhi Winter Wedding', slug: '#', images: ['https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=800&fit=crop'], location: 'New Delhi', year: 2023, clientName: 'Riya & Kabir', weddingStyle: 'Intimate' },
+  { _id: '7', title: 'Himalayan Retreat', slug: '#', images: ['https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'], location: 'Mussoorie', year: 2023, clientName: 'Anjali & Nikhil', weddingStyle: 'Destination' },
+  { _id: '8', title: 'Heritage Haveli Celebration', slug: '#', images: ['https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=800&fit=crop'], location: 'Jodhpur', year: 2022, clientName: 'Deepa & Rahul', weddingStyle: 'Royal Heritage' },
+  { _id: '9', title: 'A Modern Mumbai Love Story', slug: '#', images: ['https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'], location: 'Mumbai', year: 2022, clientName: 'Simran & Aryan', weddingStyle: 'Modern' },
 ];
 
 const filters = ['All', 'Royal Heritage', 'Destination', 'Garden Wedding', 'Modern', 'Intimate'];

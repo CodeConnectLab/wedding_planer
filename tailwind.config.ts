@@ -9,16 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Core brand colors — warm, elegant, Indian luxury
-        primary: "#1C1410",       // Deep warm black (replaces cold gray)
-        secondary: "#FDF6EE",     // Warm ivory cream
-        accent: "#C9A96E",        // Champagne gold — main accent
-        rose: "#C0737A",          // Dusty rose — secondary accent
-        blush: "#F2D7D5",         // Soft blush
-        burgundy: "#7B2D42",      // Royal burgundy
-        champagne: "#EDD9A3",     // Light champagne
-        ivory: "#FFFCF5",         // Pure ivory
-        warmgray: "#8C7B6B",      // Warm gray for body text
+        // Core brand colors — pink, purple, Indian wedding luxury
+        primary: "#2D1B4E",       // Deep royal purple
+        secondary: "#FEF0F8",     // Soft blush pink
+        accent: "#C2185B",        // Deep rose pink — main accent
+        rose: "#E91E8C",          // Vibrant hot pink — secondary accent
+        blush: "#FCE4EC",         // Petal pink
+        burgundy: "#880E4F",      // Deep magenta
+        champagne: "#F8BBD9",     // Soft pink champagne
+        ivory: "#FFF5FA",         // Pink-tinted ivory
+        warmgray: "#9E7E8C",      // Mauve warm gray
       },
       fontFamily: {
         // Set via CSS variables injected from layout.tsx
@@ -46,21 +46,21 @@ const config: Config = {
         "5xl": "2.5rem",
       },
       boxShadow: {
-        "premium": "0 25px 60px -10px rgba(28, 20, 16, 0.18)",
-        "premium-lg": "0 40px 80px -12px rgba(28, 20, 16, 0.24)",
-        "gold": "0 8px 30px rgba(201, 169, 110, 0.35)",
-        "gold-lg": "0 15px 50px rgba(201, 169, 110, 0.5)",
-        "inner-gold": "inset 0 1px 0 rgba(201, 169, 110, 0.4)",
-        "glass": "0 8px 32px 0 rgba(28, 20, 16, 0.12)",
+        "premium": "0 25px 60px -10px rgba(45, 27, 78, 0.18)",
+        "premium-lg": "0 40px 80px -12px rgba(45, 27, 78, 0.24)",
+        "gold": "0 8px 30px rgba(194, 24, 91, 0.35)",
+        "gold-lg": "0 15px 50px rgba(194, 24, 91, 0.5)",
+        "inner-gold": "inset 0 1px 0 rgba(194, 24, 91, 0.4)",
+        "glass": "0 8px 32px 0 rgba(45, 27, 78, 0.12)",
       },
       backgroundImage: {
-        // Luxury gradients
-        "gold-gradient": "linear-gradient(135deg, #C9A96E 0%, #EDD9A3 50%, #C9A96E 100%)",
-        "rose-gradient": "linear-gradient(135deg, #C0737A 0%, #F2D7D5 50%, #C0737A 100%)",
-        "warm-gradient": "linear-gradient(135deg, #1C1410 0%, #2D2019 100%)",
-        "ivory-gradient": "linear-gradient(180deg, #FFFCF5 0%, #FDF6EE 100%)",
-        "hero-overlay": "linear-gradient(to right, rgba(28,20,16,0.75) 0%, rgba(28,20,16,0.4) 60%, rgba(28,20,16,0.1) 100%)",
-        "card-overlay": "linear-gradient(to top, rgba(28,20,16,0.9) 0%, rgba(28,20,16,0.4) 50%, transparent 100%)",
+        // Luxury gradients — pink & purple
+        "gold-gradient": "linear-gradient(135deg, #C2185B 0%, #F8BBD9 50%, #C2185B 100%)",
+        "rose-gradient": "linear-gradient(135deg, #E91E8C 0%, #FCE4EC 50%, #E91E8C 100%)",
+        "warm-gradient": "linear-gradient(135deg, #2D1B4E 0%, #3D2465 100%)",
+        "ivory-gradient": "linear-gradient(180deg, #FFF5FA 0%, #FEF0F8 100%)",
+        "hero-overlay": "linear-gradient(to right, rgba(45,27,78,0.75) 0%, rgba(45,27,78,0.4) 60%, rgba(45,27,78,0.1) 100%)",
+        "card-overlay": "linear-gradient(to top, rgba(45,27,78,0.9) 0%, rgba(45,27,78,0.4) 50%, transparent 100%)",
       },
       animation: {
         "fade-up": "fadeUp 0.8s ease-out forwards",
@@ -115,8 +115,8 @@ const config: Config = {
           "100%": { transform: "translateX(-50%)" },
         },
         pulseGold: {
-          "0%, 100%": { boxShadow: "0 0 0 0 rgba(201, 169, 110, 0.4)" },
-          "50%": { boxShadow: "0 0 0 12px rgba(201, 169, 110, 0)" },
+          "0%, 100%": { boxShadow: "0 0 0 0 rgba(194, 24, 91, 0.4)" },
+          "50%": { boxShadow: "0 0 0 12px rgba(194, 24, 91, 0)" },
         },
       },
       transitionTimingFunction: {
@@ -139,28 +139,28 @@ const config: Config = {
         DEFAULT: {
           css: {
             maxWidth: "none",
-            color: "#4A3728",
+            color: "#4A1540",
             fontFamily: "var(--font-jost), system-ui, sans-serif",
-            h1: { color: "#1C1410", fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: "600" },
-            h2: { color: "#1C1410", fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: "600" },
-            h3: { color: "#1C1410", fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: "600" },
-            h4: { color: "#1C1410", fontWeight: "600" },
-            strong: { color: "#1C1410" },
-            a: { color: "#C9A96E", "&:hover": { color: "#B8925A" } },
-            blockquote: { color: "#8C7B6B", borderLeftColor: "#C9A96E" },
+            h1: { color: "#2D1B4E", fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: "600" },
+            h2: { color: "#2D1B4E", fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: "600" },
+            h3: { color: "#2D1B4E", fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: "600" },
+            h4: { color: "#2D1B4E", fontWeight: "600" },
+            strong: { color: "#2D1B4E" },
+            a: { color: "#C2185B", "&:hover": { color: "#A0154D" } },
+            blockquote: { color: "#9E7E8C", borderLeftColor: "#C2185B" },
             code: {
-              color: "#1C1410",
-              backgroundColor: "#FDF6EE",
+              color: "#2D1B4E",
+              backgroundColor: "#FEF0F8",
               padding: "0.25rem 0.375rem",
               borderRadius: "0.25rem",
               fontWeight: "600",
             },
             "code::before": { content: '""' },
             "code::after": { content: '""' },
-            pre: { backgroundColor: "#FDF6EE", color: "#4A3728" },
+            pre: { backgroundColor: "#FEF0F8", color: "#4A1540" },
             table: { borderCollapse: "collapse" },
-            th: { border: "1px solid #EDD9A3", backgroundColor: "#FFFCF5", padding: "0.5rem", textAlign: "left" },
-            td: { border: "1px solid #EDD9A3", padding: "0.5rem" },
+            th: { border: "1px solid #F8BBD9", backgroundColor: "#FFF5FA", padding: "0.5rem", textAlign: "left" },
+            td: { border: "1px solid #F8BBD9", padding: "0.5rem" },
           },
         },
       },

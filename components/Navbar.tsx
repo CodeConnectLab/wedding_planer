@@ -14,12 +14,12 @@ const weddingServices = [
   { label: 'Entertainment', href: '/services/entertainment', icon: '🎵' },
   { label: 'Venue Management', href: '/services/venue-management', icon: '🏛️' },
   { label: 'Invitation Design', href: '/services/invitations', icon: '✉️' },
+  { label: 'Bachelor Party', href: '/bachelor-party', icon: '🥂' },
+  { label: 'Honeymoon Packages', href: '/services/honeymoon', icon: '🌅' },
 ];
 
 const eventServices = [
-  { label: 'Bachelor Party', href: '/bachelor-party', icon: '🥂' },
   { label: 'Bachelorette Party', href: '/services/bachelorette', icon: '💐' },
-  { label: 'Honeymoon Packages', href: '/services/honeymoon', icon: '🌅' },
   { label: 'Anniversary Party', href: '/services/anniversary', icon: '💍' },
   { label: 'Corporate Events', href: '/services/corporate-events', icon: '🎯' },
   { label: 'Fashion Shows', href: '/services/fashion-shows', icon: '👗' },

@@ -18,26 +18,26 @@ interface ThemeSettings {
 }
 
 const defaultTheme: ThemeSettings = {
-  primaryColor: '#1C1008',
-  secondaryColor: '#F8F3EA',
-  accentColor: '#C9A96E',
-  roseColor: '#F5C6D0',
-  burgundyColor: '#6B2737',
-  champagneColor: '#C9A96E',
-  ivoryColor: '#FFFCF5',
-  buttonColor: '#C9A96E',
+  primaryColor: '#2D1B4E',
+  secondaryColor: '#FEF0F8',
+  accentColor: '#C2185B',
+  roseColor: '#E91E8C',
+  burgundyColor: '#880E4F',
+  champagneColor: '#F8BBD9',
+  ivoryColor: '#FFF5FA',
+  buttonColor: '#C2185B',
   isActive: true,
 };
 
 const colorFields: { key: keyof ThemeSettings; label: string; description: string }[] = [
-  { key: 'primaryColor',    label: 'Primary (Dark Brown)',   description: 'Navigation, dark sections, headings' },
-  { key: 'secondaryColor',  label: 'Secondary (Warm Linen)', description: 'Page backgrounds, subtle areas' },
-  { key: 'accentColor',     label: 'Accent (Champagne Gold)', description: 'Buttons, links, highlights, dividers' },
-  { key: 'champagneColor',  label: 'Champagne Gold',         description: 'Decorative gold elements, eyebrow text' },
-  { key: 'roseColor',       label: 'Blush Rose',             description: 'Soft card backgrounds, bridal elements' },
-  { key: 'burgundyColor',   label: 'Burgundy',               description: 'Rich accent alternative, hover states' },
-  { key: 'ivoryColor',      label: 'Ivory',                  description: 'Clean page background, light sections' },
-  { key: 'buttonColor',     label: 'Button Color',           description: 'Primary call-to-action button color' },
+  { key: 'primaryColor',    label: 'Primary (Royal Purple)',  description: 'Navigation, dark sections, headings' },
+  { key: 'secondaryColor',  label: 'Secondary (Blush Pink)',  description: 'Page backgrounds, subtle areas' },
+  { key: 'accentColor',     label: 'Accent (Deep Rose)',      description: 'Buttons, links, highlights, dividers' },
+  { key: 'champagneColor',  label: 'Soft Pink Champagne',     description: 'Decorative pink elements, eyebrow text' },
+  { key: 'roseColor',       label: 'Hot Pink',                description: 'Vibrant accent, hover effects' },
+  { key: 'burgundyColor',   label: 'Deep Magenta',            description: 'Rich accent alternative, hover states' },
+  { key: 'ivoryColor',      label: 'Pink Ivory',              description: 'Clean page background, light sections' },
+  { key: 'buttonColor',     label: 'Button Color',            description: 'Primary call-to-action button color' },
 ];
 
 export default function ThemeSettingsAdmin() {
@@ -146,7 +146,7 @@ export default function ThemeSettingsAdmin() {
                     value={(theme[key] as string) || ''}
                     onChange={(e) => handleColorChange(key, e.target.value)}
                     className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm font-mono focus:ring-2 focus:ring-accent focus:border-transparent"
-                    placeholder="#C9A96E"
+                    placeholder="#C2185B"
                   />
                   <p className="text-xs text-gray-400 mt-1">{description}</p>
                 </div>

@@ -22,19 +22,19 @@ const placeholderPosts = [
   {
     _id: '1', slug: '#', title: '10 Questions to Ask Your Wedding Planner Before Signing',
     excerpt: 'Choosing the right wedding planner is one of the most important decisions you\'ll make. Here are the key questions every couple should ask before committing.',
-    featuredImage: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=400&fit=crop',
+    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     category: 'Planning Tips', author: 'Priya Sharma', readTime: '5', createdAt: new Date('2025-06-01'),
   },
   {
     _id: '2', slug: '#', title: 'The Rise of Sustainable Weddings: Beautiful & Responsible',
     excerpt: 'Eco-conscious couples are redefining luxury with sustainable florals, zero-waste menus, and mindful venue choices that celebrate love without harming the planet.',
-    featuredImage: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&h=400&fit=crop',
+    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     category: 'Décor Trends', author: 'Kavya Nair', readTime: '7', createdAt: new Date('2025-05-15'),
   },
   {
     _id: '3', slug: '#', title: 'Top 10 Royal Palaces in India for an Unforgettable Wedding',
     excerpt: 'From Udaipur\'s shimmering lake palaces to Jaipur\'s magnificent fort hotels — our curated guide to India\'s most spectacular wedding venues.',
-    featuredImage: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&h=400&fit=crop',
+    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     category: 'Venues & Destinations', author: 'Rahul Kapoor', readTime: '8', createdAt: new Date('2025-04-20'),
   },
   {
@@ -46,13 +46,13 @@ const placeholderPosts = [
   {
     _id: '5', slug: '#', title: 'How to Plan a Destination Wedding in Bali: A Complete Guide',
     excerpt: 'Everything you need to know about planning a stunning Bali wedding — from visa requirements and temple ceremonies to the best resorts and local vendors.',
-    featuredImage: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&h=400&fit=crop',
+    featuredImage: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
     category: 'Destination Weddings', author: 'Arjun Mehta', readTime: '10', createdAt: new Date('2025-02-25'),
   },
   {
     _id: '6', slug: '#', title: 'The Perfect Sangeet: Planning a Night to Remember',
     excerpt: 'The Sangeet is one of the most joyful events of the wedding week. Here\'s how to plan performances, themes, and entertainment that will keep everyone dancing.',
-    featuredImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop',
+    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
     category: 'Events & Ceremonies', author: 'Kavya Nair', readTime: '6', createdAt: new Date('2025-01-18'),
   },
 ];
@@ -146,7 +146,7 @@ export default async function BlogsPage() {
                 >
                   <div className="relative h-52 overflow-hidden">
                     <Image
-                      src={post.featuredImage || 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop'}
+                      src={post.featuredImage || 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop'}
                       alt={post.title}
                       fill className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />

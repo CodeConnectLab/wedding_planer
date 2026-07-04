@@ -12,13 +12,6 @@ export const metadata: Metadata = {
   keywords: 'about WAH Momentz, wedding planners India, luxury wedding planning team, wedding planning company India',
 };
 
-const team = [
-  { name: 'Priya Sharma', role: 'Founder & Creative Director', bio: '20 years orchestrating India\'s most celebrated weddings. Priya\'s vision blends heritage opulence with contemporary elegance.', img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face' },
-  { name: 'Arjun Mehta', role: 'Lead Event Architect', bio: 'Master logistics coordinator who transforms complex multi-day wedding programmes into seamlessly choreographed celebrations.', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face' },
-  { name: 'Kavya Nair', role: 'Head of Décor & Design', bio: 'Award-winning décor artist specialising in florals, lighting design, and creating the visual identities that make each wedding unique.', img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face' },
-  { name: 'Rahul Kapoor', role: 'Destination Wedding Specialist', bio: 'International event expert with experience across 15+ countries, curating flawless destination weddings from Kerala to Tuscany.', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face' },
-];
-
 const awards = [
   { year: '2024', award: 'Best Luxury Wedding Planner', body: 'WedAward India' },
   { year: '2023', award: 'Excellence in Destination Weddings', body: 'South Asian Wedding Awards' },
@@ -44,7 +37,7 @@ export default function AboutPage() {
         <section className="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1920&h=900&fit=crop"
+              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=900&fit=crop"
               alt="About WAH Momentz"
               fill className="object-cover"
               priority
@@ -151,30 +144,6 @@ export default function AboutPage() {
                 <div key={s.label} data-aos="zoom-in" data-aos-delay={i * 100}>
                   <div className="font-cormorant text-4xl font-[700] text-champagne">{s.num}</div>
                   <div className="font-sans text-xs text-warmgray uppercase tracking-widest mt-2">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── TEAM ─────────────────────────────────────────────── */}
-        <section className="py-section bg-ivory">
-          <div className="container-custom">
-            <div className="text-center mb-14" data-aos="fade-up">
-              <div className="eyebrow mb-3">The People Behind the Magic</div>
-              <h2 className="font-cormorant text-4xl sm:text-5xl font-[300] italic text-primary">
-                Meet Our <span className="font-[600] not-italic">Team</span>
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {team.map((member, i) => (
-                <div key={member.name} className="group text-center" data-aos="fade-up" data-aos-delay={i * 100}>
-                  <div className="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-4 border-champagne/40 group-hover:border-accent transition-colors duration-400 shadow-premium">
-                    <Image src={member.img} alt={member.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <h3 className="font-cormorant text-xl font-[600] text-primary">{member.name}</h3>
-                  <p className="font-sans text-xs text-accent uppercase tracking-wider mb-3 mt-1">{member.role}</p>
-                  <p className="font-sans text-sm text-warmgray leading-relaxed">{member.bio}</p>
                 </div>
               ))}
             </div>

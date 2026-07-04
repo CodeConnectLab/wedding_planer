@@ -18,7 +18,7 @@ const weddingServices = [
     desc: 'From Udaipur\'s serene lake palaces to Goa\'s sunlit shores and international locales in Bali, Tuscany, or Maldives — we create seamless destination celebrations that transport your guests into a dream.',
     highlights: ['25+ destination partnerships', 'International planning expertise', 'Full logistics management', 'Curated vendor network'],
     href: '/destination-weddings',
-    img: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
   },
   {
     icon: '🌸',
@@ -26,7 +26,7 @@ const weddingServices = [
     desc: 'Our award-winning design team creates breathtaking visual environments — lush floral mandaps, candlelit receptions, cinematic lighting rigs, and bespoke installations that feel uniquely yours.',
     highlights: ['Bespoke concept development', 'Floral artistry', 'Lighting design', 'Mandap & stage design'],
     href: '/services/wedding-decor',
-    img: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
   },
   {
     icon: '📸',
@@ -34,7 +34,7 @@ const weddingServices = [
     desc: 'Artistic photographers and cinematic filmmakers who capture every stolen glance, tearful embrace, and joyful dance — producing timeless images and films you\'ll treasure for generations.',
     highlights: ['Pre-wedding shoots', 'Drone videography', 'Same-day edit reels', 'Fine art albums'],
     href: '/services/photography',
-    img: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
   },
   {
     icon: '🌿',
@@ -50,7 +50,7 @@ const weddingServices = [
     desc: 'A feast for the senses — from elaborate Rajasthani thalis to contemporary fusion menus and international cuisines, each dish is crafted by top chefs and presented with impeccable elegance.',
     highlights: ['Multi-cuisine expertise', 'Bar & beverage management', 'Dietary accommodations', 'Live cooking stations'],
     href: '/services/catering',
-    img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
   },
   {
     icon: '🎵',
@@ -58,7 +58,7 @@ const weddingServices = [
     desc: 'From classical Kathak performances to Bollywood choreography, live bands, DJ nights, and bespoke entertainment — we curate unforgettable experiences that keep guests enchanted all night.',
     highlights: ['Live bands & orchestras', 'Bollywood performers', 'Sangeet choreography', 'Celebrity management'],
     href: '/services/entertainment',
-    img: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
   },
   {
     icon: '🏛️',
@@ -66,7 +66,7 @@ const weddingServices = [
     desc: 'Access to India\'s most stunning wedding venues — heritage palaces, luxury hotels, garden estates, and boutique properties — with complete logistics and vendor coordination managed by our team.',
     highlights: ['200+ curated venues', 'Palace & fort properties', 'Overseas venue access', 'Complete logistics'],
     href: '/services/venue-management',
-    img: 'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
   },
   {
     icon: '✉️',
@@ -74,7 +74,7 @@ const weddingServices = [
     desc: 'Bespoke wedding stationery that sets the tone before the first guest arrives — handcrafted invitations, custom monograms, digital save-the-dates, and full suite design from engagement to post-wedding.',
     highlights: ['Custom illustration', 'Luxury print materials', 'Digital invitations', 'Welcome kits design'],
     href: '/services/invitations',
-    img: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
   },
 ];
 
@@ -84,42 +84,42 @@ const eventServices = [
     title: 'Bachelor & Bachelorette Parties',
     desc: 'Tailored pre-wedding celebrations — from intimate gatherings to epic adventures — designed around the personality and preferences of the guest of honour.',
     href: '/bachelor-party',
-    img: 'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
   },
   {
     icon: '🌅',
     title: 'Honeymoon Planning',
     desc: 'Romantic, carefully curated honeymoon itineraries — from Maldivian overwater villas to European river cruises and intimate Himalayan retreats.',
     href: '/services/honeymoon',
-    img: 'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
   },
   {
     icon: '💍',
     title: 'Anniversary Celebrations',
     desc: 'Recreate the magic of your wedding day or create an entirely new celebration — intimate dinners, surprise parties, and milestone anniversary events.',
     href: '/services/anniversary',
-    img: 'https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
   },
   {
     icon: '🎯',
     title: 'Corporate Events',
     desc: 'Large-scale corporate galas, product launches, dealer meets, road shows, and brand activations — executed with the same precision as our weddings.',
     href: '/services/corporate-events',
-    img: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
   },
   {
     icon: '👗',
     title: 'Fashion Shows',
     desc: 'Runway events, designer showcase evenings, and fashion gala productions — we create the perfect stage for India\'s fashion moments.',
     href: '/services/fashion-shows',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
   },
   {
     icon: '🏆',
     title: 'Award Nights & Galas',
     desc: 'Black-tie award ceremonies, corporate recognition galas, and industry nights with full production — staging, lighting, sound, and celebrity hosting.',
     href: '/services/award-nights',
-    img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop',
+    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
   },
 ];
 
@@ -132,7 +132,7 @@ export default function ServicesPage() {
         <section className="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=800&fit=crop"
+              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=800&fit=crop"
               alt="Wedding Services"
               fill className="object-cover"
               priority

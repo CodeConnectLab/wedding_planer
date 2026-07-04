@@ -7,7 +7,6 @@ import AnimatedHomepage from '@/components/AnimatedHomepage';
 import ModernAdsBanner from '@/components/ModernAdsBanner';
 
 const HeroSlider       = dynamic(() => import('@/components/HeroSlider'), { loading: () => <div className="skeleton h-screen" /> });
-const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'), { loading: () => <div className="skeleton h-64" /> });
 const VideoSection     = dynamic(() => import('@/components/VideoSection'), { loading: () => <div className="skeleton h-64" /> });
 const FAQSection       = dynamic(() => import('@/components/FAQSection'), { loading: () => <div className="skeleton h-64" /> });
 
@@ -58,9 +57,9 @@ const stats = [
 
 const weddingStyles = [
   { title: 'Royal Heritage', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Palace Wedding' },
-  { title: 'Garden Enchantment', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=800&fit=crop', tag: 'Outdoor Wedding' },
-  { title: 'Destination Dreams', img: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&h=800&fit=crop', tag: 'Destination Wedding' },
-  { title: 'Intimate Luxury', img: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&h=800&fit=crop', tag: 'Intimate Ceremony' },
+  { title: 'Garden Enchantment', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Outdoor Wedding' },
+  { title: 'Destination Dreams', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Destination Wedding' },
+  { title: 'Intimate Luxury', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Intimate Ceremony' },
 ];
 
 const marqueeItems = [
@@ -89,7 +88,7 @@ export default async function Home() {
             {/* Background */}
             <div className="absolute inset-0">
               <Image
-                src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop"
+                src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=1080&fit=crop"
                 alt="Luxury Indian Wedding"
                 fill
                 className="object-cover"
@@ -197,7 +196,7 @@ export default async function Home() {
                     </div>
                     <div className="relative h-40 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=400&fit=crop"
+                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop"
                         alt="Wedding couple"
                         fill className="object-cover"
                       />
@@ -206,14 +205,14 @@ export default async function Home() {
                   <div className="space-y-4 pt-8">
                     <div className="relative h-40 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&h=400&fit=crop"
+                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop"
                         alt="Wedding decor"
                         fill className="object-cover"
                       />
                     </div>
                     <div className="relative h-64 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&h=800&fit=crop"
+                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop"
                         alt="Bridal portrait"
                         fill className="object-cover"
                       />
@@ -365,7 +364,7 @@ export default async function Home() {
           {/* Background motif */}
           <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.025] pointer-events-none">
             <Image
-              src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&h=1200&fit=crop"
+              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&h=1200&fit=crop"
               alt=""
               fill className="object-cover"
             />
@@ -464,9 +463,6 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ─────────────────────────────────────── */}
-        <TestimonialsSection showFeaturedOnly={true} maxItems={6} />
-
         {/* ── FAQ SECTION ──────────────────────────────────────── */}
         <FAQSection maxItems={6} showViewAllButton={true} />
 
@@ -477,7 +473,7 @@ export default async function Home() {
         <section className="py-section relative overflow-hidden bg-primary">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=800&fit=crop"
+              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=800&fit=crop"
               alt="Wedding celebration"
               fill className="object-cover opacity-20"
             />
@@ -552,7 +548,7 @@ export default async function Home() {
                   category: 'Planning Tips',
                   title: '10 Questions to Ask Your Wedding Planner Before Signing',
                   excerpt: 'Choosing the right wedding planner is one of the most important decisions you\'ll make. Here are the key questions every couple should ask.',
-                  img: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=400&fit=crop',
+                  img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
                   date: 'June 2025',
                   readTime: '5 min read',
                   slug: '#'
@@ -561,7 +557,7 @@ export default async function Home() {
                   category: 'Décor Trends',
                   title: 'The Rise of Sustainable Weddings: Beautiful & Responsible',
                   excerpt: 'Eco-conscious couples are redefining luxury with sustainable floral arrangements, zero-waste menus, and mindful venue choices.',
-                  img: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&h=400&fit=crop',
+                  img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
                   date: 'May 2025',
                   readTime: '7 min read',
                   slug: '#'
@@ -570,7 +566,7 @@ export default async function Home() {
                   category: 'Destination',
                   title: 'Top 10 Royal Palaces in India for an Unforgettable Wedding',
                   excerpt: 'From Udaipur\'s lake palaces to Jaipur\'s fort hotels — our curated guide to India\'s most spectacular wedding venues.',
-                  img: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&h=400&fit=crop',
+                  img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
                   date: 'April 2025',
                   readTime: '8 min read',
                   slug: '#'

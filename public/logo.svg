@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
 
   <!-- Left decorative element: lotus petal pair -->
-  <ellipse cx="18" cy="40" rx="5" ry="10" fill="#C9A96E" opacity="0.9" transform="rotate(-20 18 40)"/>
-  <ellipse cx="26" cy="36" rx="4" ry="9" fill="#C9A96E" opacity="0.7" transform="rotate(10 26 36)"/>
+  <ellipse cx="18" cy="40" rx="5" ry="10" fill="#C2185B" opacity="0.9" transform="rotate(-20 18 40)"/>
+  <ellipse cx="26" cy="36" rx="4" ry="9" fill="#C2185B" opacity="0.7" transform="rotate(10 26 36)"/>
 
   <!-- Small diamond / mangalsutra bead -->
-  <path d="M22 52 L25 47 L28 52 L25 57 Z" fill="#C9A96E"/>
+  <path d="M22 52 L25 47 L28 52 L25 57 Z" fill="#C2185B"/>
 
   <!-- WAH — bold elegant serif -->
   <text
@@ -14,11 +14,11 @@
     font-size="32"
     font-weight="700"
     letter-spacing="5"
-    fill="#C9A96E">WAH</text>
+    fill="#C2185B">WAH</text>
 
   <!-- Decorative thin lines flanking MOMENTZ -->
-  <line x1="40" y1="55" x2="85" y2="55" stroke="#C9A96E" stroke-width="0.7" opacity="0.5"/>
-  <line x1="175" y1="55" x2="220" y2="55" stroke="#C9A96E" stroke-width="0.7" opacity="0.5"/>
+  <line x1="40" y1="55" x2="85" y2="55" stroke="#C2185B" stroke-width="0.7" opacity="0.5"/>
+  <line x1="175" y1="55" x2="220" y2="55" stroke="#C2185B" stroke-width="0.7" opacity="0.5"/>
 
   <!-- MOMENTZ — spaced small caps -->
   <text
@@ -27,19 +27,19 @@
     font-size="10"
     font-weight="400"
     letter-spacing="8"
-    fill="#C9A96E"
+    fill="#C2185B"
     opacity="0.85">MOMENTZ</text>
 
   <!-- Right decorative element: mirror of left -->
-  <ellipse cx="302" cy="40" rx="5" ry="10" fill="#C9A96E" opacity="0.9" transform="rotate(20 302 40)"/>
-  <ellipse cx="294" cy="36" rx="4" ry="9" fill="#C9A96E" opacity="0.7" transform="rotate(-10 294 36)"/>
-  <path d="M292 52 L295 47 L298 52 L295 57 Z" fill="#C9A96E"/>
+  <ellipse cx="302" cy="40" rx="5" ry="10" fill="#C2185B" opacity="0.9" transform="rotate(20 302 40)"/>
+  <ellipse cx="294" cy="36" rx="4" ry="9" fill="#C2185B" opacity="0.7" transform="rotate(-10 294 36)"/>
+  <path d="M292 52 L295 47 L298 52 L295 57 Z" fill="#C2185B"/>
 
   <!-- Subtle crown above WAH (3 tiny points) -->
-  <path d="M55 18 L62 28 L72 20 L82 28 L89 18" stroke="#C9A96E" stroke-width="1.2" fill="none" opacity="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M55 18 L62 28 L72 20 L82 28 L89 18" stroke="#C2185B" stroke-width="1.2" fill="none" opacity="0.6" stroke-linecap="round" stroke-linejoin="round"/>
   <!-- Crown dots -->
-  <circle cx="55" cy="18" r="2" fill="#C9A96E" opacity="0.7"/>
-  <circle cx="72" cy="20" r="2.5" fill="#C9A96E" opacity="0.9"/>
-  <circle cx="89" cy="18" r="2" fill="#C9A96E" opacity="0.7"/>
+  <circle cx="55" cy="18" r="2" fill="#C2185B" opacity="0.7"/>
+  <circle cx="72" cy="20" r="2.5" fill="#C2185B" opacity="0.9"/>
+  <circle cx="89" cy="18" r="2" fill="#C2185B" opacity="0.7"/>
 
 </svg>
