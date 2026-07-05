@@ -57,9 +57,9 @@ const stats = [
 
 const weddingStyles = [
   { title: 'Royal Heritage', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Palace Wedding' },
-  { title: 'Garden Enchantment', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Outdoor Wedding' },
-  { title: 'Destination Dreams', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Destination Wedding' },
-  { title: 'Intimate Luxury', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Intimate Ceremony' },
+  { title: 'Garden Enchantment', img: 'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=800&fit=crop', tag: 'Outdoor Wedding' },
+  { title: 'Destination Dreams', img: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=800&fit=crop', tag: 'Destination Wedding' },
+  { title: 'Intimate Luxury', img: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=800&fit=crop', tag: 'Intimate Ceremony' },
 ];
 
 const marqueeItems = [
@@ -196,7 +196,7 @@ export default async function Home() {
                     </div>
                     <div className="relative h-40 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop"
+                        src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop"
                         alt="Wedding couple"
                         fill className="object-cover"
                       />
@@ -205,14 +205,14 @@ export default async function Home() {
                   <div className="space-y-4 pt-8">
                     <div className="relative h-40 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop"
+                        src="https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop"
                         alt="Wedding decor"
                         fill className="object-cover"
                       />
                     </div>
                     <div className="relative h-64 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop"
+                        src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=800&fit=crop"
                         alt="Bridal portrait"
                         fill className="object-cover"
                       />
@@ -548,7 +548,7 @@ export default async function Home() {
                   category: 'Planning Tips',
                   title: '10 Questions to Ask Your Wedding Planner Before Signing',
                   excerpt: 'Choosing the right wedding planner is one of the most important decisions you\'ll make. Here are the key questions every couple should ask.',
-                  img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+                  img: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
                   date: 'June 2025',
                   readTime: '5 min read',
                   slug: '#'
@@ -557,7 +557,7 @@ export default async function Home() {
                   category: 'Décor Trends',
                   title: 'The Rise of Sustainable Weddings: Beautiful & Responsible',
                   excerpt: 'Eco-conscious couples are redefining luxury with sustainable floral arrangements, zero-waste menus, and mindful venue choices.',
-                  img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+                  img: 'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
                   date: 'May 2025',
                   readTime: '7 min read',
                   slug: '#'
@@ -566,7 +566,7 @@ export default async function Home() {
                   category: 'Destination',
                   title: 'Top 10 Royal Palaces in India for an Unforgettable Wedding',
                   excerpt: 'From Udaipur\'s lake palaces to Jaipur\'s fort hotels — our curated guide to India\'s most spectacular wedding venues.',
-                  img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+                  img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
                   date: 'April 2025',
                   readTime: '8 min read',
                   slug: '#'
