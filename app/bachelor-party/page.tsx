@@ -84,7 +84,7 @@ export default function BachelorPartyPage() {
                   <span>Plan My Party</span>
                 </Link>
                 <a
-                  href="https://wa.me/919711148175?text=Hi%2C%20I'd%20like%20to%20plan%20a%20bachelor%20party."
+                  href="https://wa.me/919891106761?text=Hi%2C%20I'd%20like%20to%20plan%20a%20bachelor%20party."
                   target="_blank" rel="noopener noreferrer"
                   className="btn-outline-white flex items-center justify-center gap-2"
                 >

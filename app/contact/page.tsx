@@ -109,9 +109,9 @@ export default function ContactPage() {
                 {/* Contact cards */}
                 <div className="space-y-4">
                   {[
-                    { icon: FaPhone, label: 'Call Us', value: '+91 97111 48175', href: 'tel:+919711148175' },
-                    { icon: FaEnvelope, label: 'Email Us', value: 'hello@wahmomentz.com', href: 'mailto:hello@wahmomentz.com' },
-                    { icon: FaMapMarkerAlt, label: 'Our Studio', value: 'South Delhi, New Delhi — 110048', href: '#' },
+                    { icon: FaPhone, label: 'Call Us', value: '+91 98911 06761', href: 'tel:+919891106761' },
+                    { icon: FaEnvelope, label: 'Email Us', value: 'wahmomentz@gmail.com', href: 'mailto:wahmomentz@gmail.com' },
+                    { icon: FaMapMarkerAlt, label: 'Our Office', value: 'H5-16, Sector 11, Rohini, New Delhi — 110085', href: '#' },
                   ].map(({ icon: Icon, label, value, href }) => (
                     <a
                       key={label}
@@ -131,7 +131,7 @@ export default function ContactPage() {
 
                 {/* WhatsApp CTA */}
                 <a
-                  href="https://wa.me/919711148175?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20wedding%20planning."
+                  href="https://wa.me/919891106761?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20wedding%20planning."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 bg-green-700 text-white px-6 py-4 rounded-2xl hover:bg-green-800 transition-colors duration-300 group w-full justify-center"

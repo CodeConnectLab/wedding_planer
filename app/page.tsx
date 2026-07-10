@@ -63,9 +63,11 @@ const weddingStyles = [
 ];
 
 const marqueeItems = [
-  'Destination Weddings', 'Royal Ceremonies', 'Mehendi Nights',
-  'Sangeet Celebrations', 'Baraat Processions', 'Reception Galas',
-  'Honeymoon Planning', 'Bachelor Parties', 'Corporate Events',
+  'Destination Weddings', 'Wedding Décor', 'Photography & Film',
+  'Mehndi & Beauty', 'Catering', 'Entertainment',
+  'Venue Management', 'Invitation Design', 'Bachelor Party',
+  'Honeymoon Packages', 'Anniversary Party',
+  'Corporate Events', 'Fashion Shows', 'Award Nights', 'Conference & Expo',
 ];
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -343,7 +345,7 @@ export default async function Home() {
                         </span>
                       </div>
                       <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
-                        <h3 className="font-cormorant text-xl font-[600] text-white">{style.title}</h3>
+                        {/* <h3 className="font-cormorant text-xl font-[600] text-white">{style.title}</h3> */}
                       </div>
                     </div>
                   </Link>
@@ -511,7 +513,7 @@ export default async function Home() {
                 <span>Schedule a Consultation</span>
               </Link>
               <a
-                href="https://wa.me/919711148175?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20wedding%20planning%20services."
+                href="https://wa.me/919891106761?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20wedding%20planning%20services."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline-white flex items-center justify-center gap-2"

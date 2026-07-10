@@ -97,7 +97,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             description: "India's premier luxury wedding planning studio",
             url: siteUrl,
             "@id": siteUrl,
-            telephone: "+91-97111-48175",
+            telephone: "+91-98911-06761",
             address: {
               "@type": "PostalAddress",
               addressLocality: "Delhi",

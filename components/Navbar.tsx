@@ -16,11 +16,11 @@ const weddingServices = [
   { label: 'Invitation Design', href: '/services/invitations', icon: '✉️' },
   { label: 'Bachelor Party', href: '/bachelor-party', icon: '🥂' },
   { label: 'Honeymoon Packages', href: '/services/honeymoon', icon: '🌅' },
+  { label: 'Anniversary Party', href: '/services/anniversary', icon: '💍' },
 ];
 
 const eventServices = [
-  { label: 'Bachelorette Party', href: '/services/bachelorette', icon: '💐' },
-  { label: 'Anniversary Party', href: '/services/anniversary', icon: '💍' },
+  
   { label: 'Corporate Events', href: '/services/corporate-events', icon: '🎯' },
   { label: 'Fashion Shows', href: '/services/fashion-shows', icon: '👗' },
   { label: 'Award Nights', href: '/services/award-nights', icon: '🏆' },
@@ -182,13 +182,13 @@ export default function Navbar() {
 
               {/* Phone + CTA */}
               <a
-                href="tel:+919711148175"
+                href="tel:+919891106761"
                 className={`flex items-center gap-1.5 text-sm font-[500] transition-colors duration-300 ${
                   isScrolled ? 'text-accent' : 'text-champagne'
                 }`}
               >
                 <FaPhone className="text-xs" />
-                <span className="font-sans">+91 97111 48175</span>
+                <span className="font-sans">+91 98911 06761</span>
               </a>
 
               <Link
@@ -290,11 +290,11 @@ export default function Navbar() {
 
           <div className="mt-8 space-y-3">
             <a
-              href="tel:+919711148175"
+              href="tel:+919891106761"
               className="flex items-center justify-center gap-2 py-3 px-6 rounded-full border-2 border-accent text-accent font-sans font-[600] text-sm"
             >
               <FaPhone className="text-xs" />
-              +91 97111 48175
+              +91 98911 06761
             </a>
             <Link
               href="/contact"

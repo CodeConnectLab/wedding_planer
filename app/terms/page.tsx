@@ -59,7 +59,7 @@ const sections = [
   },
   {
     title: 'Contact',
-    content: `For questions regarding these Terms and Conditions, please contact us at <a href="mailto:hello@wahmomentz.com" class="text-accent hover:text-burgundy transition-colors">hello@wahmomentz.com</a> or call us at <a href="tel:+919711148175" class="text-accent hover:text-burgundy transition-colors">+91 97111 48175</a>.`,
+    content: `For questions regarding these Terms and Conditions, please contact us at <a href="mailto:wahmomentz@gmail.com" class="text-accent hover:text-burgundy transition-colors">wahmomentz@gmail.com</a> or call us at <a href="tel:+919891106761" class="text-accent hover:text-burgundy transition-colors">+91 98911 06761</a>.`,
   },
 ];
 

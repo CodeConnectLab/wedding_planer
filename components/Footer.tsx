@@ -85,15 +85,15 @@ export default function Footer() {
     companyDescription:
       'India\'s premier luxury wedding planning studio. We craft bespoke celebrations that honour your love story — from intimate ceremonies to grand royal weddings.',
     logo: '/logo.svg',
-    phone: '+91 97111 48175',
-    email: 'hello@wahmomentz.com',
-    address: 'South Delhi, New Delhi — 110048\nNCR · Mumbai · Udaipur · Jaipur',
+    phone: '+91 98911 06761',
+    email: 'wahmomentz@gmail.com',
+    address: 'H5-16, Sector 11, Rohini\nNew Delhi — 110085',
     facebookUrl: 'https://facebook.com/wahmomentz',
     instagramUrl: 'https://instagram.com/wahmomentz',
     linkedinUrl: 'https://linkedin.com',
     youtubeUrl: 'https://youtube.com',
     pinterestUrl: 'https://pinterest.com',
-    whatsappNumber: '919711148175',
+    whatsappNumber: '919891106761',
     copyrightText: 'WAH Momentz. All Rights Reserved.',
   };
 

@@ -64,7 +64,7 @@ const sections = [
         <li><strong>Portability:</strong> Request a machine-readable copy of your data</li>
         <li><strong>Object:</strong> Object to processing of your data for direct marketing purposes</li>
       </ul><br/>
-      To exercise any of these rights, please contact us at <a href="mailto:hello@wahmomentz.com" class="text-accent hover:text-burgundy transition-colors">hello@wahmomentz.com</a>.`,
+      To exercise any of these rights, please contact us at <a href="mailto:wahmomentz@gmail.com" class="text-accent hover:text-burgundy transition-colors">wahmomentz@gmail.com</a>.`,
   },
   {
     title: 'Third-Party Links',
@@ -82,8 +82,8 @@ const sections = [
     title: 'Contact Us',
     content: `If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:<br/><br/>
       <strong>WAH Momentz</strong><br/>
-      Email: <a href="mailto:hello@wahmomentz.com" class="text-accent hover:text-burgundy transition-colors">hello@wahmomentz.com</a><br/>
-      Phone: <a href="tel:+919711148175" class="text-accent hover:text-burgundy transition-colors">+91 97111 48175</a><br/>
+      Email: <a href="mailto:wahmomentz@gmail.com" class="text-accent hover:text-burgundy transition-colors">wahmomentz@gmail.com</a><br/>
+      Phone: <a href="tel:+919891106761" class="text-accent hover:text-burgundy transition-colors">+91 98911 06761</a><br/>
       New Delhi, India`,
   },
 ];

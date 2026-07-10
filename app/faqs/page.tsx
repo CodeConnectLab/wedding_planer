@@ -177,7 +177,7 @@ export default function FAQsPage() {
                 <span>Ask Us Directly</span>
               </Link>
               <a
-                href="https://wa.me/919711148175"
+                href="https://wa.me/919891106761"
                 target="_blank" rel="noopener noreferrer"
                 className="btn-outline-gold inline-flex items-center justify-center gap-2"
               >

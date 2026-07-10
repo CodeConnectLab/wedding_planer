@@ -269,8 +269,8 @@ export default function FooterSettingsAdmin() {
                   <input type="tel" value={(formData as any).whatsappNumber || ''}
                     onChange={(e) => setFormData({ ...formData, whatsappNumber: e.target.value } as any)}
                     className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="+919711148175" />
-                  <p className="text-xs text-gray-400 mt-1">Include country code, e.g. +919711148175</p>
+                    placeholder="+919891106761" />
+                  <p className="text-xs text-gray-400 mt-1">Include country code, e.g. +919891106761</p>
                 </div>
               </div>
             </div>
