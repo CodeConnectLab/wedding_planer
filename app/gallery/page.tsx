@@ -148,13 +148,13 @@ export default function GalleryPage() {
                       )}
 
                       {/* Info overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
+                      {/* <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
                         <div className="font-sans text-xs text-champagne/60 uppercase tracking-widest mb-1">
                           {wedding.location} · {wedding.year}
                         </div>
                         <h3 className="font-cormorant text-xl font-[600] text-white">{wedding.title}</h3>
                         <p className="font-sans text-sm text-white/70 mt-1">{wedding.clientName}</p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))}
