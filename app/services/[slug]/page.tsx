@@ -747,6 +747,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </section>
 
         {/* ── PACKAGES ─────────────────────────────────────── */}
+        {service.slug !== 'catering' && (
         <section className="py-section">
           <div className="container-custom">
             <div className="text-center mb-16" data-aos="fade-up">
@@ -802,6 +803,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ── RELATED SERVICES ─────────────────────────────── */}
         {service.relatedServices.length > 0 && (
