@@ -8,18 +8,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'About Us — WAH Momentz',
   description:
-    'The story of WAH Momentz — 18+ years of crafting extraordinary wedding celebrations across India. Meet our team of passionate wedding specialists.',
+    'The story of WAH Momentz — 19+ years of crafting extraordinary wedding celebrations across India. Meet our team of passionate wedding specialists.',
   keywords: 'about WAH Momentz, wedding planners India, luxury wedding planning team, wedding planning company India',
 };
-
-const awards = [
-  { year: '2024', award: 'Best Luxury Wedding Planner', body: 'WedAward India' },
-  { year: '2023', award: 'Excellence in Destination Weddings', body: 'South Asian Wedding Awards' },
-  { year: '2022', award: 'Top 10 Wedding Planners India', body: 'Vogue Wedding Summit' },
-  { year: '2021', award: 'Best Wedding Décor', body: 'IWP Awards' },
-  { year: '2019', award: 'Most Innovative Wedding Concept', body: 'WeddingWire Awards' },
-  { year: '2018', award: 'Best Wedding Team India', body: 'WedMeGood Awards' },
-];
 
 const values = [
   { icon: '💎', title: 'Uncompromising Excellence', desc: 'Every detail, every vendor, every moment — held to the highest standard of luxury and artistry.' },
@@ -56,7 +47,7 @@ export default function AboutPage() {
               <span className="font-[600] not-italic text-champagne">Perfected by Love</span>
             </h1>
             <p className="font-sans text-white/70 max-w-xl leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-              For over 18 years, WAH Momentz has been the trusted name behind India's most extraordinary weddings.
+              For over 19 years, WAH Momentz has been the trusted name behind India's most extraordinary weddings.
             </p>
           </div>
         </section>
@@ -68,7 +59,7 @@ export default function AboutPage() {
               <div data-aos="fade-right">
                 <div className="eyebrow mb-4">Who We Are</div>
                 <h2 className="font-cormorant text-4xl sm:text-5xl font-[300] italic text-primary mb-6">
-                  18 Years of
+                  19 Years of
                   <span className="font-[600] not-italic text-accent"> Love Stories</span>
                 </h2>
                 <p className="font-sans text-warmgray leading-relaxed mb-5">
@@ -77,15 +68,14 @@ export default function AboutPage() {
                   but a deeply felt story that reflects everything you are as a couple.
                 </p>
                 <p className="font-sans text-warmgray leading-relaxed mb-5">
-                  Founded by Priya Sharma, who had spent years working with India's premier hotels and
-                  international event companies, WAH Momentz grew from a boutique studio into India's
+                  Founded by Smriti Tandon, who had spent years working with India's premier hotels and
+                  event companies, WAH Momentz grew from a boutique studio into India's
                   most respected luxury wedding planning house — while never losing the personalised
                   attention that made us who we are.
                 </p>
                 <p className="font-sans text-warmgray leading-relaxed mb-8">
-                  Today, our team of 40+ specialists — planners, designers, stylists, coordinators —
-                  collectively bring decades of expertise to every celebration we touch. We have planned
-                  over 500 weddings across 25+ cities in India and 10+ countries worldwide.
+                  Today, we bring decades of expertise to every celebration we touch. We have planned
+                  over 500 weddings across 25+ cities in India.
                 </p>
                 <Link href="/contact" className="btn-gold inline-block">
                   <span>Begin Your Journey</span>
@@ -134,46 +124,15 @@ export default function AboutPage() {
         {/* ── STATS BANNER ─────────────────────────────────────── */}
         <section className="py-16 bg-primary">
           <div className="container-custom">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            <div className="grid grid-cols-3 gap-6 text-center">
               {[
                 { num: '500+', label: 'Weddings Completed' },
-                { num: '18+', label: 'Years of Experience' },
+                { num: '19+', label: 'Years of Experience' },
                 { num: '25+', label: 'Cities Covered' },
-                { num: '40+', label: 'Team Specialists' },
               ].map((s, i) => (
                 <div key={s.label} data-aos="zoom-in" data-aos-delay={i * 100}>
                   <div className="font-cormorant text-4xl font-[700] text-champagne">{s.num}</div>
                   <div className="font-sans text-xs text-warmgray uppercase tracking-widest mt-2">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── AWARDS ───────────────────────────────────────────── */}
-        <section className="py-section bg-primary">
-          <div className="container-custom">
-            <div className="text-center mb-14" data-aos="fade-up">
-              <div className="eyebrow text-champagne/70 mb-3">Recognition</div>
-              <h2 className="font-cormorant text-4xl sm:text-5xl font-[300] italic text-white">
-                Awards & <span className="font-[600] not-italic text-champagne">Accolades</span>
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {awards.map((award, i) => (
-                <div
-                  key={award.award}
-                  className="flex items-start gap-4 p-6 rounded-2xl border border-white/8 hover:border-accent/30 transition-colors duration-300"
-                  data-aos="fade-up" data-aos-delay={i * 80}
-                >
-                  <div className="w-12 h-12 rounded-full bg-accent/15 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl">🏆</span>
-                  </div>
-                  <div>
-                    <div className="font-sans text-xs text-accent uppercase tracking-widest mb-1">{award.year}</div>
-                    <div className="font-cormorant text-lg font-[600] text-white">{award.award}</div>
-                    <div className="font-sans text-sm text-warmgray">{award.body}</div>
-                  </div>
                 </div>
               ))}
             </div>

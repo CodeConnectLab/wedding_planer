@@ -3,7 +3,12 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import AdminLayout from '@/components/AdminLayout';
-import { FaSave, FaUpload } from 'react-icons/fa';
+import { FaSave, FaUpload, FaPlus, FaTrash } from 'react-icons/fa';
+
+interface FooterLink {
+  label: string;
+  href: string;
+}
 
 export default function FooterSettingsAdmin() {
   const [loading, setLoading] = useState(true);
@@ -22,8 +27,31 @@ export default function FooterSettingsAdmin() {
     youtubeUrl: '',
     pinterestUrl: '',
     whatsappNumber: '',
-    copyrightText: ''
+    copyrightText: '',
+    weddingsTitle: 'Weddings',
+    weddingLinks: [] as FooterLink[],
+    eventsTitle: 'Events',
+    eventLinks: [] as FooterLink[],
   });
+
+  const updateLink = (
+    field: 'weddingLinks' | 'eventLinks',
+    index: number,
+    key: keyof FooterLink,
+    value: string
+  ) => {
+    const links = [...formData[field]];
+    links[index] = { ...links[index], [key]: value };
+    setFormData({ ...formData, [field]: links });
+  };
+
+  const addLink = (field: 'weddingLinks' | 'eventLinks') => {
+    setFormData({ ...formData, [field]: [...formData[field], { label: '', href: '' }] });
+  };
+
+  const removeLink = (field: 'weddingLinks' | 'eventLinks', index: number) => {
+    setFormData({ ...formData, [field]: formData[field].filter((_, i) => i !== index) });
+  };
 
   useEffect(() => {
     fetchFooterSettings();
@@ -34,7 +62,13 @@ export default function FooterSettingsAdmin() {
       const response = await fetch('/api/footer-settings');
       if (response.ok) {
         const data = await response.json();
-        setFormData(data);
+        setFormData({
+          ...data,
+          weddingsTitle: data.weddingsTitle || 'Weddings',
+          weddingLinks: data.weddingLinks || [],
+          eventsTitle: data.eventsTitle || 'Events',
+          eventLinks: data.eventLinks || [],
+        });
       }
     } catch (error) {
       console.error('Failed to fetch footer settings:', error);
@@ -272,6 +306,104 @@ export default function FooterSettingsAdmin() {
                     placeholder="+919891106761" />
                   <p className="text-xs text-gray-400 mt-1">Include country code, e.g. +919891106761</p>
                 </div>
+              </div>
+            </div>
+
+            {/* Weddings Column */}
+            <div className="border-b border-gray-200 pb-6">
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">Footer — Weddings Column</h2>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Column Heading</label>
+                <input
+                  type="text"
+                  value={formData.weddingsTitle}
+                  onChange={(e) => setFormData({ ...formData, weddingsTitle: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div className="space-y-3">
+                {formData.weddingLinks.map((link, index) => (
+                  <div key={index} className="flex gap-2 items-center">
+                    <input
+                      type="text"
+                      value={link.label}
+                      onChange={(e) => updateLink('weddingLinks', index, 'label', e.target.value)}
+                      placeholder="Label, e.g. Destination Weddings"
+                      className="flex-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    />
+                    <input
+                      type="text"
+                      value={link.href}
+                      onChange={(e) => updateLink('weddingLinks', index, 'href', e.target.value)}
+                      placeholder="/destination-weddings"
+                      className="flex-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeLink('weddingLinks', index)}
+                      className="text-red-600 hover:text-red-800 p-2"
+                      aria-label="Remove link"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => addLink('weddingLinks')}
+                  className="flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                >
+                  <FaPlus /> Add Link
+                </button>
+              </div>
+            </div>
+
+            {/* Events Column */}
+            <div className="border-b border-gray-200 pb-6">
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">Footer — Events Column</h2>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Column Heading</label>
+                <input
+                  type="text"
+                  value={formData.eventsTitle}
+                  onChange={(e) => setFormData({ ...formData, eventsTitle: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div className="space-y-3">
+                {formData.eventLinks.map((link, index) => (
+                  <div key={index} className="flex gap-2 items-center">
+                    <input
+                      type="text"
+                      value={link.label}
+                      onChange={(e) => updateLink('eventLinks', index, 'label', e.target.value)}
+                      placeholder="Label, e.g. Corporate Events"
+                      className="flex-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    />
+                    <input
+                      type="text"
+                      value={link.href}
+                      onChange={(e) => updateLink('eventLinks', index, 'href', e.target.value)}
+                      placeholder="/services/corporate-events"
+                      className="flex-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeLink('eventLinks', index)}
+                      className="text-red-600 hover:text-red-800 p-2"
+                      aria-label="Remove link"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => addLink('eventLinks')}
+                  className="flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                >
+                  <FaPlus /> Add Link
+                </button>
               </div>
             </div>
 

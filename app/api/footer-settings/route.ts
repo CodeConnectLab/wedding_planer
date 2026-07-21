@@ -27,6 +27,28 @@ export async function GET() {
     if (footerSettings.address && footerSettings.address.includes('South Delhi')) {
       footerSettings.address = 'H5-16, Sector 11, Rohini\nNew Delhi — 110085'; changed = true;
     }
+    if (!footerSettings.weddingLinks || footerSettings.weddingLinks.length === 0) {
+      footerSettings.weddingLinks = [
+        { label: 'Destination Weddings', href: '/destination-weddings' },
+        { label: 'Wedding Décor', href: '/services/wedding-decor' },
+        { label: 'Photography & Film', href: '/services/photography' },
+        { label: 'Mehndi & Beauty', href: '/services/mehndi' },
+        { label: 'Bachelor Party', href: '/bachelor-party' },
+        { label: 'Honeymoon Packages', href: '/services/honeymoon' },
+      ];
+      changed = true;
+    }
+    if (!footerSettings.eventLinks || footerSettings.eventLinks.length === 0) {
+      footerSettings.eventLinks = [
+        { label: 'Corporate Events', href: '/services/corporate-events' },
+        { label: 'Award Nights', href: '/services/award-nights' },
+        { label: 'Fashion Shows', href: '/services/fashion-shows' },
+        { label: 'Conference & Expo', href: '/services/conference' },
+      ];
+      changed = true;
+    }
+    if (!footerSettings.weddingsTitle) { footerSettings.weddingsTitle = 'Weddings'; changed = true; }
+    if (!footerSettings.eventsTitle) { footerSettings.eventsTitle = 'Events'; changed = true; }
     if (changed) await footerSettings.save();
 
     return NextResponse.json(footerSettings);

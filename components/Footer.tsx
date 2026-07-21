@@ -8,6 +8,11 @@ import {
   FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp,
 } from 'react-icons/fa';
 
+interface FooterLink {
+  label: string;
+  href: string;
+}
+
 interface FooterSettings {
   companyName: string;
   companyDescription: string;
@@ -22,27 +27,29 @@ interface FooterSettings {
   pinterestUrl?: string;
   whatsappNumber?: string;
   copyrightText: string;
+  weddingsTitle?: string;
+  weddingLinks?: FooterLink[];
+  eventsTitle?: string;
+  eventLinks?: FooterLink[];
 }
 
 let footerCache: FooterSettings | null = null;
 let cacheTime = 0;
 const CACHE_DURATION = 5 * 60 * 1000;
 
-const weddingLinks = [
+const defaultWeddingLinks: FooterLink[] = [
   { label: 'Destination Weddings', href: '/destination-weddings' },
-  { label: 'Wedding Décor', href: '/services/wedding-decor' },
+  { label: 'Wedding Decor', href: '/services/wedding-decor' },
   { label: 'Photography & Film', href: '/services/photography' },
   { label: 'Mehndi & Beauty', href: '/services/mehndi' },
   { label: 'Bachelor Party', href: '/bachelor-party' },
   { label: 'Honeymoon Packages', href: '/services/honeymoon' },
 ];
 
-const eventLinks = [
-  { label: 'Bachelorette Party', href: '/services/bachelorette' },
+const defaultEventLinks: FooterLink[] = [
   { label: 'Corporate Events', href: '/services/corporate-events' },
   { label: 'Award Nights', href: '/services/award-nights' },
   { label: 'Fashion Shows', href: '/services/fashion-shows' },
-  { label: 'Anniversary Party', href: '/services/anniversary' },
   { label: 'Conference & Expo', href: '/services/conference' },
 ];
 
@@ -95,12 +102,20 @@ export default function Footer() {
     pinterestUrl: 'https://pinterest.com',
     whatsappNumber: '919891106761',
     copyrightText: 'WAH Momentz. All Rights Reserved.',
+    weddingsTitle: 'Weddings',
+    weddingLinks: defaultWeddingLinks,
+    eventsTitle: 'Events',
+    eventLinks: defaultEventLinks,
   };
 
   const rawSettings = footerSettings || defaultSettings;
   const settings = {
     ...rawSettings,
     logo: rawSettings.logo === '/logo.png' ? '/logo.svg' : (rawSettings.logo || '/logo.svg'),
+    weddingsTitle: rawSettings.weddingsTitle || 'Weddings',
+    weddingLinks: rawSettings.weddingLinks?.length ? rawSettings.weddingLinks : defaultWeddingLinks,
+    eventsTitle: rawSettings.eventsTitle || 'Events',
+    eventLinks: rawSettings.eventLinks?.length ? rawSettings.eventLinks : defaultEventLinks,
   };
 
   const socialLinks = [
@@ -225,10 +240,10 @@ export default function Footer() {
           {/* Wedding Services */}
           <div>
             <h4 className="font-cormorant text-lg font-[600] text-white mb-5 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-[1.5px] after:bg-accent pb-3">
-              Weddings
+              {settings.weddingsTitle}
             </h4>
             <ul className="space-y-2.5">
-              {weddingLinks.map((link) => (
+              {settings.weddingLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -245,10 +260,10 @@ export default function Footer() {
           {/* Events */}
           <div>
             <h4 className="font-cormorant text-lg font-[600] text-white mb-5 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-[1.5px] after:bg-rose-brand pb-3">
-              Events
+              {settings.eventsTitle}
             </h4>
             <ul className="space-y-2.5">
-              {eventLinks.map((link) => (
+              {settings.eventLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
