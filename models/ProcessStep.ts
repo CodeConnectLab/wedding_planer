@@ -30,6 +30,5 @@ const ProcessStepSchema = new mongoose.Schema({
 
 // Indexes
 ProcessStepSchema.index({ isActive: 1, order: 1 });
-ProcessStepSchema.index({ stepNumber: 1 }, { unique: true });
 
 export default mongoose.models.ProcessStep || mongoose.model('ProcessStep', ProcessStepSchema);

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import ProcessStep from '@/models/ProcessStep';
+import { requireAdmin } from '@/utils/auth';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -18,6 +19,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
     const processStep = await ProcessStep.findByIdAndUpdate(params.id, body, { new: true });
@@ -33,6 +36,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const processStep = await ProcessStep.findByIdAndDelete(params.id);
     if (!processStep) {

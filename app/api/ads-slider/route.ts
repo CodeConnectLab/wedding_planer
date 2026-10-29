@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import AdsSlider from '@/models/AdsSlider';
+import { requireAdmin, wantsAdminView } from '@/utils/auth';
 
 export async function GET(request: NextRequest) {
   try {
     await connectDB();
-    const { searchParams } = new URL(request.url);
-    const isAdmin = searchParams.get('admin') === 'true';
+    const isAdmin = wantsAdminView(request);
     
     let query = {};
     if (!isAdmin) {
@@ -24,6 +24,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
     const adsSlider = new AdsSlider(body);

@@ -91,6 +91,12 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.01em;
 }
 
+/* Headings inside light-on-dark blocks (heroes, CTAs) follow the white text colour.
+   :where() keeps specificity at element level so explicit text-* classes still win. */
+:where(.text-white) :is(h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+}
+
 .font-serif  { font-family: var(--font-cormorant), Georgia, serif; }
 .font-sans   { font-family: var(--font-jost), system-ui, sans-serif; }
 

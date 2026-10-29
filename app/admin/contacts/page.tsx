@@ -5,7 +5,7 @@ import AdminLayout from '@/components/AdminLayout';
 import { FaTrash } from 'react-icons/fa';
 
 export default function AdminContactsPage() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,8 +16,7 @@ export default function AdminContactsPage() {
     try {
       const res = await fetch('/api/contact');
       const data = await res.json();
-      console.log('Fetched contacts:', data); // Debug log
-      setContacts(data);
+      setContacts(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Failed to fetch contacts:', error);
     } finally {
@@ -68,8 +67,18 @@ export default function AdminContactsPage() {
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="text-xl font-bold">{contact.name}</h3>
-                    {contact.email && <p className="text-gray-600">{contact.email}</p>}
-                    <p className="text-gray-600">{contact.phone}</p>
+                    {contact.email && <a href={`mailto:${contact.email}`} className="block text-gray-600 hover:text-accent">{contact.email}</a>}
+                    <div className="flex items-center gap-3">
+                      <a href={`tel:${contact.phone}`} className="text-gray-600 hover:text-accent">{contact.phone}</a>
+                      <a
+                        href={`https://wa.me/${String(contact.phone).replace(/\D/g, '').replace(/^(\d{10})$/, '91$1')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-green-600 text-white px-2 py-0.5 rounded-full hover:bg-green-700"
+                      >
+                        WhatsApp
+                      </a>
+                    </div>
                     
                     {/* Service Information - Always show if service exists */}
                     {contact?.service && (
@@ -114,7 +123,22 @@ export default function AdminContactsPage() {
                     </button>
                   </div>
                 </div>
-                {contact.message && <p className="text-gray-700 mb-2">{contact.message}</p>}
+                {(contact.weddingDate || contact.venue || contact.guestCount || contact.budget) && (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+                    {[
+                      ['Wedding date', contact.weddingDate && new Date(contact.weddingDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })],
+                      ['Venue / city', contact.venue],
+                      ['Guests', contact.guestCount],
+                      ['Budget', contact.budget],
+                    ].filter(([, v]) => v).map(([label, value]) => (
+                      <div key={label} className="bg-gray-50 rounded-lg px-3 py-2">
+                        <div className="text-[11px] uppercase tracking-wide text-gray-400">{label}</div>
+                        <div className="text-sm font-medium text-gray-800">{value}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {contact.message && <p className="text-gray-700 mb-2 whitespace-pre-line">{contact.message}</p>}
                 <p className="text-sm text-gray-500">
                   {new Date(contact.createdAt).toLocaleString()}
                 </p>

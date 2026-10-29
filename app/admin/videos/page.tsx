@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import AdminLayout from '@/components/AdminLayout';
 import Image from 'next/image';
 import { FaPlus, FaEdit, FaTrash, FaEye, FaEyeSlash, FaStar, FaRegStar, FaYoutube } from 'react-icons/fa';
+import { VIDEO_CATEGORIES } from '@/lib/constants';
 
 interface Video {
   _id: string;
@@ -19,7 +20,7 @@ interface Video {
   createdAt: string;
 }
 
-const categories = ['Interior Design', 'Client Testimonial', 'Project Showcase', 'Design Tips', 'Behind the Scenes'];
+const categories = VIDEO_CATEGORIES;
 
 export default function VideosAdmin() {
   const [videos, setVideos] = useState<Video[]>([]);
@@ -29,7 +30,7 @@ export default function VideosAdmin() {
   const [formData, setFormData] = useState({
     title: '',
     youtubeUrl: '',
-    category: 'Interior Design',
+    category: VIDEO_CATEGORIES[0] as string,
     isActive: true,
     isFeatured: false,
     order: 0
@@ -37,7 +38,7 @@ export default function VideosAdmin() {
 
   const fetchVideos = useCallback(async () => {
     try {
-      const response = await fetch('/api/videos');
+      const response = await fetch('/api/videos?admin=true');
       if (response.ok) {
         const data = await response.json();
         setVideos(data);
@@ -161,7 +162,7 @@ export default function VideosAdmin() {
     setFormData({
       title: '',
       youtubeUrl: '',
-      category: 'Interior Design',
+      category: VIDEO_CATEGORIES[0] as string,
       isActive: true,
       isFeatured: false,
       order: 0

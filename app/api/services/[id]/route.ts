@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Service from '@/models/Service';
+import { requireAdmin } from '@/utils/auth';
+import { slugify } from '@/utils/slugify';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -18,21 +20,29 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
-    const service = await Service.findByIdAndUpdate(params.id, body, { new: true });
+    if (body.slug !== undefined || body.title) body.slug = slugify(body.slug || body.title);
+    const service = await Service.findByIdAndUpdate(params.id, body, { new: true, runValidators: true });
     if (!service) {
       return NextResponse.json({ error: 'Service not found' }, { status: 404 });
     }
     return NextResponse.json(service);
   } catch (error) {
     console.error('Error updating service:', error);
+    if ((error as any)?.code === 11000) {
+      return NextResponse.json({ error: 'A service with this slug already exists' }, { status: 400 });
+    }
     return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
   }
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const service = await Service.findByIdAndDelete(params.id);
     if (!service) {
@@ -47,6 +57,8 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
     

@@ -1,25 +1,26 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
+import dbConnect from '@/lib/mongodb';
+import Blog from '@/models/Blog';
 import { FaCalendar, FaClock, FaUser, FaArrowLeft, FaShare, FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
 
 // Lazy load components
-const BlogCard = dynamic(() => import('@/components/BlogCard'), {
+const BlogCard = nextDynamic(() => import('@/components/BlogCard'), {
   loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
 });
 
+export const dynamic = 'force-dynamic';
+
 async function getBlogBySlug(slug: string) {
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/blogs/slug/${slug}`, {
-      cache: 'no-store'
-    });
-    
-    if (!res.ok) return null;
-    return res.json();
+    await dbConnect();
+    const blog = await Blog.findOne({ slug, isPublished: true }).lean();
+    return blog ? JSON.parse(JSON.stringify(blog)) : null;
   } catch (error) {
     console.error('Failed to fetch blog:', error);
     return null;
@@ -28,13 +29,13 @@ async function getBlogBySlug(slug: string) {
 
 async function getRelatedBlogs(category: string, currentSlug: string) {
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/blogs?category=${encodeURIComponent(category)}&limit=3`, {
-      cache: 'no-store'
-    });
-    
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.blogs.filter((blog: any) => blog.slug !== currentSlug);
+    await dbConnect();
+    const blogs = await Blog.find({ category, isPublished: true, slug: { $ne: currentSlug } })
+      .sort({ publishedAt: -1 })
+      .limit(3)
+      .select('title slug excerpt featuredImage author category tags publishedAt readTime')
+      .lean();
+    return JSON.parse(JSON.stringify(blogs));
   } catch (error) {
     console.error('Failed to fetch related blogs:', error);
     return [];
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   
   if (!blog) {
     return {
-      title: 'Blog Not Found - Urban Design India',
+      title: 'Article Not Found',
       description: 'The requested blog post could not be found.'
     };
   }
@@ -60,7 +61,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   return {
     title: blog.seoTitle || blog.title,
     description: blog.seoDescription || blog.excerpt,
-    keywords: blog.seoKeywords || blog.tags.join(', '),
+    keywords: blog.seoKeywords || (blog.tags || []).join(', '),
     openGraph: {
       title: blog.seoTitle || blog.title,
       description: blog.seoDescription || blog.excerpt,
@@ -90,19 +91,19 @@ export default async function BlogPage({ params }: BlogPageProps) {
   }
 
   const relatedBlogs = await getRelatedBlogs(blog.category, blog.slug);
-  const currentUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/blogs/${blog.slug}`;
+  const currentUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.wahmomentz.com'}/blogs/${blog.slug}`;
 
   return (
     <>
       <Navbar />
-      <main className="pt-16">
+      <main className="pt-24 bg-ivory">
         {/* Breadcrumb */}
-        <section className="bg-gray-50 py-4">
+        <section className="bg-secondary py-4">
           <div className="container-custom">
             <nav className="flex items-center space-x-2 text-sm text-gray-600">
-              <Link href="/" className="hover:text-amber-600">Home</Link>
+              <Link href="/" className="hover:text-accent">Home</Link>
               <span>/</span>
-              <Link href="/blogs" className="hover:text-amber-600">Blog</Link>
+              <Link href="/blogs" className="hover:text-accent">Blog</Link>
               <span>/</span>
               <span className="text-gray-900">{blog.title}</span>
             </nav>
@@ -115,7 +116,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
             <div className="max-w-4xl mx-auto">
               <Link
                 href="/blogs"
-                className="inline-flex items-center text-amber-600 hover:text-amber-700 mb-6"
+                className="inline-flex items-center text-accent hover:text-burgundy mb-6"
               >
                 <FaArrowLeft className="mr-2" />
                 Back to Blog
@@ -127,7 +128,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                 </span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className="font-cormorant text-4xl md:text-6xl font-[600] text-primary mb-6 leading-tight">
                 {blog.title}
               </h1>
               
@@ -229,10 +230,10 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
         {/* Related Blogs */}
         {relatedBlogs.length > 0 && (
-          <section className="py-16 bg-gray-50">
+          <section className="py-16 bg-secondary">
             <div className="container-custom">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+                <h2 className="font-cormorant text-4xl font-[600] text-primary mb-8 text-center">
                   Related Articles
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -246,22 +247,22 @@ export default async function BlogPage({ params }: BlogPageProps) {
         )}
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-amber-500 to-orange-600 text-white">
+        <section className="py-16 bg-primary text-white">
           <div className="container-custom text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Space?</h2>
-            <p className="text-xl mb-8 text-amber-100">
-              Let our expert designers bring your vision to life
+            <h2 className="font-cormorant text-4xl font-[600] mb-4">Ready to Plan Your Dream Wedding?</h2>
+            <p className="text-xl mb-8 text-champagne/80">
+              Our planners would love to hear your story
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center bg-white text-amber-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 shadow-xl"
+                className="inline-flex items-center bg-accent text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-burgundy transition-all duration-300 shadow-xl"
               >
                 Get Free Consultation
               </Link>
               <Link
-                href="/portfolio"
-                className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-amber-600 transition-all duration-300"
+                href="/gallery"
+                className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-accent transition-all duration-300"
               >
                 View Our Work
               </Link>

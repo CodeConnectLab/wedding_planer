@@ -1,0 +1,198 @@
+{
+  "wedding-decor": {
+    "title": "Wedding Décor",
+    "description": "Our wedding décor philosophy begins with your story. Whether you dream of opulent floral canopies dripping with roses, minimalist ivory elegance, or a Rajasthani-inspired riot of colour, our décor team translates your vision into a living, breathing environment. We handle everything — from entrance arches and mandap design to centrepieces, lighting, drapery, and the final finishing touches that make a venue unmistakably yours.",
+    "features": [
+      "Full venue décor concept and mood boarding",
+      "Floral design — fresh, dried, and silk arrangements",
+      "Mandap and ceremony space design",
+      "Lighting design: ambient, fairy lights, chandeliers",
+      "Table centrepieces and linen selection",
+      "Entrance and photo booth installations",
+      "Ceiling drapery and canopy structures",
+      "Post-event clear-up and venue restoration"
+    ]
+  },
+  "photography": {
+    "title": "Photography & Film",
+    "description": "Your wedding day unfolds in a series of irreplaceable moments — the catch of breath as the doors open, the laughter-soaked chaos of the baraat, the stillness of a vow exchanged. Our photography and cinematography partners are masters of capturing what words cannot. From editorial-style couple portraits to emotional documentary coverage, every frame is composed with artistic intention and technical excellence.",
+    "features": [
+      "Pre-wedding engagement shoots",
+      "Full wedding day documentary coverage",
+      "Editorial couple portraits",
+      "Drone aerial footage",
+      "Cinematic highlight film (3–5 minutes)",
+      "Full-length ceremony film",
+      "Same-day edit for reception screening",
+      "Premium album design and printing"
+    ]
+  },
+  "catering": {
+    "title": "Catering & Cuisine",
+    "description": "Food is at the heart of every great Indian celebration — a reflection of family, region, and generosity. Our catering partners include India\\'s finest caterers across pan-Indian, Mughlai, South Indian, Continental, and fusion cuisine, as well as specialist chefs for dietary requirements. We design menus that balance tradition with innovation, presentation with abundance, and flavour with flair.",
+    "features": [
+      "Bespoke menu design for each event",
+      "Live cooking stations (chaat, kebab, pasta, dessert)",
+      "Traditional regional cuisine specialists",
+      "Continental, fusion, and international cuisine",
+      "Jain, vegan, gluten-free, and allergy-aware menus",
+      "Beverage service and mocktail counters",
+      "Elegant presentation and crockery styling",
+      "Professional service staff"
+    ]
+  },
+  "mehndi": {
+    "title": "Mehndi & Beauty",
+    "description": "The Mehndi ceremony is one of the most intimate and joyful rituals of the Indian wedding. Our curated roster of mehndi artists ranges from masters of traditional Rajasthani and Mughal patterns to contemporary artists who blend cultural motifs with fine-line minimalism. We also coordinate all bridal and bridesmaid beauty services — makeup artists, hairstylists, and nail artists — ensuring every member of your bridal party feels their most radiant.",
+    "features": [
+      "Bridal mehndi — both hands and feet",
+      "Bridesmaids\\' and family mehndi",
+      "Traditional and contemporary mehndi styles",
+      "Hidden name motif for the groom to find",
+      "Bridal makeup — traditional and HD airbrush",
+      "Hairstyling for all pre-wedding events",
+      "Nail art and extensions",
+      "Touch-up team for wedding day"
+    ]
+  },
+  "entertainment": {
+    "title": "Entertainment",
+    "description": "A great wedding has a rhythm — the DJ who reads the dance floor, the live band that makes aunties forget their age, the surprise act that no one saw coming. WAH Momentz curates premium entertainment — from Bollywood DJs and live classical ensembles to celebrity performers, dhol players, fireworks, laser shows, and custom choreography — to create a celebration that your guests will talk about for years.",
+    "features": [
+      "Premium Bollywood and EDM DJs",
+      "Live wedding bands — Sufi, jazz, folk, fusion",
+      "Celebrity performer bookings",
+      "Dhol tasha and band baja",
+      "Fireworks and pyrotechnic displays",
+      "Laser and LED light shows",
+      "Choreographed baraat processions",
+      "Sangeet performance coordination"
+    ]
+  },
+  "venue-management": {
+    "title": "Venue Management",
+    "description": "The right venue sets the entire tone. Whether you envision a grand heritage haveli in Rajasthan, a lush garden in the Nilgiris, a ballroom in a five-star city hotel, or a beachside celebration in Goa, our venue specialists have the relationships and expertise to find and secure the ideal space. We also provide complete venue operations management — staffing, logistics, permits, and day-of coordination — so everything runs seamlessly.",
+    "features": [
+      "Venue search and shortlisting across India",
+      "Site visits and venue assessment",
+      "Negotiation and contract review",
+      "Venue layout planning and flow design",
+      "Permits, licenses, and compliance",
+      "Vendor access coordination",
+      "On-day venue management team",
+      "Post-event venue restoration"
+    ]
+  },
+  "honeymoon": {
+    "title": "Honeymoon Planning",
+    "description": "Your honeymoon is the first chapter of your married life — and it deserves to be extraordinary. Our honeymoon planning service designs personalised itineraries for couples who want their post-wedding escape to be as thoughtfully curated as their wedding. From Maldivian overwater villas and European château stays to backpacker-chic Bali and safari adventures in Kenya, we handle every booking, transfer, and surprise so you can simply be present with each other.",
+    "features": [
+      "Personalised destination consultation",
+      "Bespoke itinerary design",
+      "Luxury hotel and resort bookings",
+      "International flight coordination",
+      "Private transfers and chauffeur services",
+      "Romantic experiences and surprises",
+      "Visa assistance",
+      "Travel insurance guidance"
+    ]
+  },
+  "anniversary": {
+    "title": "Anniversary Celebrations",
+    "description": "Every anniversary is a milestone worth marking — whether it\\'s your first year together or your twenty-fifth. WAH Momentz designs anniversary celebrations that reflect how your relationship has evolved: intimate candlelit dinners in extraordinary settings, surprise birthday and anniversary parties, and grand vow renewal ceremonies with all the people who matter most. We take care of every detail so you can be fully present.",
+    "features": [
+      "Intimate private dining arrangements",
+      "Surprise party planning and execution",
+      "Vow renewal ceremonies",
+      "Venue sourcing and décor",
+      "Photography for the occasion",
+      "Guest management and invitations",
+      "Personalised gifts and keepsakes",
+      "Honeymoon or getaway planning"
+    ]
+  },
+  "bachelorette": {
+    "title": "Bachelorette Party",
+    "description": "The bachelorette is the bride\\'s night to be celebrated in exactly the way she dreams — whether that means a luxurious spa day with her closest girlfriends, a cocktail-filled evening in a rooftop suite, a weekend getaway to Goa, or a private dinner with dancing and personalised surprises. WAH Momentz designs bachelorette experiences that feel personal, playful, and completely hers.",
+    "features": [
+      "Personalised theme and concept design",
+      "Venue sourcing — suites, rooftops, beach clubs, spas",
+      "Custom decorations and bridal accessories",
+      "Activity curation — spa, cooking class, wine tasting, dance workshop",
+      "Personalised gift bags and party favours",
+      "Gourmet catering and signature cocktails",
+      "Photography for the occasion",
+      "Weekend getaway coordination"
+    ]
+  },
+  "invitations": {
+    "title": "Invitation Design",
+    "description": "Your wedding invitation is the first experience your guests have of your celebration — a preview of the beauty and thoughtfulness to come. Our invitation design service creates bespoke stationery suites that reflect your personal aesthetic, from ultra-luxurious boxed invitations with wax seals and hand-tied ribbons to elegant minimalist cards with foil letterpress typography. We handle design, production, and dispatch.",
+    "features": [
+      "Bespoke invitation suite design",
+      "Boxed luxury invitation packages",
+      "Digital invitation design",
+      "Save-the-date cards",
+      "Ceremony and reception programmes",
+      "Mehndi, Sangeet, and event cards",
+      "Menu cards and table stationery",
+      "Guest addressing and dispatch coordination"
+    ]
+  },
+  "fashion-shows": {
+    "title": "Fashion Shows",
+    "description": "WAH Momentz produces fashion shows and trousseau events for designer brands, couture houses, jewellery brands, and private clients. Whether you\\'re launching a bridal collection, hosting a trousseau preview for family, or producing a gala fashion evening at your wedding celebration, our production team brings the runway to life with professional staging, lighting, choreography, and model coordination.",
+    "features": [
+      "Full runway production and staging",
+      "Lighting design and technical production",
+      "Model sourcing and choreography",
+      "Backstage management and styling support",
+      "Hair and makeup artist coordination",
+      "Guest seating and experience design",
+      "Photography and videography",
+      "Brand activation and social media integration"
+    ]
+  },
+  "award-nights": {
+    "title": "Award Nights & Galas",
+    "description": "An award night is more than a ceremony — it\\'s a moment of recognition, celebration, and brand prestige. WAH Momentz produces award nights and gala dinners that leave recipients and guests genuinely moved. From intimate industry awards with 50 guests to grand national galas for 500+, we handle every element — concept, staging, entertainment, production, and the seamless execution that makes your event a landmark occasion.",
+    "features": [
+      "Award ceremony concept and design",
+      "Trophy and award design",
+      "Stage and A/V production",
+      "Celebrity host or emcee booking",
+      "Entertainment and performances",
+      "Gala dinner planning and catering",
+      "Guest management and seating",
+      "Photography and live streaming"
+    ]
+  },
+  "conference": {
+    "title": "Conferences & Summits",
+    "description": "A well-executed conference or summit is a powerful platform — for ideas, for networking, and for your brand. WAH Momentz manages corporate conferences, leadership summits, industry panels, product launch events, and multi-day conventions with the same attention to detail and quality standards we bring to every event. From intimate 30-person offsites to 1,000-delegate conventions, we plan and execute with precision.",
+    "features": [
+      "Conference concept and theme development",
+      "Venue sourcing and management",
+      "Speaker management and logistics",
+      "A/V production — stage, screens, sound",
+      "Delegate registration systems",
+      "Breakout session planning",
+      "Conference catering and hospitality",
+      "Post-conference networking event"
+    ]
+  },
+  "corporate-events": {
+    "title": "Corporate Events",
+    "description": "Corporate events are a powerful expression of brand identity and team culture. WAH Momentz brings the same meticulous attention to detail and creative excellence we apply to weddings to conferences, product launches, dealer meets, award nights, and team celebrations. We understand that a successful corporate event delivers measurable results — engagement, brand recall, and inspiration — alongside a seamless experience.",
+    "features": [
+      "Conference and seminar management",
+      "Product launch events",
+      "Award nights and gala dinners",
+      "Dealer and partner meets",
+      "Team offsites and incentive programmes",
+      "Brand activation events",
+      "A/V production and staging",
+      "Guest management and RSVP systems"
+    ]
+  }
+}

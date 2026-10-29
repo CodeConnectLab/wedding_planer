@@ -10,21 +10,31 @@ interface Slider {
   title: string;
   subtitle: string;
   image: string;
+  eyebrow?: string;
+  buttonText?: string;
+  buttonLink?: string;
   order: number;
+  isActive?: boolean;
   createdAt: string;
 }
+
+const emptySlide = {
+  title: '',
+  subtitle: '',
+  image: '',
+  eyebrow: 'Luxury Wedding Planners',
+  buttonText: 'Plan Your Wedding',
+  buttonLink: '/contact',
+  order: 0,
+  isActive: true
+};
 
 export default function AdminSliderPage() {
   const [sliders, setSliders] = useState<Slider[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    title: '',
-    subtitle: '',
-    image: '',
-    order: 0
-  });
+  const [formData, setFormData] = useState(emptySlide);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -33,9 +43,9 @@ export default function AdminSliderPage() {
 
   const fetchSliders = async () => {
     try {
-      const res = await fetch('/api/slider');
+      const res = await fetch('/api/slider?admin=true');
       const data = await res.json();
-      setSliders(data);
+      setSliders(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Failed to fetch sliders:', error);
     } finally {
@@ -59,10 +69,11 @@ export default function AdminSliderPage() {
 
       if (response.ok) {
         const data = await response.json();
-        setFormData({ ...formData, image: data.url });
+        setFormData((prev) => ({ ...prev, image: data.url }));
         alert('Image uploaded successfully!');
       } else {
-        alert('Failed to upload image');
+        const data = await response.json().catch(() => ({}));
+        alert(data.error || 'Failed to upload image');
       }
     } catch (error) {
       console.error('Upload error:', error);
@@ -88,6 +99,9 @@ export default function AdminSliderPage() {
         await fetchSliders();
         resetForm();
         alert(editingId ? 'Slider updated successfully!' : 'Slider created successfully!');
+      } else {
+        const data = await response.json().catch(() => ({}));
+        alert(data.error || 'Failed to save slider');
       }
     } catch (error) {
       console.error('Failed to save slider:', error);
@@ -100,7 +114,11 @@ export default function AdminSliderPage() {
       title: slider.title,
       subtitle: slider.subtitle,
       image: slider.image,
-      order: slider.order
+      eyebrow: slider.eyebrow || '',
+      buttonText: slider.buttonText || '',
+      buttonLink: slider.buttonLink || '',
+      order: slider.order,
+      isActive: slider.isActive !== false
     });
     setEditingId(slider._id);
     setShowForm(true);
@@ -122,12 +140,7 @@ export default function AdminSliderPage() {
   };
 
   const resetForm = () => {
-    setFormData({
-      title: '',
-      subtitle: '',
-      image: '',
-      order: 0
-    });
+    setFormData(emptySlide);
     setEditingId(null);
     setShowForm(false);
   };
@@ -245,11 +258,53 @@ export default function AdminSliderPage() {
                 <input
                   type="number"
                   value={formData.order}
-                  onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
+                  onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                   placeholder="0"
                 />
               </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Small heading above title</label>
+                  <input
+                    type="text"
+                    value={formData.eyebrow}
+                    onChange={(e) => setFormData({ ...formData, eyebrow: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    placeholder="Luxury Wedding Planners"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Button text</label>
+                  <input
+                    type="text"
+                    value={formData.buttonText}
+                    onChange={(e) => setFormData({ ...formData, buttonText: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    placeholder="Plan Your Wedding"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Button link</label>
+                  <input
+                    type="text"
+                    value={formData.buttonLink}
+                    onChange={(e) => setFormData({ ...formData, buttonLink: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    placeholder="/contact"
+                  />
+                </div>
+              </div>
+
+              <label className="flex items-center gap-2 text-sm text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={formData.isActive}
+                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                />
+                Show this slide on the website
+              </label>
               
               <div className="flex gap-2">
                 <button
@@ -332,6 +387,9 @@ export default function AdminSliderPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {slider.order}
+                        {slider.isActive === false && (
+                          <span className="ml-2 text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">Hidden</span>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex space-x-2">

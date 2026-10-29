@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
-import Video from '@/lib/models/Video';
+import Video from '@/models/Video';
 import mongoose from 'mongoose';
+import { requireAdmin } from '@/utils/auth';
 
 // Helper function to extract YouTube video ID from URL
 function getYouTubeVideoId(url: string): string | null {
@@ -53,6 +54,8 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     
     if (!mongoose.Types.ObjectId.isValid(params.id)) {
@@ -121,6 +124,8 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     
     if (!mongoose.Types.ObjectId.isValid(params.id)) {

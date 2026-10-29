@@ -1,9 +1,14 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnimatedPage from '@/components/AnimatedPage';
 import { Metadata } from 'next';
+import { img } from '@/lib/images';
+import { getSiteSettings } from '@/lib/data';
+import { whatsappHref } from '@/lib/siteDefaults';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Bachelor & Bachelorette Party Planning — WAH Momentz',
@@ -44,7 +49,8 @@ const experiences = [
   { icon: '🍳', title: 'Private Chef Experience', desc: 'Intimate dinner parties with curated menus and cocktail classes.' },
 ];
 
-export default function BachelorPartyPage() {
+export default async function BachelorPartyPage() {
+  const settings = await getSiteSettings();
   return (
     <AnimatedPage>
       <Navbar />
@@ -53,7 +59,7 @@ export default function BachelorPartyPage() {
         <section className="relative min-h-[75vh] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=1080&fit=crop"
+              src={img('party-sparklers-beach', 2000)}
               alt="Bachelor Party"
               fill className="object-cover"
               priority
@@ -84,7 +90,7 @@ export default function BachelorPartyPage() {
                   <span>Plan My Party</span>
                 </Link>
                 <a
-                  href="https://wa.me/919891106761?text=Hi%2C%20I'd%20like%20to%20plan%20a%20bachelor%20party."
+                  href={whatsappHref(settings.whatsappNumber, "Hi, I'd like to plan a bachelor party.")}
                   target="_blank" rel="noopener noreferrer"
                   className="btn-outline-white flex items-center justify-center gap-2"
                 >
@@ -127,7 +133,7 @@ export default function BachelorPartyPage() {
               <div className="relative" data-aos="fade-left" data-aos-delay="100">
                 <div className="relative h-[480px] rounded-3xl overflow-hidden shadow-premium">
                   <Image
-                    src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&h=900&fit=crop"
+                    src={img('punjabi-groomsmen', 1000)}
                     alt="Friends celebrating"
                     fill className="object-cover"
                   />
@@ -227,10 +233,10 @@ export default function BachelorPartyPage() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
-                'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=400&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&h=400&fit=crop',
+                img('party-sparklers', 600),
+                img('party-toast', 600),
+                img('party-confetti', 600),
+                img('baraat-dance', 600),
               ].map((src, i) => (
                 <div
                   key={i}

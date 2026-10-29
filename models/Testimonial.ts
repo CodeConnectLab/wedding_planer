@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { TESTIMONIAL_SERVICE_TYPES } from '@/lib/constants';
 
 export interface ITestimonial extends Document {
   name: string;
@@ -6,6 +7,7 @@ export interface ITestimonial extends Document {
   image?: string;
   rating: number;
   serviceType: string;
+  location?: string;
   isPublished: boolean;
   isFeatured: boolean;
   order: number;
@@ -26,9 +28,10 @@ const TestimonialSchema: Schema = new Schema({
   },
   serviceType: { 
     type: String, 
-    enum: ['Residential', 'Commercial', '3D Visualization', 'Consultation', 'All'],
+    enum: TESTIMONIAL_SERVICE_TYPES,
     default: 'All'
   },
+  location: { type: String, trim: true },
   isPublished: { type: Boolean, default: false },
   isFeatured: { type: Boolean, default: false },
   order: { type: Number, default: 0 },

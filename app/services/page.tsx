@@ -1,9 +1,13 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnimatedPage from '@/components/AnimatedPage';
 import { Metadata } from 'next';
+import { getServices, serviceHref } from '@/lib/data';
+import { img, serviceImage } from '@/lib/images';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Wedding Services — WAH Momentz',
@@ -11,14 +15,15 @@ export const metadata: Metadata = {
   keywords: 'wedding services India, destination wedding planner, wedding décor, wedding photography, wedding catering, mehndi artist',
 };
 
-const weddingServices = [
+// Fallback copy — the live list comes from Admin → Services.
+const fallbackWeddingServices = [
   {
     icon: '✈️',
     title: 'Destination Weddings',
     desc: 'From Udaipur\'s serene lake palaces to Goa\'s sunlit shores and international locales in Bali, Tuscany, or Maldives — we create seamless destination celebrations that transport your guests into a dream.',
     highlights: ['25+ destination partnerships', 'International planning expertise', 'Full logistics management', 'Curated vendor network'],
     href: '/destination-weddings',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('venue-udaipur-palace', 900),
   },
   {
     icon: '🌸',
@@ -26,7 +31,7 @@ const weddingServices = [
     desc: 'Our award-winning design team creates breathtaking visual environments — lush floral mandaps, candlelit receptions, cinematic lighting rigs, and bespoke installations that feel uniquely yours.',
     highlights: ['Bespoke concept development', 'Floral artistry', 'Lighting design', 'Mandap & stage design'],
     href: '/services/wedding-decor',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('hero-grand-decor', 900),
   },
   {
     icon: '📸',
@@ -34,7 +39,7 @@ const weddingServices = [
     desc: 'Artistic photographers and cinematic filmmakers who capture every stolen glance, tearful embrace, and joyful dance — producing timeless images and films you\'ll treasure for generations.',
     highlights: ['Pre-wedding shoots', 'Drone videography', 'Same-day edit reels', 'Fine art albums'],
     href: '/services/photography',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('couple-celebration', 900),
   },
   {
     icon: '🌿',
@@ -42,7 +47,7 @@ const weddingServices = [
     desc: 'Award-winning mehndi artists and bridal makeup teams who blend traditional artistry with contemporary techniques, ensuring the bride looks and feels absolutely radiant.',
     highlights: ['Traditional & modern mehndi', 'Bridal makeup & hairstyling', 'Bridesmaids packages', 'Trial sessions included'],
     href: '/services/mehndi',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('mehndi-closeup', 900),
   },
   {
     icon: '🍽️',
@@ -50,7 +55,7 @@ const weddingServices = [
     desc: 'A feast for the senses — from elaborate Rajasthani thalis to contemporary fusion menus and international cuisines, each dish is crafted by top chefs and presented with impeccable elegance.',
     highlights: ['Multi-cuisine expertise', 'Bar & beverage management', 'Dietary accommodations', 'Live cooking stations'],
     href: '/services/catering',
-    img: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
+    img: img('catering-thalis', 900),
   },
   {
     icon: '🎵',
@@ -58,7 +63,7 @@ const weddingServices = [
     desc: 'From classical Kathak performances to Bollywood choreography, live bands, DJ nights, and bespoke entertainment — we curate unforgettable experiences that keep guests enchanted all night.',
     highlights: ['Live bands & orchestras', 'Bollywood performers', 'Sangeet choreography', 'Celebrity management'],
     href: '/services/entertainment',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('sangeet-ladies', 900),
   },
   {
     icon: '🏛️',
@@ -66,7 +71,7 @@ const weddingServices = [
     desc: 'Access to India\'s most stunning wedding venues — heritage palaces, luxury hotels, garden estates, and boutique properties — with complete logistics and vendor coordination managed by our team.',
     highlights: ['200+ curated venues', 'Palace & fort properties', 'Overseas venue access', 'Complete logistics'],
     href: '/services/venue-management',
-    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
+    img: img('venue-lake-palace', 900),
   },
   {
     icon: '✉️',
@@ -74,56 +79,76 @@ const weddingServices = [
     desc: 'Bespoke wedding stationery that sets the tone before the first guest arrives — handcrafted invitations, custom monograms, digital save-the-dates, and full suite design from engagement to post-wedding.',
     highlights: ['Custom illustration', 'Luxury print materials', 'Digital invitations', 'Welcome kits design'],
     href: '/services/invitations',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('invitation-suite', 900),
   },
 ];
 
-const eventServices = [
+const fallbackEventServices = [
   {
     icon: '🥂',
     title: 'Bachelor & Bachelorette Parties',
     desc: 'Tailored pre-wedding celebrations — from intimate gatherings to epic adventures — designed around the personality and preferences of the guest of honour.',
     href: '/bachelor-party',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('party-sparklers-beach', 900),
   },
   {
     icon: '🌅',
     title: 'Honeymoon Planning',
     desc: 'Romantic, carefully curated honeymoon itineraries — from Maldivian overwater villas to European river cruises and intimate Himalayan retreats.',
     href: '/services/honeymoon',
-    img: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
+    img: img('honeymoon-beach', 900),
   },
   {
     icon: '💍',
     title: 'Anniversary Celebrations',
     desc: 'Recreate the magic of your wedding day or create an entirely new celebration — intimate dinners, surprise parties, and milestone anniversary events.',
     href: '/services/anniversary',
-    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
+    img: img('anniversary-dinner', 900),
   },
   {
     icon: '🎯',
     title: 'Corporate Events',
     desc: 'Large-scale corporate galas, product launches, dealer meets, road shows, and brand activations — executed with the same precision as our weddings.',
     href: '/services/corporate-events',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('event-corporate', 900),
   },
   {
     icon: '👗',
     title: 'Fashion Shows',
     desc: 'Runway events, designer showcase evenings, and fashion gala productions — we create the perfect stage for India\'s fashion moments.',
     href: '/services/fashion-shows',
-    img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
+    img: img('event-fashion', 900),
   },
   {
     icon: '🏆',
     title: 'Award Nights & Galas',
     desc: 'Black-tie award ceremonies, corporate recognition galas, and industry nights with full production — staging, lighting, sound, and celebrity hosting.',
     href: '/services/award-nights',
-    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
+    img: img('event-gala', 900),
   },
 ];
 
-export default function ServicesPage() {
+type ServiceCard = { key: string; icon: string; title: string; desc: string; highlights: string[]; href: string; img: string };
+
+const toCard = (svc: any): ServiceCard => ({
+  key: svc._id,
+  icon: svc.icon || '💍',
+  title: svc.title,
+  desc: svc.shortDescription || svc.description,
+  highlights: (svc.features || []).slice(0, 4),
+  href: serviceHref(svc),
+  img: serviceImage(svc, 900),
+});
+
+export default async function ServicesPage() {
+  const dbServices = await getServices();
+  const weddingServices: ServiceCard[] = dbServices.length
+    ? dbServices.filter((svc: any) => svc.category !== 'event').map(toCard)
+    : fallbackWeddingServices.map((svc) => ({ ...svc, key: svc.href }));
+  const eventServices: ServiceCard[] = dbServices.length
+    ? dbServices.filter((svc: any) => svc.category === 'event').map(toCard)
+    : fallbackEventServices.map((svc) => ({ ...svc, key: svc.href, highlights: [] as string[] }));
+
   return (
     <AnimatedPage>
       <Navbar />
@@ -132,9 +157,9 @@ export default function ServicesPage() {
         <section className="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=800&fit=crop"
+              src={img('ritual-ballroom', 2000)}
               alt="Wedding Services"
-              fill className="object-cover"
+              fill sizes="100vw" className="object-cover"
               priority
             />
             <div className="absolute inset-0 bg-primary/65" />
@@ -169,7 +194,7 @@ export default function ServicesPage() {
             <div className="space-y-16">
               {weddingServices.map((service, i) => (
                 <div
-                  key={service.title}
+                  key={service.key}
                   className={`grid grid-cols-1 lg:grid-cols-2 gap-10 items-center ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
                   data-aos={i % 2 === 0 ? 'fade-right' : 'fade-left'}
                 >
@@ -179,20 +204,20 @@ export default function ServicesPage() {
                     </div>
                     <h3 className="font-cormorant text-3xl font-[600] text-primary mb-4">{service.title}</h3>
                     <p className="font-sans text-warmgray leading-relaxed mb-6">{service.desc}</p>
-                    <ul className="grid grid-cols-2 gap-2 mb-6">
+                    {service.highlights.length > 0 && <ul className="grid grid-cols-2 gap-2 mb-6">
                       {service.highlights.map((h) => (
                         <li key={h} className="flex items-center gap-2 font-sans text-sm text-warmgray">
                           <span className="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0" />
                           {h}
                         </li>
                       ))}
-                    </ul>
+                    </ul>}
                     <Link href={service.href} className="btn-gold inline-block">
                       <span>Learn More</span>
                     </Link>
                   </div>
                   <div className={`relative h-80 rounded-2xl overflow-hidden shadow-premium hover-scale-img ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <Image src={service.img} alt={service.title} fill className="object-cover" />
+                    <Image src={service.img} alt={service.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
                   </div>
                 </div>
               ))}
@@ -201,6 +226,7 @@ export default function ServicesPage() {
         </section>
 
         {/* ── EVENTS SERVICES ──────────────────────────────────── */}
+        {eventServices.length > 0 && (
         <section className="py-section bg-secondary">
           <div className="container-custom">
             <div className="text-center mb-16" data-aos="fade-up">
@@ -216,14 +242,14 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {eventServices.map((service, i) => (
                 <Link
-                  key={service.title}
+                  key={service.key}
                   href={service.href}
                   className="card-wedding group block overflow-hidden"
                   data-aos="fade-up"
                   data-aos-delay={i * 80}
                 >
                   <div className="relative h-52 overflow-hidden">
-                    <Image src={service.img} alt={service.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <Image src={service.img} alt={service.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
                     <div className="absolute top-4 left-4 text-2xl">{service.icon}</div>
                   </div>
@@ -237,6 +263,7 @@ export default function ServicesPage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* ── CTA ──────────────────────────────────────────────── */}
         <section className="py-20 bg-primary text-center">

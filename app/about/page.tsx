@@ -1,9 +1,10 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnimatedPage from '@/components/AnimatedPage';
 import { Metadata } from 'next';
+import { img } from '@/lib/images';
 
 export const metadata: Metadata = {
   title: 'About Us — WAH Momentz',
@@ -28,9 +29,9 @@ export default function AboutPage() {
         <section className="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=900&fit=crop"
+              src={img('hero-mandap', 2000)}
               alt="About WAH Momentz"
-              fill className="object-cover"
+              fill sizes="100vw" className="object-cover"
               priority
             />
             <div className="absolute inset-0 bg-primary/60" />
@@ -85,9 +86,9 @@ export default function AboutPage() {
               <div className="relative" data-aos="fade-left" data-aos-delay="100">
                 <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-premium">
                   <Image
-                    src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&h=1000&fit=crop"
-                    alt="Our team at work"
-                    fill className="object-cover"
+                    src={img('bride-golden', 1000)}
+                    alt="A WAH Momentz bride"
+                    fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-6 shadow-gold" data-aos="zoom-in" data-aos-delay="300">

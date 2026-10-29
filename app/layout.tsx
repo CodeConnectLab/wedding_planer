@@ -1,8 +1,9 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 // Luxury editorial serif — headings
 const cormorant = Cormorant_Garamond({
@@ -26,7 +27,7 @@ const jost = Jost({
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   process.env.SITE_URL ||
-  "https://www.weddingplannersdelhi.com";
+  "https://www.wahmomentz.com";
 
 export const metadata: Metadata = {
   title: {
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     siteName: "WAH Momentz",
     title: "WAH Momentz — Luxury Wedding Planners India",
     description:
-      "Crafting unforgettable love stories since 2007. Destination weddings, royal celebrations, and intimate ceremonies across India and beyond.",
+      "Crafting unforgettable love stories. Destination weddings, royal celebrations, and intimate ceremonies across India and beyond.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "WAH Momentz" }],
   },
   twitter: {
@@ -71,7 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#1C1410" />
+        <meta name="theme-color" content="#2D1B4E" />
       </head>
       <body className="font-sans antialiased">
         {/* Google Analytics */}
@@ -112,6 +113,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </Script>
 
         <ThemeProvider>{children}</ThemeProvider>
+        <WhatsAppButton />
       </body>
     </html>
   );

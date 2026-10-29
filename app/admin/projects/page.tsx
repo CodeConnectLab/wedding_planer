@@ -16,7 +16,7 @@ export default function AdminProjectsPage() {
 
   const fetchProjects = async () => {
     try {
-      const res = await fetch('/api/projects', {
+      const res = await fetch('/api/projects?admin=true', {
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache'

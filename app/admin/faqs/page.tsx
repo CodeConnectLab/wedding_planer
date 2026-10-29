@@ -33,7 +33,7 @@ export default function FAQsAdmin() {
 
   const fetchFAQs = useCallback(async () => {
     try {
-      const url = selectedCategory === 'all' ? '/api/faqs' : `/api/faqs?category=${selectedCategory}`;
+      const url = selectedCategory === 'all' ? '/api/faqs?admin=true' : `/api/faqs?admin=true&category=${encodeURIComponent(selectedCategory)}`;
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();

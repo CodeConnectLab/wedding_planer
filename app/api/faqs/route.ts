@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import FAQ from '@/models/FAQ';
+import { requireAdmin, wantsAdminView } from '@/utils/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,7 +9,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     
-    let query: any = { isActive: true };
+    let query: any = wantsAdminView(request) ? {} : { isActive: true };
     if (category && category !== 'all') {
       query.category = category;
     }
@@ -23,6 +24,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
     const faq = new FAQ(body);

@@ -1,9 +1,13 @@
-﻿import { Metadata } from 'next';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getServiceBySlug } from '@/lib/data';
+import { img, SERVICE_IMAGES } from '@/lib/images';
+
+export const dynamic = 'force-dynamic';
 
 interface ServiceDetail {
   slug: string;
@@ -11,16 +15,16 @@ interface ServiceDetail {
   subtitle: string;
   heroTagline: string;
   description: string;
-  heroImage: string;
   features: string[];
   process: { step: string; title: string; desc: string }[];
   packages: { name: string; price: string; features: string[] }[];
-  gallery: string[];
   relatedServices: { slug: string; label: string }[];
   metaTitle: string;
   metaDescription: string;
 }
 
+// Rich default copy per service; title, description, features and images can be overridden
+// from Admin → Services (matched by slug).
 const services: Record<string, ServiceDetail> = {
   'wedding-decor': {
     slug: 'wedding-decor',
@@ -28,7 +32,6 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Where Visions Become Reality',
     heroTagline: 'Transforming venues into breathtaking dreamscapes — each detail chosen with intention.',
     description: 'Our wedding décor philosophy begins with your story. Whether you dream of opulent floral canopies dripping with roses, minimalist ivory elegance, or a Rajasthani-inspired riot of colour, our décor team translates your vision into a living, breathing environment. We handle everything — from entrance arches and mandap design to centrepieces, lighting, drapery, and the final finishing touches that make a venue unmistakably yours.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Full venue décor concept and mood boarding',
       'Floral design — fresh, dried, and silk arrangements',
@@ -50,19 +53,13 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Signature', price: '₹5L+', features: ['Full ceremony + reception décor', 'Floral design', 'Ambient lighting', 'Photo booth', 'Bridal suite styling', 'Full on-day team'] },
       { name: 'Royal', price: 'Custom', features: ['All Signature inclusions', '3D venue visualisation', 'Custom fabrication', 'Ceiling installations', 'International florals', 'Multiple event spaces'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'venue-management', label: 'Venue Management' },
       { slug: 'photography', label: 'Photography & Film' },
       { slug: 'catering', label: 'Catering' },
     ],
-    metaTitle: 'Wedding Décor Services — Royal Affairs Wedding Planners',
-    metaDescription: 'Breathtaking wedding décor from mandap design to floral installations. Royal Affairs transforms venues into unforgettable dreamscapes.',
+    metaTitle: 'Wedding Décor Services — WAH Momentz Wedding Planners',
+    metaDescription: 'Breathtaking wedding décor from mandap design to floral installations. WAH Momentz transforms venues into unforgettable dreamscapes.',
   },
 
   'photography': {
@@ -71,7 +68,6 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Moments Preserved Forever',
     heroTagline: 'Cinematic storytelling that captures the emotion, movement, and poetry of your day.',
     description: 'Your wedding day unfolds in a series of irreplaceable moments — the catch of breath as the doors open, the laughter-soaked chaos of the baraat, the stillness of a vow exchanged. Our photography and cinematography partners are masters of capturing what words cannot. From editorial-style couple portraits to emotional documentary coverage, every frame is composed with artistic intention and technical excellence.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Pre-wedding engagement shoots',
       'Full wedding day documentary coverage',
@@ -93,18 +89,12 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Cinema', price: '₹3L+', features: ['2 photographers', '1 videographer', 'Full day coverage', 'Drone footage', 'Highlight film', 'Full ceremony film', 'Pre-wedding shoot'] },
       { name: 'Heirloom', price: 'Custom', features: ['Lead photographer + 2 associates', 'Full film team', 'All events coverage', 'Same-day edit', 'Premium album', 'International travel possible'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
       { slug: 'destination-weddings', label: 'Destination Weddings' },
       { slug: 'entertainment', label: 'Entertainment' },
     ],
-    metaTitle: 'Wedding Photography & Cinematography — Royal Affairs',
+    metaTitle: 'Wedding Photography & Cinematography — WAH Momentz',
     metaDescription: 'Cinematic wedding photography and film by India\'s finest storytellers. Pre-wedding shoots, editorial portraits, full-day coverage and premium albums.',
   },
 
@@ -114,7 +104,6 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'A Feast for Every Sense',
     heroTagline: 'Curated menus that celebrate culinary heritage and delight every guest.',
     description: 'Food is at the heart of every great Indian celebration — a reflection of family, region, and generosity. Our catering partners include India\'s finest caterers across pan-Indian, Mughlai, South Indian, Continental, and fusion cuisine, as well as specialist chefs for dietary requirements. We design menus that balance tradition with innovation, presentation with abundance, and flavour with flair.',
-    heroImage: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=1400&h=800&fit=crop',
     features: [
       'Bespoke menu design for each event',
       'Live cooking stations (chaat, kebab, pasta, dessert)',
@@ -136,18 +125,12 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Grand', price: '₹1,500–₹2,500/plate', features: ['Pan-Indian + Continental', 'Plated + buffet', '4 live stations', 'Mocktail counter', 'Dessert display', 'Premium crockery'] },
       { name: 'Royal', price: 'Custom', features: ['Multi-cuisine', 'Celebrity chef option', 'Custom live stations', 'Beverage service', 'International menu items', 'Complete F&B management'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'venue-management', label: 'Venue Management' },
       { slug: 'wedding-decor', label: 'Wedding Décor' },
       { slug: 'entertainment', label: 'Entertainment' },
     ],
-    metaTitle: 'Wedding Catering Services — Royal Affairs Wedding Planners',
+    metaTitle: 'Wedding Catering Services — WAH Momentz Wedding Planners',
     metaDescription: 'Exceptional wedding catering — from traditional Indian feasts to modern fusion menus. Curated dining experiences for every celebration.',
   },
 
@@ -157,7 +140,6 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'The Art of the Bride',
     heroTagline: 'Intricate artistry that tells your story through every line and bloom.',
     description: 'The Mehndi ceremony is one of the most intimate and joyful rituals of the Indian wedding. Our curated roster of mehndi artists ranges from masters of traditional Rajasthani and Mughal patterns to contemporary artists who blend cultural motifs with fine-line minimalism. We also coordinate all bridal and bridesmaid beauty services — makeup artists, hairstylists, and nail artists — ensuring every member of your bridal party feels their most radiant.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Bridal mehndi — both hands and feet',
       'Bridesmaids\' and family mehndi',
@@ -179,18 +161,12 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Bridal + Bridal Party', price: '₹35,000+', features: ['Bride (full mehndi)', '4–6 bridesmaid/family mehndi', '2 artists', 'Event setting'] },
       { name: 'Full Mehndi Ceremony', price: 'Custom', features: ['Bridal + bridal party mehndi', 'Additional guest mehndi artists', 'Ceremony coordination', 'Setup and ambience', 'Beauty services'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
       { slug: 'entertainment', label: 'Entertainment' },
       { slug: 'photography', label: 'Photography & Film' },
     ],
-    metaTitle: 'Wedding Mehndi & Beauty Services — Royal Affairs',
+    metaTitle: 'Wedding Mehndi & Beauty Services — WAH Momentz',
     metaDescription: 'Expert mehndi artists and bridal beauty services for Indian weddings. Traditional and contemporary designs, makeup, hairstyling, and more.',
   },
 
@@ -199,8 +175,7 @@ const services: Record<string, ServiceDetail> = {
     title: 'Entertainment',
     subtitle: 'The Heartbeat of Celebration',
     heroTagline: 'Performances, beats, and spectacles that keep your celebration alive long after midnight.',
-    description: 'A great wedding has a rhythm — the DJ who reads the dance floor, the live band that makes aunties forget their age, the surprise act that no one saw coming. Royal Affairs curates premium entertainment — from Bollywood DJs and live classical ensembles to celebrity performers, dhol players, fireworks, laser shows, and custom choreography — to create a celebration that your guests will talk about for years.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
+    description: 'A great wedding has a rhythm — the DJ who reads the dance floor, the live band that makes aunties forget their age, the surprise act that no one saw coming. WAH Momentz curates premium entertainment — from Bollywood DJs and live classical ensembles to celebrity performers, dhol players, fireworks, laser shows, and custom choreography — to create a celebration that your guests will talk about for years.',
     features: [
       'Premium Bollywood and EDM DJs',
       'Live wedding bands — Sufi, jazz, folk, fusion',
@@ -222,18 +197,12 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Spectacular', price: '₹2.5L+', features: ['DJ + live band', 'Full LED light show', 'Fireworks display', 'Baraat choreography', 'Sound + staging', 'Entertainment coordinator'] },
       { name: 'Royal', price: 'Custom', features: ['Celebrity performer', 'Full production', 'Custom LED stage', 'Pyrotechnics', 'Drone light show', 'Multi-event entertainment planning'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1468359601543-843bfaef291a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
       { slug: 'catering', label: 'Catering' },
       { slug: 'photography', label: 'Photography & Film' },
     ],
-    metaTitle: 'Wedding Entertainment Services — Royal Affairs Wedding Planners',
+    metaTitle: 'Wedding Entertainment Services — WAH Momentz Wedding Planners',
     metaDescription: 'Premium wedding entertainment from Bollywood DJs and live bands to celebrity performers and fireworks. Memorable celebrations for Indian weddings.',
   },
 
@@ -243,7 +212,6 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'The Perfect Setting Awaits',
     heroTagline: 'Finding and flawlessly running your ideal venue — from palace to poolside.',
     description: 'The right venue sets the entire tone. Whether you envision a grand heritage haveli in Rajasthan, a lush garden in the Nilgiris, a ballroom in a five-star city hotel, or a beachside celebration in Goa, our venue specialists have the relationships and expertise to find and secure the ideal space. We also provide complete venue operations management — staffing, logistics, permits, and day-of coordination — so everything runs seamlessly.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Venue search and shortlisting across India',
       'Site visits and venue assessment',
@@ -258,25 +226,19 @@ const services: Record<string, ServiceDetail> = {
       { step: '01', title: 'Needs Analysis', desc: 'We discuss guest count, preferred region, aesthetic, indoor/outdoor preference, and budget to define the search parameters.' },
       { step: '02', title: 'Shortlist & Site Visits', desc: 'We present a curated shortlist and accompany you on site visits — helping you evaluate each space with expert eyes.' },
       { step: '03', title: 'Contract & Logistics', desc: 'We review and negotiate venue contracts, manage deposits, and coordinate all logistics with venue management teams.' },
-      { step: '04', title: 'Day-of Operations', desc: 'A senior Royal Affairs venue manager is on-site throughout your event, managing every operational detail.' },
+      { step: '04', title: 'Day-of Operations', desc: 'A senior WAH Momentz venue manager is on-site throughout your event, managing every operational detail.' },
     ],
     packages: [
       { name: 'Search & Secure', price: '₹50,000+', features: ['Venue research', 'Shortlist presentation', 'Site visits', 'Contract review', 'Booking management'] },
       { name: 'Full Operations', price: '₹1.5L+', features: ['All Search & Secure', 'Layout planning', 'Vendor coordination', 'Permit management', 'Day-of operations team'] },
       { name: 'Destination Package', price: 'Custom', features: ['Multi-venue management', 'Destination logistics', 'Guest accommodation coordination', 'Transport management', 'Full operations team'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
       { slug: 'catering', label: 'Catering' },
       { slug: 'destination-weddings', label: 'Destination Weddings' },
     ],
-    metaTitle: 'Wedding Venue Management — Royal Affairs Wedding Planners',
+    metaTitle: 'Wedding Venue Management — WAH Momentz Wedding Planners',
     metaDescription: 'Expert venue sourcing and management for Indian weddings. From palace heritage haveli to beachside celebrations — we find and run your perfect venue.',
   },
 
@@ -286,7 +248,6 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'Your First Adventure Together',
     heroTagline: 'Seamlessly planned journeys to the world\'s most romantic destinations.',
     description: 'Your honeymoon is the first chapter of your married life — and it deserves to be extraordinary. Our honeymoon planning service designs personalised itineraries for couples who want their post-wedding escape to be as thoughtfully curated as their wedding. From Maldivian overwater villas and European château stays to backpacker-chic Bali and safari adventures in Kenya, we handle every booking, transfer, and surprise so you can simply be present with each other.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Personalised destination consultation',
       'Bespoke itinerary design',
@@ -308,18 +269,12 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Journey', price: '₹3L+', features: ['10–14 nights', 'Multi-destination', 'Flights + hotels', 'Private transfers', 'Curated experiences', 'Surprise elements'] },
       { name: 'Grand Voyage', price: 'Custom', features: ['Custom duration', 'Luxury properties only', 'Full concierge service', 'Private jet option', 'Daily experiences', 'Dedicated travel host'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'destination-weddings', label: 'Destination Weddings' },
       { slug: 'anniversary', label: 'Anniversary Celebrations' },
       { slug: 'photography', label: 'Photography & Film' },
     ],
-    metaTitle: 'Honeymoon Planning — Royal Affairs Wedding Planners',
+    metaTitle: 'Honeymoon Planning — WAH Momentz Wedding Planners',
     metaDescription: 'Bespoke honeymoon itineraries for newlyweds. From Maldives to Tuscany — personalised, seamlessly planned, and utterly romantic.',
   },
 
@@ -328,8 +283,7 @@ const services: Record<string, ServiceDetail> = {
     title: 'Anniversary Celebrations',
     subtitle: 'Celebrate the Journey Continued',
     heroTagline: 'From intimate dinners to grand vow renewals — honouring love that grows.',
-    description: 'Every anniversary is a milestone worth marking — whether it\'s your first year together or your twenty-fifth. Royal Affairs designs anniversary celebrations that reflect how your relationship has evolved: intimate candlelit dinners in extraordinary settings, surprise birthday and anniversary parties, and grand vow renewal ceremonies with all the people who matter most. We take care of every detail so you can be fully present.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
+    description: 'Every anniversary is a milestone worth marking — whether it\'s your first year together or your twenty-fifth. WAH Momentz designs anniversary celebrations that reflect how your relationship has evolved: intimate candlelit dinners in extraordinary settings, surprise birthday and anniversary parties, and grand vow renewal ceremonies with all the people who matter most. We take care of every detail so you can be fully present.',
     features: [
       'Intimate private dining arrangements',
       'Surprise party planning and execution',
@@ -351,19 +305,13 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Celebration', price: '₹1L+', features: ['Venue sourcing', 'Décor and florals', 'Guest coordination (10–30)', 'Photography + film', 'Catering'] },
       { name: 'Grand Vow Renewal', price: 'Custom', features: ['Full ceremony planning', 'Venue + décor', 'All guests managed', 'Photography + film', 'Reception dinner', 'Surprise elements'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'honeymoon', label: 'Honeymoon Planning' },
       { slug: 'photography', label: 'Photography & Film' },
       { slug: 'wedding-decor', label: 'Wedding Décor' },
     ],
-    metaTitle: 'Anniversary Celebrations — Royal Affairs Wedding Planners',
-    metaDescription: 'Intimate anniversary dinners, surprise parties, and grand vow renewals. Royal Affairs creates unforgettable anniversary moments.',
+    metaTitle: 'Anniversary Celebrations — WAH Momentz Wedding Planners',
+    metaDescription: 'Intimate anniversary dinners, surprise parties, and grand vow renewals. WAH Momentz creates unforgettable anniversary moments.',
   },
 
   'bachelorette': {
@@ -371,8 +319,7 @@ const services: Record<string, ServiceDetail> = {
     title: 'Bachelorette Party',
     subtitle: 'A Night Just for Her',
     heroTagline: 'Glamorous, intimate, and completely unforgettable — the perfect send-off for the bride-to-be.',
-    description: 'The bachelorette is the bride\'s night to be celebrated in exactly the way she dreams — whether that means a luxurious spa day with her closest girlfriends, a cocktail-filled evening in a rooftop suite, a weekend getaway to Goa, or a private dinner with dancing and personalised surprises. Royal Affairs designs bachelorette experiences that feel personal, playful, and completely hers.',
-    heroImage: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=1400&h=800&fit=crop',
+    description: 'The bachelorette is the bride\'s night to be celebrated in exactly the way she dreams — whether that means a luxurious spa day with her closest girlfriends, a cocktail-filled evening in a rooftop suite, a weekend getaway to Goa, or a private dinner with dancing and personalised surprises. WAH Momentz designs bachelorette experiences that feel personal, playful, and completely hers.',
     features: [
       'Personalised theme and concept design',
       'Venue sourcing — suites, rooftops, beach clubs, spas',
@@ -394,19 +341,13 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Weekend Getaway', price: '₹80,000+', features: ['Accommodation booking', 'Activity curation', 'Catering', 'Transport', 'Personalised itinerary', 'Surprise elements'] },
       { name: 'Luxury Affair', price: 'Custom', features: ['Destination bachelorette', 'Hotel takeover option', 'Celebrity styling', 'Spa and wellness', 'Photography team', 'Full coordination'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'bachelor-party', label: 'Bachelor Party' },
       { slug: 'photography', label: 'Photography & Film' },
       { slug: 'entertainment', label: 'Entertainment' },
     ],
-    metaTitle: 'Bachelorette Party Planning — Royal Affairs Wedding Planners',
-    metaDescription: 'Glamorous bachelorette parties tailored for the bride-to-be. From rooftop soirées to weekend getaways — Royal Affairs plans the perfect send-off.',
+    metaTitle: 'Bachelorette Party Planning — WAH Momentz Wedding Planners',
+    metaDescription: 'Glamorous bachelorette parties tailored for the bride-to-be. From rooftop soirées to weekend getaways — WAH Momentz plans the perfect send-off.',
   },
 
   'invitations': {
@@ -415,7 +356,6 @@ const services: Record<string, ServiceDetail> = {
     subtitle: 'The First Glimpse of Your Wedding',
     heroTagline: 'Exquisite invitations that set the tone before a single decoration is placed.',
     description: 'Your wedding invitation is the first experience your guests have of your celebration — a preview of the beauty and thoughtfulness to come. Our invitation design service creates bespoke stationery suites that reflect your personal aesthetic, from ultra-luxurious boxed invitations with wax seals and hand-tied ribbons to elegant minimalist cards with foil letterpress typography. We handle design, production, and dispatch.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
     features: [
       'Bespoke invitation suite design',
       'Boxed luxury invitation packages',
@@ -437,18 +377,12 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Suite', price: '₹600/set+', features: ['Invitation + 3 event cards', 'Foil or letterpress', 'Custom box or envelope', 'Wax seal', 'Hand-lettered addressing'] },
       { name: 'Royal Box', price: 'Custom', features: ['Full stationery suite', 'Bespoke keepsake box', 'Premium materials', 'Hand-calligraphy', 'Dispatch management', 'Digital version'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'wedding-decor', label: 'Wedding Décor' },
       { slug: 'photography', label: 'Photography & Film' },
     ],
-    metaTitle: 'Wedding Invitation Design — Royal Affairs Wedding Planners',
-    metaDescription: 'Bespoke luxury wedding invitation suites — from foil letterpress cards to handcrafted keepsake boxes. Royal Affairs sets the tone from the very first card.',
+    metaTitle: 'Wedding Invitation Design — WAH Momentz Wedding Planners',
+    metaDescription: 'Bespoke luxury wedding invitation suites — from foil letterpress cards to handcrafted keepsake boxes. WAH Momentz sets the tone from the very first card.',
   },
 
   'fashion-shows': {
@@ -456,8 +390,7 @@ const services: Record<string, ServiceDetail> = {
     title: 'Fashion Shows',
     subtitle: 'Where Style Takes Centre Stage',
     heroTagline: 'Professionally produced fashion and trousseau events that celebrate your brand or bridal style.',
-    description: 'Royal Affairs produces fashion shows and trousseau events for designer brands, couture houses, jewellery brands, and private clients. Whether you\'re launching a bridal collection, hosting a trousseau preview for family, or producing a gala fashion evening at your wedding celebration, our production team brings the runway to life with professional staging, lighting, choreography, and model coordination.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
+    description: 'WAH Momentz produces fashion shows and trousseau events for designer brands, couture houses, jewellery brands, and private clients. Whether you\'re launching a bridal collection, hosting a trousseau preview for family, or producing a gala fashion evening at your wedding celebration, our production team brings the runway to life with professional staging, lighting, choreography, and model coordination.',
     features: [
       'Full runway production and staging',
       'Lighting design and technical production',
@@ -479,18 +412,12 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Brand Show', price: '₹5L+', features: ['Full runway staging', 'Professional lighting', '8–12 models', 'Choreographer', 'Photography + film', 'Guest management'] },
       { name: 'Gala Production', price: 'Custom', features: ['Premium venue', 'Custom staging', 'Celebrity guests option', 'Full media coordination', 'Live streaming', 'Post-show dinner'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'entertainment', label: 'Entertainment' },
       { slug: 'corporate-events', label: 'Corporate Events' },
       { slug: 'award-nights', label: 'Award Nights' },
     ],
-    metaTitle: 'Fashion Show Production — Royal Affairs Event Management',
+    metaTitle: 'Fashion Show Production — WAH Momentz Event Management',
     metaDescription: 'Professional fashion show and trousseau event production. Runway staging, model coordination, lighting design and full event management.',
   },
 
@@ -499,8 +426,7 @@ const services: Record<string, ServiceDetail> = {
     title: 'Award Nights & Galas',
     subtitle: 'Celebrating Excellence, Brilliantly',
     heroTagline: 'Memorable award ceremonies and gala dinners that honour achievement in unforgettable style.',
-    description: 'An award night is more than a ceremony — it\'s a moment of recognition, celebration, and brand prestige. Royal Affairs produces award nights and gala dinners that leave recipients and guests genuinely moved. From intimate industry awards with 50 guests to grand national galas for 500+, we handle every element — concept, staging, entertainment, production, and the seamless execution that makes your event a landmark occasion.',
-    heroImage: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=1400&h=800&fit=crop',
+    description: 'An award night is more than a ceremony — it\'s a moment of recognition, celebration, and brand prestige. WAH Momentz produces award nights and gala dinners that leave recipients and guests genuinely moved. From intimate industry awards with 50 guests to grand national galas for 500+, we handle every element — concept, staging, entertainment, production, and the seamless execution that makes your event a landmark occasion.',
     features: [
       'Award ceremony concept and design',
       'Trophy and award design',
@@ -522,19 +448,13 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Industry Awards', price: '₹8L+', features: ['Up to 250 guests', 'Custom stage design', 'Entertainment', 'Celebrity host option', 'Full dinner service', 'Live streaming', 'Trophy design'] },
       { name: 'National Gala', price: 'Custom', features: ['500+ guests', 'Premium venue', 'Full production', 'Multi-act entertainment', 'Red carpet setup', 'Press coordination', 'Broadcast-quality production'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'corporate-events', label: 'Corporate Events' },
       { slug: 'entertainment', label: 'Entertainment' },
       { slug: 'fashion-shows', label: 'Fashion Shows' },
     ],
-    metaTitle: 'Award Nights & Gala Events — Royal Affairs Event Management',
-    metaDescription: 'Prestigious award ceremonies and gala dinners produced by Royal Affairs. Concept to execution — events that celebrate excellence in unforgettable style.',
+    metaTitle: 'Award Nights & Gala Events — WAH Momentz Event Management',
+    metaDescription: 'Prestigious award ceremonies and gala dinners produced by WAH Momentz. Concept to execution — events that celebrate excellence in unforgettable style.',
   },
 
   'conference': {
@@ -542,8 +462,7 @@ const services: Record<string, ServiceDetail> = {
     title: 'Conferences & Summits',
     subtitle: 'Ideas That Resonate, Events That Inspire',
     heroTagline: 'Meticulously planned conferences that create meaningful connections and lasting impact.',
-    description: 'A well-executed conference or summit is a powerful platform — for ideas, for networking, and for your brand. Royal Affairs manages corporate conferences, leadership summits, industry panels, product launch events, and multi-day conventions with the same attention to detail and quality standards we bring to every event. From intimate 30-person offsites to 1,000-delegate conventions, we plan and execute with precision.',
-    heroImage: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=1400&h=800&fit=crop',
+    description: 'A well-executed conference or summit is a powerful platform — for ideas, for networking, and for your brand. WAH Momentz manages corporate conferences, leadership summits, industry panels, product launch events, and multi-day conventions with the same attention to detail and quality standards we bring to every event. From intimate 30-person offsites to 1,000-delegate conventions, we plan and execute with precision.',
     features: [
       'Conference concept and theme development',
       'Venue sourcing and management',
@@ -565,19 +484,13 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Corporate Summit', price: '₹8L+', features: ['100–300 delegates', 'Full A/V production', 'Speaker coordination', 'Multi-session programme', 'Exhibition space', 'Gala dinner'] },
       { name: 'Convention', price: 'Custom', features: ['300+ delegates', 'Multi-day format', 'Full delegate management', 'Media coordination', 'Sponsor management', 'Live streaming', 'App or digital programme'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'corporate-events', label: 'Corporate Events' },
       { slug: 'award-nights', label: 'Award Nights' },
       { slug: 'venue-management', label: 'Venue Management' },
     ],
-    metaTitle: 'Conference & Summit Management — Royal Affairs Event Management',
-    metaDescription: 'Professional conference and summit planning for 30 to 1,000+ delegates. Royal Affairs delivers precision-managed corporate events with impact.',
+    metaTitle: 'Conference & Summit Management — WAH Momentz Event Management',
+    metaDescription: 'Professional conference and summit planning for 30 to 1,000+ delegates. WAH Momentz delivers precision-managed corporate events with impact.',
   },
 
   'corporate-events': {
@@ -585,8 +498,7 @@ const services: Record<string, ServiceDetail> = {
     title: 'Corporate Events',
     subtitle: 'Experiences That Inspire',
     heroTagline: 'Precision-planned corporate events with a luxury touch that leaves a lasting impression.',
-    description: 'Corporate events are a powerful expression of brand identity and team culture. Royal Affairs brings the same meticulous attention to detail and creative excellence we apply to weddings to conferences, product launches, dealer meets, award nights, and team celebrations. We understand that a successful corporate event delivers measurable results — engagement, brand recall, and inspiration — alongside a seamless experience.',
-    heroImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1400&h=800&fit=crop',
+    description: 'Corporate events are a powerful expression of brand identity and team culture. WAH Momentz brings the same meticulous attention to detail and creative excellence we apply to weddings to conferences, product launches, dealer meets, award nights, and team celebrations. We understand that a successful corporate event delivers measurable results — engagement, brand recall, and inspiration — alongside a seamless experience.',
     features: [
       'Conference and seminar management',
       'Product launch events',
@@ -608,37 +520,63 @@ const services: Record<string, ServiceDetail> = {
       { name: 'Gala & Awards', price: 'Custom', features: ['Premium venue', 'Full décor', 'Entertainment', 'Award design', 'MC and production', 'Dinner service'] },
       { name: 'Brand Activation', price: 'Custom', features: ['Concept + creative', 'Experiential design', 'Full production', 'Social media integration', 'Measurement framework'] },
     ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
-    ],
     relatedServices: [
       { slug: 'entertainment', label: 'Entertainment' },
       { slug: 'venue-management', label: 'Venue Management' },
       { slug: 'catering', label: 'Catering' },
     ],
-    metaTitle: 'Corporate Event Management — Royal Affairs',
-    metaDescription: 'Precision-planned corporate events, conferences, award nights, and product launches. Royal Affairs delivers brand-aligned experiences with luxury execution.',
+    metaTitle: 'Corporate Event Management — WAH Momentz',
+    metaDescription: 'Precision-planned corporate events, conferences, award nights, and product launches. WAH Momentz delivers brand-aligned experiences with luxury execution.',
   },
 };
 
+const genericProcess = [
+  { step: '01', title: 'Consultation', desc: 'We begin with a conversation to understand your vision, guest list, budget and the feel you want to create.' },
+  { step: '02', title: 'Proposal', desc: 'A tailored proposal with concepts, vendor recommendations and a clear, itemised estimate.' },
+  { step: '03', title: 'Planning', desc: 'Our team coordinates every vendor, timeline and detail, keeping you updated at each milestone.' },
+  { step: '04', title: 'Execution', desc: 'On the day, our on-ground team runs the show so you can be fully present with your guests.' },
+];
+
+// Pages that live outside /services/<slug>.
+const relatedHref = (slug: string) =>
+  slug === 'destination-weddings' || slug === 'bachelor-party' ? `/${slug}` : `/services/${slug}`;
+
+async function loadService(slug: string) {
+  const preset = services[slug];
+  const db = await getServiceBySlug(slug);
+  if (!preset && !db) return null;
+
+  const title: string = db?.title || preset.title;
+  const curated = SERVICE_IMAGES[slug];
+  return {
+    slug,
+    title,
+    subtitle: preset?.subtitle || db?.shortDescription || '',
+    heroTagline: preset?.heroTagline || db?.shortDescription || '',
+    description: db?.description || preset.description,
+    heroImage: db?.image || img(curated?.hero ?? 'hero-mandap', 2000),
+    features: db?.features?.length ? (db.features as string[]) : preset?.features ?? [],
+    process: preset?.process ?? genericProcess,
+    packages: preset?.packages ?? [],
+    gallery: db?.gallery?.length ? (db.gallery as string[]) : (curated?.gallery ?? []).map((key) => img(key, 900)),
+    relatedServices: preset?.relatedServices ?? [],
+    metaTitle: preset?.metaTitle || `${title} — WAH Momentz`,
+    metaDescription: preset?.metaDescription || db?.shortDescription || db?.description?.slice(0, 160) || '',
+  };
+}
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const service = services[params.slug];
+  const service = await loadService(params.slug);
   if (!service) return { title: 'Service Not Found' };
   return {
     title: service.metaTitle,
     description: service.metaDescription,
+    openGraph: { images: [service.heroImage] },
   };
 }
 
-export async function generateStaticParams() {
-  return Object.keys(services).map((slug) => ({ slug }));
-}
-
-export default function ServicePage({ params }: { params: { slug: string } }) {
-  const service = services[params.slug];
+export default async function ServicePage({ params }: { params: { slug: string } }) {
+  const service = await loadService(params.slug);
   if (!service) notFound();
 
   return (
@@ -670,7 +608,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               <div data-aos="fade-right">
                 <div className="eyebrow mb-4">What We Do</div>
                 <h2 className="font-cormorant text-4xl sm:text-5xl font-[300] italic text-primary mb-6 leading-tight">
-                  {service.title} <span className="font-[600] not-italic text-accent">by Royal Affairs</span>
+                  {service.title} <span className="font-[600] not-italic text-accent">by WAH Momentz</span>
                 </h2>
                 <p className="font-sans text-warmgray leading-relaxed text-lg">{service.description}</p>
                 <div className="mt-8 flex gap-4 flex-wrap">
@@ -716,6 +654,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </section>
 
         {/* ── GALLERY ──────────────────────────────────────── */}
+        {service.gallery.length > 0 && (
         <section className="py-section bg-secondary">
           <div className="container-custom">
             <div className="text-center mb-10" data-aos="fade-up">
@@ -725,14 +664,14 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               </h2>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-              {service.gallery.map((img, i) => (
+              {service.gallery.map((src, i) => (
                 <div key={i} className="relative h-48 lg:h-64 overflow-hidden rounded-xl group" data-aos="fade-up" data-aos-delay={i * 60}>
                   <Image
-                    src={img}
+                    src={src}
                     alt={`${service.title} ${i + 1}`}
                     fill
+                    sizes="(max-width: 1024px) 50vw, 25vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    unoptimized
                   />
                   <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors duration-500" />
                 </div>
@@ -745,9 +684,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ── PACKAGES ─────────────────────────────────────── */}
-        {service.slug !== 'catering' && (
+        {service.slug !== 'catering' && service.packages.length > 0 && (
         <section className="py-section">
           <div className="container-custom">
             <div className="text-center mb-16" data-aos="fade-up">
@@ -819,7 +759,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 {service.relatedServices.map((rel) => (
                   <Link
                     key={rel.slug}
-                    href={`/services/${rel.slug}`}
+                    href={relatedHref(rel.slug)}
                     className="font-sans font-[500] text-sm text-primary border border-champagne/50 px-6 py-3 rounded-full hover:border-accent hover:text-accent transition-all duration-300 bg-white"
                     data-aos="fade-up"
                   >

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { VIDEO_CATEGORIES } from '@/lib/constants';
 
 const VideoSchema = new mongoose.Schema({
   title: {
@@ -21,8 +22,8 @@ const VideoSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Interior Design', 'Client Testimonial', 'Project Showcase', 'Design Tips', 'Behind the Scenes'],
-    default: 'Interior Design'
+    enum: VIDEO_CATEGORIES,
+    default: 'Wedding Films'
   },
   isActive: {
     type: Boolean,

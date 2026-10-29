@@ -1,57 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Project from '@/models/Project';
-import { verifyToken } from '@/utils/auth';
+import '@/models/Category';
+import { requireAdmin, wantsAdminView } from '@/utils/auth';
 import { slugify } from '@/utils/slugify';
-import { mockProjects } from '@/lib/mockData';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await dbConnect();
-    const projects = await Project.find().populate('category').sort({ createdAt: -1 });
+    const query = wantsAdminView(request) ? {} : { isPublished: { $ne: false } };
+    const projects = await Project.find(query).populate('category').sort({ isFeatured: -1, createdAt: -1 });
     return NextResponse.json(projects);
   } catch (error) {
-    console.log('Using mock data - MongoDB not connected');
-    return NextResponse.json(mockProjects);
+    console.error('Error fetching projects:', error);
+    return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    // Temporarily disable auth check for debugging
-    // const token = request.cookies.get('token')?.value;
-    // if (!token || !verifyToken(token)) {
-    //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    // }
+    const denied = requireAdmin(request);
+    if (denied) return denied;
 
     await dbConnect();
     const data = await request.json();
-    
-    console.log('Creating project with data:', data);
-    
+
     let slug = slugify(data.title);
-    
+
     // Check if slug already exists and make it unique
     const existingProject = await Project.findOne({ slug });
     if (existingProject) {
-      const timestamp = Date.now();
-      slug = `${slug}-${timestamp}`;
+      slug = `${slug}-${Date.now()}`;
     }
-    
-    const projectData = { ...data, slug };
-    
-    console.log('Project data with slug:', projectData);
-    
-    const project = await Project.create(projectData);
-    console.log('Project created successfully:', project._id);
-    
+
+    const project = await Project.create({ ...data, slug });
     return NextResponse.json(project, { status: 201 });
   } catch (error: any) {
     console.error('Failed to create project:', error);
-    return NextResponse.json({ 
-      error: 'Failed to create project', 
-      details: error.message,
-      stack: error.stack 
-    }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to create project', details: error.message },
+      { status: error.name === 'ValidationError' ? 400 : 500 }
+    );
   }
 }

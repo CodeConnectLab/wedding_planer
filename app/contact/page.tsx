@@ -1,19 +1,14 @@
-﻿'use client';
+'use client';
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaInstagram } from 'react-icons/fa';
-
-const budgetRanges = [
-  'Under ₹10 Lakhs',
-  '₹10–25 Lakhs',
-  '₹25–50 Lakhs',
-  '₹50 Lakhs–1 Crore',
-  '₹1 Crore+',
-  'Let us suggest',
-];
+import useSiteConfig from '@/components/useSiteConfig';
+import { BUDGET_RANGES as budgetRanges } from '@/lib/constants';
+import { img } from '@/lib/images';
+import { telHref, whatsappHref } from '@/lib/siteDefaults';
 
 const services = [
   'Full Wedding Planning',
@@ -29,6 +24,7 @@ const services = [
 ];
 
 export default function ContactPage() {
+  const { settings } = useSiteConfig();
   const [form, setForm] = useState({
     brideName: '',
     groomName: '',
@@ -42,6 +38,7 @@ export default function ContactPage() {
     message: '',
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -49,23 +46,36 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const name = [form.brideName.trim(), form.groomName.trim()].filter(Boolean).join(' & ');
+    if (!name) {
+      setErrorMessage("Please share at least the bride's or groom's name.");
+      setStatus('error');
+      return;
+    }
     setStatus('sending');
+    setErrorMessage('');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: `${form.brideName} & ${form.groomName}`,
+          name,
           email: form.email,
           phone: form.phone,
           service: form.service,
-          message: `Wedding Date: ${form.weddingDate}\nVenue: ${form.venue}\nGuest Count: ${form.guestCount}\nBudget: ${form.budget}\n\n${form.message}`,
+          weddingDate: form.weddingDate,
+          venue: form.venue,
+          guestCount: form.guestCount,
+          budget: form.budget,
+          message: form.message,
         }),
       });
       if (res.ok) {
         setStatus('sent');
         setForm({ brideName: '', groomName: '', email: '', phone: '', weddingDate: '', venue: '', guestCount: '', budget: '', service: '', message: '' });
       } else {
+        const data = await res.json().catch(() => ({}));
+        setErrorMessage(data.error || '');
         setStatus('error');
       }
     } catch {
@@ -109,13 +119,20 @@ export default function ContactPage() {
                 {/* Contact cards */}
                 <div className="space-y-4">
                   {[
-                    { icon: FaPhone, label: 'Call Us', value: '+91 98911 06761', href: 'tel:+919891106761' },
-                    { icon: FaEnvelope, label: 'Email Us', value: 'wahmomentz@gmail.com', href: 'mailto:wahmomentz@gmail.com' },
-                    { icon: FaMapMarkerAlt, label: 'Our Office', value: 'H5-16, Sector 11, Rohini, New Delhi — 110085', href: '#' },
+                    { icon: FaPhone, label: 'Call Us', value: settings.phone, href: telHref(settings.phone) },
+                    { icon: FaEnvelope, label: 'Email Us', value: settings.email, href: `mailto:${settings.email}` },
+                    {
+                      icon: FaMapMarkerAlt,
+                      label: 'Our Office',
+                      value: settings.address.replace(/\n/g, ', '),
+                      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address.replace(/\n/g, ', '))}`,
+                    },
                   ].map(({ icon: Icon, label, value, href }) => (
                     <a
                       key={label}
                       href={href}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                       className="flex items-start gap-4 p-5 glass-card rounded-2xl hover:border-accent/40 transition-all duration-300 group"
                     >
                       <div className="w-11 h-11 rounded-xl bg-blush flex items-center justify-center flex-shrink-0 group-hover:bg-champagne transition-colors">
@@ -131,7 +148,7 @@ export default function ContactPage() {
 
                 {/* WhatsApp CTA */}
                 <a
-                  href="https://wa.me/919891106761?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20wedding%20planning."
+                  href={whatsappHref(settings.whatsappNumber, "Hi, I'd like to enquire about wedding planning.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 bg-green-700 text-white px-6 py-4 rounded-2xl hover:bg-green-800 transition-colors duration-300 group w-full justify-center"
@@ -141,8 +158,9 @@ export default function ContactPage() {
                 </a>
 
                 {/* Instagram */}
+                {settings.instagramUrl && (
                 <a
-                  href="https://instagram.com/wahmomentz"
+                  href={settings.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 border border-champagne/40 text-warmgray px-6 py-4 rounded-2xl hover:border-accent hover:text-accent transition-colors duration-300 group w-full justify-center"
@@ -150,13 +168,14 @@ export default function ContactPage() {
                   <FaInstagram className="text-xl" />
                   <span className="font-sans font-[500]">Follow Our Journey</span>
                 </a>
+                )}
 
                 {/* Photo */}
                 <div className="relative h-48 rounded-2xl overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop"
-                    alt="Our studio"
-                    fill className="object-cover"
+                    src={img('couple-palace-night', 900)}
+                    alt="Bride and groom at a palace wedding"
+                    fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover"
                   />
                   <div className="absolute inset-0 bg-primary/30" />
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -193,7 +212,7 @@ export default function ContactPage() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                           <label className="font-sans text-xs text-warmgray uppercase tracking-wider block mb-2">
-                            Bride's Name
+                            Bride's Name *
                           </label>
                           <input
                             type="text"
@@ -334,7 +353,7 @@ export default function ContactPage() {
 
                       {status === 'error' && (
                         <p className="font-sans text-sm text-red-500">
-                          Something went wrong. Please try again or call us directly.
+                          {errorMessage || 'Something went wrong. Please try again or call us directly.'}
                         </p>
                       )}
 

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { FaPlay, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { VIDEO_CATEGORIES } from '@/lib/constants';
 
 interface Video {
   _id: string;
@@ -27,8 +28,8 @@ interface VideoSectionProps {
 }
 
 export default function VideoSection({
-  title = "From Vision to Reality: Home Interior Success Stories",
-  subtitle = "Watch our latest projects and client testimonials",
+  title = "Wedding Films & Highlights",
+  subtitle = "Watch the stories of couples we've had the honour to celebrate",
   category = 'all',
   featuredOnly = false,
   maxVideos = 6,
@@ -40,7 +41,7 @@ export default function VideoSection({
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const categories = ['all', 'Interior Design', 'Client Testimonial', 'Project Showcase', 'Design Tips', 'Behind the Scenes'];
+  const categories = ['all', ...VIDEO_CATEGORIES];
 
   const fetchVideos = useCallback(async () => {
     try {

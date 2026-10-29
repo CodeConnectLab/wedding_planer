@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Slider from '@/models/Slider';
-import { verifyToken } from '@/utils/auth';
-import { mockSliders } from '@/lib/mockData';
+import { verifyToken, wantsAdminView } from '@/utils/auth';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await dbConnect();
-    const sliders = await Slider.find().sort({ order: 1 });
+    const query = wantsAdminView(request) ? {} : { isActive: { $ne: false } };
+    const sliders = await Slider.find(query).sort({ order: 1, createdAt: 1 });
     return NextResponse.json(sliders);
   } catch (error) {
-    console.log('Using mock data - MongoDB not connected');
-    return NextResponse.json(mockSliders);
+    console.error('Error fetching sliders:', error);
+    return NextResponse.json({ error: 'Failed to fetch sliders' }, { status: 500 });
   }
 }
 

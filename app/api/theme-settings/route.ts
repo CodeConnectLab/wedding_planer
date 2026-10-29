@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import ThemeSettings from '@/models/ThemeSettings';
+import { requireAdmin } from '@/utils/auth';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
@@ -52,6 +55,8 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
     
@@ -76,6 +81,8 @@ export async function PUT(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const { action } = await request.json();
     

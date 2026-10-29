@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import AdsSlider from '@/models/AdsSlider';
+import { requireAdmin } from '@/utils/auth';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -18,6 +19,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
     const adsSlider = await AdsSlider.findByIdAndUpdate(params.id, body, { new: true });
@@ -33,6 +36,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const adsSlider = await AdsSlider.findByIdAndDelete(params.id);
     if (!adsSlider) {
@@ -46,6 +51,8 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 }
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
     

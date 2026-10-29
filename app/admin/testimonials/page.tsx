@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import AdminLayout from '@/components/AdminLayout';
 import { FaPlus, FaEdit, FaTrash, FaUpload, FaStar, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Image from 'next/image';
+import { TESTIMONIAL_SERVICE_TYPES } from '@/lib/constants';
 
 interface Testimonial {
   _id: string;
@@ -12,6 +13,7 @@ interface Testimonial {
   image?: string;
   rating: number;
   serviceType: string;
+  location?: string;
   isPublished: boolean;
   isFeatured: boolean;
   order: number;
@@ -19,7 +21,7 @@ interface Testimonial {
   createdAt: string;
 }
 
-const serviceTypes = ['All', 'Residential', 'Commercial', '3D Visualization', 'Consultation'];
+const serviceTypes = TESTIMONIAL_SERVICE_TYPES;
 
 export default function AdminTestimonialsPage() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -33,6 +35,7 @@ export default function AdminTestimonialsPage() {
     image: '',
     rating: 5,
     serviceType: 'All',
+    location: '',
     isPublished: false,
     isFeatured: false,
     order: 0
@@ -113,6 +116,7 @@ export default function AdminTestimonialsPage() {
       image: testimonial.image || '',
       rating: testimonial.rating,
       serviceType: testimonial.serviceType,
+      location: testimonial.location || '',
       isPublished: testimonial.isPublished,
       isFeatured: testimonial.isFeatured,
       order: testimonial.order
@@ -175,6 +179,7 @@ export default function AdminTestimonialsPage() {
       image: '',
       rating: 5,
       serviceType: 'All',
+      location: '',
       isPublished: false,
       isFeatured: false,
       order: 0
@@ -246,6 +251,18 @@ export default function AdminTestimonialsPage() {
                       <option key={type} value={type}>{type}</option>
                     ))}
                   </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Wedding location / date (optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="e.g. Udaipur, Dec 2025"
+                  />
                 </div>
               </div>
               

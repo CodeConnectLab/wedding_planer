@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Blog from '@/models/Blog';
-import { verifyToken } from '@/utils/auth';
+import { verifyToken, wantsAdminView } from '@/utils/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
     
     // Build query
-    let query: any = { isPublished: true };
+    let query: any = wantsAdminView(request) ? {} : { isPublished: true };
     
     if (category) {
       query.category = category;

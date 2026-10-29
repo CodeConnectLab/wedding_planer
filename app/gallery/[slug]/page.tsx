@@ -24,6 +24,11 @@ interface WeddingProject {
   tags?: string[];
 }
 
+function toEmbedUrl(url: string): string {
+  const id = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/)?.[1];
+  return id ? `https://www.youtube.com/embed/${id}` : url;
+}
+
 async function getWedding(slug: string): Promise<WeddingProject | null> {
   try {
     await dbConnect();
@@ -37,6 +42,8 @@ async function getWedding(slug: string): Promise<WeddingProject | null> {
   }
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const wedding = await getWedding(params.slug);
   if (!wedding) return { title: 'Wedding Not Found' };
@@ -46,8 +53,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     : wedding.title;
 
   return {
-    title: `${couple} — Royal Affairs Gallery`,
-    description: wedding.description || `A luxury wedding celebration by Royal Affairs Wedding Planners.`,
+    title: `${couple} — WAH Momentz Gallery`,
+    description: wedding.description || `A luxury wedding celebration by WAH Momentz.`,
     openGraph: {
       images: wedding.images?.[0] ? [{ url: wedding.images[0] }] : [],
     },
@@ -77,6 +84,7 @@ export default async function GalleryDetailPage({ params }: { params: { slug: st
               src={wedding.images[0]}
               alt={couple}
               fill
+              sizes="100vw"
               className="object-cover"
               priority
             />
@@ -122,7 +130,7 @@ export default async function GalleryDetailPage({ params }: { params: { slug: st
                   A Celebration to <span className="font-[600] not-italic text-accent">Remember</span>
                 </h2>
                 <p className="font-sans text-warmgray leading-relaxed text-lg">
-                  {wedding.description || 'Every love story deserves to be celebrated in extraordinary style. This wedding was a beautiful reflection of the couple\'s personality, traditions, and love for each other — brought to life by the Royal Affairs team.'}
+                  {wedding.description || 'Every love story deserves to be celebrated in extraordinary style. This wedding was a beautiful reflection of the couple\'s personality, traditions, and love for each other — brought to life by the WAH Momentz team.'}
                 </p>
 
                 {wedding.tags && wedding.tags.length > 0 && (
@@ -203,10 +211,7 @@ export default async function GalleryDetailPage({ params }: { params: { slug: st
               </div>
               <div className="relative pt-[56.25%] rounded-3xl overflow-hidden shadow-premium">
                 <iframe
-                  src={wedding.videoUrl.includes('youtube.com/watch')
-                    ? wedding.videoUrl.replace('watch?v=', 'embed/')
-                    : wedding.videoUrl
-                  }
+                  src={toEmbedUrl(wedding.videoUrl)}
                   className="absolute inset-0 w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -224,7 +229,7 @@ export default async function GalleryDetailPage({ params }: { params: { slug: st
               Begin Your Own Story
             </h2>
             <p className="font-sans text-warmgray max-w-md mx-auto mb-8">
-              Every Royal Affairs wedding is as unique as the couple at its heart. Let us create yours.
+              Every WAH Momentz wedding is as unique as the couple at its heart. Let us create yours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact" className="btn-gold inline-block">

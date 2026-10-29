@@ -1,10 +1,12 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { FaChevronDown, FaMinus } from 'react-icons/fa';
+import useSiteConfig from '@/components/useSiteConfig';
+import { whatsappHref } from '@/lib/siteDefaults';
 
 interface FAQ {
   _id: string;
@@ -37,6 +39,7 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function FAQsPage() {
+  const { settings } = useSiteConfig();
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
@@ -177,7 +180,7 @@ export default function FAQsPage() {
                 <span>Ask Us Directly</span>
               </Link>
               <a
-                href="https://wa.me/919891106761"
+                href={whatsappHref(settings.whatsappNumber)}
                 target="_blank" rel="noopener noreferrer"
                 className="btn-outline-gold inline-flex items-center justify-center gap-2"
               >

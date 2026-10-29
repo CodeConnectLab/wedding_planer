@@ -1,8 +1,10 @@
-﻿import { Metadata } from 'next';
+import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getLatestBlogs } from '@/lib/data';
+import { img } from '@/lib/images';
 
 export const metadata: Metadata = {
   title: 'Wedding Journal — WAH Momentz',
@@ -10,58 +12,10 @@ export const metadata: Metadata = {
   keywords: 'wedding blog India, wedding planning tips, wedding décor inspiration, real weddings India, luxury wedding trends',
 };
 
-async function getBlogs() {
-  try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/blogs?published=true`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    return res.json();
-  } catch { return []; }
-}
-
-const placeholderPosts = [
-  {
-    _id: '1', slug: '#', title: '10 Questions to Ask Your Wedding Planner Before Signing',
-    excerpt: 'Choosing the right wedding planner is one of the most important decisions you\'ll make. Here are the key questions every couple should ask before committing.',
-    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    category: 'Planning Tips', author: 'Priya Sharma', readTime: '5', createdAt: new Date('2025-06-01'),
-  },
-  {
-    _id: '2', slug: '#', title: 'The Rise of Sustainable Weddings: Beautiful & Responsible',
-    excerpt: 'Eco-conscious couples are redefining luxury with sustainable florals, zero-waste menus, and mindful venue choices that celebrate love without harming the planet.',
-    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    category: 'Décor Trends', author: 'Kavya Nair', readTime: '7', createdAt: new Date('2025-05-15'),
-  },
-  {
-    _id: '3', slug: '#', title: 'Top 10 Royal Palaces in India for an Unforgettable Wedding',
-    excerpt: 'From Udaipur\'s shimmering lake palaces to Jaipur\'s magnificent fort hotels — our curated guide to India\'s most spectacular wedding venues.',
-    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    category: 'Venues & Destinations', author: 'Rahul Kapoor', readTime: '8', createdAt: new Date('2025-04-20'),
-  },
-  {
-    _id: '4', slug: '#', title: 'Mehndi Design Trends 2025: From Traditional to Contemporary',
-    excerpt: 'The art of mehndi is evolving beautifully — from elaborate traditional patterns to minimalist fine-line designs. Explore the trends shaping bridal mehndi this year.',
-    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    category: 'Beauty & Style', author: 'Priya Sharma', readTime: '6', createdAt: new Date('2025-03-10'),
-  },
-  {
-    _id: '5', slug: '#', title: 'How to Plan a Destination Wedding in Bali: A Complete Guide',
-    excerpt: 'Everything you need to know about planning a stunning Bali wedding — from visa requirements and temple ceremonies to the best resorts and local vendors.',
-    featuredImage: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop',
-    category: 'Destination Weddings', author: 'Arjun Mehta', readTime: '10', createdAt: new Date('2025-02-25'),
-  },
-  {
-    _id: '6', slug: '#', title: 'The Perfect Sangeet: Planning a Night to Remember',
-    excerpt: 'The Sangeet is one of the most joyful events of the wedding week. Here\'s how to plan performances, themes, and entertainment that will keep everyone dancing.',
-    featuredImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop',
-    category: 'Events & Ceremonies', author: 'Kavya Nair', readTime: '6', createdAt: new Date('2025-01-18'),
-  },
-];
-
-const categories = ['All', 'Planning Tips', 'Décor Trends', 'Venues & Destinations', 'Beauty & Style', 'Destination Weddings', 'Events & Ceremonies'];
+export const dynamic = 'force-dynamic';
 
 export default async function BlogsPage() {
-  const blogs = await getBlogs();
-  const posts = blogs.length > 0 ? blogs : placeholderPosts;
+  const posts = await getLatestBlogs(60);
   const featured = posts[0];
   const rest = posts.slice(1);
 
@@ -85,19 +39,26 @@ export default async function BlogsPage() {
           </div>
         </section>
 
+        {!featured && (
+          <section className="py-section text-center">
+            <p className="font-cormorant text-3xl italic text-warmgray">New stories from our journal are coming soon.</p>
+          </section>
+        )}
+
         {/* ── FEATURED POST ─────────────────────────────────────── */}
+        {featured && (
         <section className="py-section">
           <div className="container-custom">
             <Link
-              href={featured.slug === '#' ? '/blogs' : `/blogs/${featured.slug}`}
+              href={`/blogs/${featured.slug}`}
               className="group grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-premium hover:shadow-premium-lg transition-all duration-500"
               data-aos="fade-up"
             >
               <div className="relative h-72 lg:h-auto min-h-[320px] overflow-hidden">
                 <Image
-                  src={featured.featuredImage || 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&h=600&fit=crop'}
+                  src={featured.featuredImage || img('hero-mandap', 1200)}
                   alt={featured.title}
-                  fill className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors duration-500" />
                 <div className="absolute top-6 left-6">
@@ -118,12 +79,12 @@ export default async function BlogsPage() {
                 <p className="font-sans text-warmgray leading-relaxed mb-6 line-clamp-3">{featured.excerpt}</p>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-blush flex items-center justify-center font-cormorant text-accent font-[700] text-sm">
-                    {(featured.author || 'R')[0]}
+                    {(featured.author || 'W')[0]}
                   </div>
                   <div>
                     <div className="font-sans text-sm font-[500] text-primary">{featured.author}</div>
                     <div className="font-sans text-xs text-warmgray">
-                      {new Date(featured.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      {new Date(featured.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
                     </div>
                   </div>
                 </div>
@@ -131,6 +92,7 @@ export default async function BlogsPage() {
             </Link>
           </div>
         </section>
+        )}
 
         {/* ── REST OF POSTS ─────────────────────────────────────── */}
         <section className="pb-section">
@@ -139,16 +101,16 @@ export default async function BlogsPage() {
               {rest.map((post: any, i: number) => (
                 <Link
                   key={post._id}
-                  href={post.slug === '#' ? '/blogs' : `/blogs/${post.slug}`}
+                  href={`/blogs/${post.slug}`}
                   className="blog-card group"
                   data-aos="fade-up"
                   data-aos-delay={i * 80}
                 >
                   <div className="relative h-52 overflow-hidden">
                     <Image
-                      src={post.featuredImage || 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop'}
+                      src={post.featuredImage || img('hero-mandap', 800)}
                       alt={post.title}
-                      fill className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="glass-card rounded-full px-3 py-1 text-xs font-sans font-[500] text-accent">
@@ -159,7 +121,7 @@ export default async function BlogsPage() {
                   <div className="p-6">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="font-sans text-xs text-warmgray">
-                        {new Date(post.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        {new Date(post.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </span>
                       <span className="w-1 h-1 bg-champagne rounded-full" />
                       <span className="font-sans text-xs text-warmgray">{post.readTime} min read</span>
@@ -170,7 +132,7 @@ export default async function BlogsPage() {
                     <p className="font-sans text-sm text-warmgray leading-relaxed line-clamp-2 mb-4">{post.excerpt}</p>
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 rounded-full bg-blush flex items-center justify-center font-cormorant text-accent font-[700] text-xs">
-                        {(post.author || 'R')[0]}
+                        {(post.author || 'W')[0]}
                       </div>
                       <span className="font-sans text-xs text-warmgray">{post.author}</span>
                     </div>
@@ -181,26 +143,19 @@ export default async function BlogsPage() {
           </div>
         </section>
 
-        {/* ── NEWSLETTER CTA ────────────────────────────────────── */}
+        {/* ── CTA ───────────────────────────────────────────────── */}
         <section className="py-20 bg-primary text-center">
           <div className="container-custom" data-aos="fade-up">
             <h2 className="font-cormorant text-4xl sm:text-5xl font-[300] italic text-white mb-5">
-              Wedding Inspiration,
-              <span className="font-[600] not-italic text-champagne"> Delivered Monthly</span>
+              Inspired?
+              <span className="font-[600] not-italic text-champagne"> Let&apos;s Plan Yours</span>
             </h2>
             <p className="font-sans text-warmgray max-w-lg mx-auto mb-8">
-              Join 5,000+ couples who receive our monthly journal — real weddings, expert advice, and exclusive offers.
+              Tell us about your dream celebration and our planners will get back to you within 24 hours.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="flex-1 input-wedding bg-white/10 border-white/20 text-white placeholder:text-white/40"
-              />
-              <button className="btn-gold flex-shrink-0">
-                <span>Subscribe</span>
-              </button>
-            </div>
+            <Link href="/contact" className="btn-gold inline-block">
+              <span>Book a Free Consultation</span>
+            </Link>
           </div>
         </section>
       </main>

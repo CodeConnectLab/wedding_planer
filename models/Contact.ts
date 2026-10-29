@@ -7,6 +7,10 @@ export interface IContact extends Document {
   service?: string;
   subService?: string;
   message?: string;
+  weddingDate?: string;
+  venue?: string;
+  guestCount?: string;
+  budget?: string;
   isRead: boolean;
   createdAt: Date;
 }
@@ -18,6 +22,10 @@ const ContactSchema: Schema = new Schema({
   service: { type: String, required: false },
   subService: { type: String, required: false },
   message: { type: String, required: false },
+  weddingDate: { type: String },
+  venue: { type: String },
+  guestCount: { type: String },
+  budget: { type: String },
   isRead: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
 });

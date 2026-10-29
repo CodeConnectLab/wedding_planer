@@ -1,61 +1,18 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
 import {
-  FaFacebook, FaInstagram, FaYoutube, FaPinterest,
+  FaFacebook, FaInstagram, FaYoutube, FaPinterest, FaLinkedin,
   FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp,
 } from 'react-icons/fa';
-
-interface FooterLink {
-  label: string;
-  href: string;
-}
-
-interface FooterSettings {
-  companyName: string;
-  companyDescription: string;
-  logo: string;
-  phone: string;
-  email: string;
-  address: string;
-  facebookUrl: string;
-  instagramUrl: string;
-  linkedinUrl: string;
-  youtubeUrl?: string;
-  pinterestUrl?: string;
-  whatsappNumber?: string;
-  copyrightText: string;
-  weddingsTitle?: string;
-  weddingLinks?: FooterLink[];
-  eventsTitle?: string;
-  eventLinks?: FooterLink[];
-}
-
-let footerCache: FooterSettings | null = null;
-let cacheTime = 0;
-const CACHE_DURATION = 5 * 60 * 1000;
-
-const defaultWeddingLinks: FooterLink[] = [
-  { label: 'Destination Weddings', href: '/destination-weddings' },
-  { label: 'Wedding Decor', href: '/services/wedding-decor' },
-  { label: 'Photography & Film', href: '/services/photography' },
-  { label: 'Mehndi & Beauty', href: '/services/mehndi' },
-  { label: 'Bachelor Party', href: '/bachelor-party' },
-  { label: 'Honeymoon Packages', href: '/services/honeymoon' },
-];
-
-const defaultEventLinks: FooterLink[] = [
-  { label: 'Corporate Events', href: '/services/corporate-events' },
-  { label: 'Award Nights', href: '/services/award-nights' },
-  { label: 'Fashion Shows', href: '/services/fashion-shows' },
-  { label: 'Conference & Expo', href: '/services/conference' },
-];
+import useSiteConfig from '@/components/useSiteConfig';
+import { telHref, whatsappHref } from '@/lib/siteDefaults';
 
 const quickLinks = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about' },
+  { label: 'Services', href: '/services' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Blog', href: '/blogs' },
   { label: 'FAQs', href: '/faqs' },
@@ -65,64 +22,14 @@ const quickLinks = [
 ];
 
 export default function Footer() {
-  const [footerSettings, setFooterSettings] = useState<FooterSettings | null>(null);
-
-  useEffect(() => {
-    const fetchFooterSettings = async () => {
-      const now = Date.now();
-      if (footerCache && now - cacheTime < CACHE_DURATION) {
-        setFooterSettings(footerCache);
-        return;
-      }
-      try {
-        const res = await fetch('/api/footer-settings');
-        if (res.ok) {
-          const data = await res.json();
-          footerCache = data;
-          cacheTime = now;
-          setFooterSettings(data);
-        }
-      } catch {}
-    };
-    fetchFooterSettings();
-  }, []);
-
-  const defaultSettings: FooterSettings = {
-    companyName: 'WAH Momentz',
-    companyDescription:
-      'India\'s premier luxury wedding planning studio. We craft bespoke celebrations that honour your love story — from intimate ceremonies to grand royal weddings.',
-    logo: '/logo.svg',
-    phone: '+91 98911 06761',
-    email: 'wahmomentz@gmail.com',
-    address: 'H5-16, Sector 11, Rohini\nNew Delhi — 110085',
-    facebookUrl: 'https://facebook.com/wahmomentz',
-    instagramUrl: 'https://instagram.com/wahmomentz',
-    linkedinUrl: 'https://linkedin.com',
-    youtubeUrl: 'https://youtube.com',
-    pinterestUrl: 'https://pinterest.com',
-    whatsappNumber: '919891106761',
-    copyrightText: 'WAH Momentz. All Rights Reserved.',
-    weddingsTitle: 'Weddings',
-    weddingLinks: defaultWeddingLinks,
-    eventsTitle: 'Events',
-    eventLinks: defaultEventLinks,
-  };
-
-  const rawSettings = footerSettings || defaultSettings;
-  const settings = {
-    ...rawSettings,
-    logo: rawSettings.logo === '/logo.png' ? '/logo.svg' : (rawSettings.logo || '/logo.svg'),
-    weddingsTitle: rawSettings.weddingsTitle || 'Weddings',
-    weddingLinks: rawSettings.weddingLinks?.length ? rawSettings.weddingLinks : defaultWeddingLinks,
-    eventsTitle: rawSettings.eventsTitle || 'Events',
-    eventLinks: rawSettings.eventLinks?.length ? rawSettings.eventLinks : defaultEventLinks,
-  };
+  const { settings } = useSiteConfig();
 
   const socialLinks = [
     { url: settings.instagramUrl, icon: FaInstagram, label: 'Instagram' },
     { url: settings.facebookUrl, icon: FaFacebook, label: 'Facebook' },
     { url: settings.youtubeUrl, icon: FaYoutube, label: 'YouTube' },
     { url: settings.pinterestUrl, icon: FaPinterest, label: 'Pinterest' },
+    { url: settings.linkedinUrl, icon: FaLinkedin, label: 'LinkedIn' },
   ].filter((s) => s.url);
 
   return (
@@ -160,7 +67,7 @@ export default function Footer() {
             {/* Contact Info */}
             <div className="space-y-3 mb-8">
               <a
-                href={`tel:${settings.phone}`}
+                href={telHref(settings.phone)}
                 className="flex items-center gap-3 text-sm text-warmgray hover:text-accent transition-colors group"
               >
                 <span className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-accent/50 transition-colors">
@@ -205,7 +112,7 @@ export default function Footer() {
               ))}
               {settings.whatsappNumber && (
                 <a
-                  href={`https://wa.me/${settings.whatsappNumber}`}
+                  href={whatsappHref(settings.whatsappNumber)}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
@@ -279,7 +186,7 @@ export default function Footer() {
             {/* WhatsApp CTA */}
             {settings.whatsappNumber && (
               <a
-                href={`https://wa.me/${settings.whatsappNumber}?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20wedding%20planning%20services.`}
+                href={whatsappHref(settings.whatsappNumber, "Hi, I'd like to enquire about wedding planning services.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 flex items-center gap-2.5 bg-green-700/20 border border-green-600/30 rounded-xl px-4 py-3 text-sm text-green-300 hover:bg-green-700/30 transition-all duration-300 group"

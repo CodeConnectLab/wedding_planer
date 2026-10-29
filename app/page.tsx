@@ -1,30 +1,30 @@
-﻿import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnimatedHomepage from '@/components/AnimatedHomepage';
 import ModernAdsBanner from '@/components/ModernAdsBanner';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import {
+  getLatestBlogs,
+  getProcessSteps,
+  getProjects,
+  getServices,
+  getSiteSettings,
+  getSliders,
+  getTestimonials,
+  serviceHref,
+} from '@/lib/data';
+import { img, serviceImage } from '@/lib/images';
+import { whatsappHref } from '@/lib/siteDefaults';
 
-const HeroSlider       = dynamic(() => import('@/components/HeroSlider'), { loading: () => <div className="skeleton h-screen" /> });
-const VideoSection     = dynamic(() => import('@/components/VideoSection'), { loading: () => <div className="skeleton h-64" /> });
-const FAQSection       = dynamic(() => import('@/components/FAQSection'), { loading: () => <div className="skeleton h-64" /> });
+const HeroSlider       = nextDynamic(() => import('@/components/HeroSlider'), { loading: () => <div className="skeleton h-screen" /> });
+const VideoSection     = nextDynamic(() => import('@/components/VideoSection'), { loading: () => <div className="skeleton h-64" /> });
+const FAQSection       = nextDynamic(() => import('@/components/FAQSection'), { loading: () => <div className="skeleton h-64" /> });
 
-async function getSliders() {
-  try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/slider`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    return res.json();
-  } catch { return []; }
-}
-
-async function getProjects() {
-  try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/projects`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    return res.json();
-  } catch { return []; }
-}
+// Rendered per request so admin-panel changes show up immediately.
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'WAH Momentz — Luxury Wedding Planners India',
@@ -39,13 +39,21 @@ export const metadata = {
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
-const services = [
-  { icon: '✈️', title: 'Destination Weddings', desc: 'Seamlessly curated weddings across Udaipur, Jaipur, Goa, Kerala and exotic international locales — every detail handled with precision.', href: '/destination-weddings' },
-  { icon: '🌸', title: 'Wedding Décor', desc: 'From floral mandaps to cinematic lighting, our décor team transforms venues into breathtaking dreamscapes unique to your story.', href: '/services/wedding-decor' },
-  { icon: '📸', title: 'Photography & Film', desc: 'Artistic photographers and cinematic filmmakers who capture every stolen glance, tearful embrace, and joyful dance — timelessly.', href: '/services/photography' },
-  { icon: '🏛️', title: 'Venue Management', desc: 'From palace properties to boutique resorts, we manage every venue detail — logistics, décor, catering coordination, and guest experience.', href: '/services/venue-management' },
-  { icon: '🍽️', title: 'Catering Excellence', desc: 'A curated feast spanning regional Indian cuisines and international menus, styled with elegance to delight every palate.', href: '/services/catering' },
-  { icon: '🌿', title: 'Mehndi & Beauty', desc: 'Award-winning mehndi artists and bridal beauty teams to ensure you look and feel absolutely radiant on your most important day.', href: '/services/mehndi' },
+// Shown only until services / process steps are added in the admin panel.
+const fallbackServices = [
+  { _id: 'destination', icon: '✈️', title: 'Destination Weddings', shortDescription: 'Seamlessly curated weddings across Udaipur, Jaipur, Goa, Kerala and exotic international locales — every detail handled with precision.', href: '/destination-weddings', slug: 'destination-weddings' },
+  { _id: 'decor', icon: '🌸', title: 'Wedding Décor', shortDescription: 'From floral mandaps to cinematic lighting, our décor team transforms venues into breathtaking dreamscapes unique to your story.', slug: 'wedding-decor' },
+  { _id: 'photo', icon: '📸', title: 'Photography & Film', shortDescription: 'Artistic photographers and cinematic filmmakers who capture every stolen glance, tearful embrace, and joyful dance — timelessly.', slug: 'photography' },
+  { _id: 'venue', icon: '🏛️', title: 'Venue Management', shortDescription: 'From palace properties to boutique resorts, we manage every venue detail — logistics, décor, catering coordination, and guest experience.', slug: 'venue-management' },
+  { _id: 'catering', icon: '🍽️', title: 'Catering Excellence', shortDescription: 'A curated feast spanning regional Indian cuisines and international menus, styled with elegance to delight every palate.', slug: 'catering' },
+  { _id: 'mehndi', icon: '🌿', title: 'Mehndi & Beauty', shortDescription: 'Award-winning mehndi artists and bridal beauty teams to ensure you look and feel absolutely radiant on your most important day.', slug: 'mehndi' },
+];
+
+const fallbackProcess = [
+  { _id: '1', stepNumber: 1, title: 'Consultation', description: 'A personal conversation to understand your vision, desires, and the unique essence of your love story.' },
+  { _id: '2', stepNumber: 2, title: 'Concept & Design', description: 'Our creative team crafts a bespoke wedding concept — mood boards, theme, colour palette, and style direction.' },
+  { _id: '3', stepNumber: 3, title: 'Planning & Curation', description: 'We orchestrate every detail — venue, vendors, timelines, logistics — managing it all so you simply enjoy.' },
+  { _id: '4', stepNumber: 4, title: 'Flawless Execution', description: 'On your day, our team is on-ground ensuring every moment unfolds exactly as you dreamed.' },
 ];
 
 const stats = [
@@ -56,10 +64,10 @@ const stats = [
 ];
 
 const weddingStyles = [
-  { title: 'Royal Heritage', img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop', tag: 'Palace Wedding' },
-  { title: 'Garden Enchantment', img: 'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=800&fit=crop', tag: 'Outdoor Wedding' },
-  { title: 'Destination Dreams', img: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=800&fit=crop', tag: 'Destination Wedding' },
-  { title: 'Intimate Luxury', img: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=800&fit=crop', tag: 'Intimate Ceremony' },
+  { title: 'Royal Heritage', img: img('hero-palace-couple', 800), tag: 'Palace Wedding' },
+  { title: 'Mehndi & Haldi', img: img('haldi-bride', 800), tag: 'Pre-Wedding Rituals' },
+  { title: 'Destination Dreams', img: img('venue-udaipur-golden', 800), tag: 'Destination Wedding' },
+  { title: 'Bridal Portraits', img: img('bride-portrait', 800), tag: 'Photography' },
 ];
 
 const marqueeItems = [
@@ -73,8 +81,19 @@ const marqueeItems = [
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default async function Home() {
-  const [sliders, projects] = await Promise.all([getSliders(), getProjects()]);
-  const featuredWeddings = projects.slice(0, 6);
+  const [sliders, featuredWeddings, dbServices, dbSteps, testimonials, blogs, settings] = await Promise.all([
+    getSliders(),
+    getProjects(6),
+    getServices(),
+    getProcessSteps(),
+    getTestimonials(9),
+    getLatestBlogs(3),
+    getSiteSettings(),
+  ]);
+  const featuredServices = dbServices.filter((svc: any) => svc.isFeatured);
+  const services = (featuredServices.length ? featuredServices : dbServices).slice(0, 6);
+  const homeServices = services.length ? services : fallbackServices;
+  const processSteps = dbSteps.length ? dbSteps : fallbackProcess;
 
   return (
     <AnimatedHomepage>
@@ -90,9 +109,10 @@ export default async function Home() {
             {/* Background */}
             <div className="absolute inset-0">
               <Image
-                src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=1080&fit=crop"
+                src={img('hero-palace-couple', 2000)}
                 alt="Luxury Indian Wedding"
                 fill
+                sizes="100vw"
                 className="object-cover"
                 priority
               />
@@ -191,15 +211,15 @@ export default async function Home() {
                   <div className="space-y-4">
                     <div className="relative h-64 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop"
-                        alt="Wedding ceremony"
+                        src={img('bride-lehenga', 700)}
+                        alt="Indian bride in a red lehenga"
                         fill className="object-cover"
                       />
                     </div>
                     <div className="relative h-40 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop"
-                        alt="Wedding couple"
+                        src={img('mehndi-closeup', 700)}
+                        alt="Bridal mehndi"
                         fill className="object-cover"
                       />
                     </div>
@@ -207,15 +227,15 @@ export default async function Home() {
                   <div className="space-y-4 pt-8">
                     <div className="relative h-40 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=400&fit=crop"
-                        alt="Wedding decor"
+                        src={img('decor-chandelier-lawn', 700)}
+                        alt="Wedding decor with chandeliers"
                         fill className="object-cover"
                       />
                     </div>
                     <div className="relative h-64 rounded-2xl overflow-hidden shadow-premium hover-scale-img">
                       <Image
-                        src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=800&fit=crop"
-                        alt="Bridal portrait"
+                        src={img('couple-fairy-lights', 700)}
+                        alt="Bride and groom portrait"
                         fill className="object-cover"
                       />
                     </div>
@@ -310,9 +330,9 @@ export default async function Home() {
                   >
                     <div className="relative h-80">
                       <Image
-                        src={wedding.images?.[0] || 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'}
+                        src={wedding.images?.[0] || img('hero-mandap', 800)}
                         alt={wedding.title}
-                        fill className="object-cover"
+                        fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover"
                       />
                       <div className="card-gallery-overlay" />
                       <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
@@ -337,7 +357,7 @@ export default async function Home() {
                     data-aos-delay={i * 100}
                   >
                     <div className={`relative ${i === 0 || i === 3 ? 'h-96' : 'h-72'}`}>
-                      <Image src={style.img} alt={style.title} fill className="object-cover" />
+                      <Image src={style.img} alt={style.title} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" />
                       <div className="card-gallery-overlay" />
                       <div className="absolute top-4 left-4">
                         <span className="glass-dark rounded-full px-3 py-1 text-xs font-sans text-champagne/80 uppercase tracking-widest">
@@ -366,9 +386,9 @@ export default async function Home() {
           {/* Background motif */}
           <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.025] pointer-events-none">
             <Image
-              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&h=1200&fit=crop"
+              src={img('decor-marigold-garlands', 1200)}
               alt=""
-              fill className="object-cover"
+              fill sizes="50vw" className="object-cover"
             />
           </div>
 
@@ -389,26 +409,38 @@ export default async function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service, i) => (
+              {homeServices.map((service: any, i: number) => (
                 <Link
-                  key={service.title}
-                  href={service.href}
-                  className="service-card p-8 group block"
+                  key={service._id}
+                  href={serviceHref(service)}
+                  className="service-card group block overflow-hidden"
                   data-aos="fade-up"
                   data-aos-delay={i * 80}
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-blush flex items-center justify-center text-2xl mb-5 group-hover:scale-110 group-hover:bg-champagne transition-all duration-400">
-                    {service.icon}
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={serviceImage(service, 800)}
+                      alt={service.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 w-12 h-12 rounded-2xl bg-ivory/95 flex items-center justify-center text-2xl shadow-premium group-hover:scale-110 transition-transform duration-400">
+                      {service.icon || '💍'}
+                    </div>
                   </div>
-                  <h3 className="font-cormorant text-2xl font-[600] text-primary mb-3 group-hover:text-accent transition-colors duration-300">
-                    {service.title}
-                  </h3>
-                  <p className="font-sans text-warmgray text-sm leading-relaxed mb-4">
-                    {service.desc}
-                  </p>
-                  <span className="link-gold font-sans text-sm font-[500]">
-                    Explore service →
-                  </span>
+                  <div className="p-7">
+                    <h3 className="font-cormorant text-2xl font-[600] text-primary mb-3 group-hover:text-accent transition-colors duration-300">
+                      {service.title}
+                    </h3>
+                    <p className="font-sans text-warmgray text-sm leading-relaxed mb-4 line-clamp-3">
+                      {service.shortDescription || service.description}
+                    </p>
+                    <span className="link-gold font-sans text-sm font-[500]">
+                      Explore service →
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -439,45 +471,49 @@ export default async function Home() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { step: '01', title: 'Consultation', desc: 'A personal conversation to understand your vision, desires, and the unique essence of your love story.' },
-                { step: '02', title: 'Concept & Design', desc: 'Our creative team crafts a bespoke wedding concept — mood boards, theme, colour palette, and style direction.' },
-                { step: '03', title: 'Planning & Curation', desc: 'We orchestrate every detail — venue, vendors, timelines, logistics — managing it all so you simply enjoy.' },
-                { step: '04', title: 'Flawless Execution', desc: 'On your day, our team is on-ground ensuring every moment unfolds exactly as you dreamed.' },
-              ].map((item, i) => (
+              {processSteps.slice(0, 4).map((item: any, i: number) => (
                 <div
-                  key={item.step}
+                  key={item._id}
                   className="text-center group"
                   data-aos="fade-up"
                   data-aos-delay={i * 100}
                 >
                   <div className="relative w-16 h-16 rounded-full border-2 border-accent/40 flex items-center justify-center mx-auto mb-6 group-hover:border-accent transition-colors duration-400">
-                    <span className="font-cormorant text-xl font-[700] text-accent">{item.step}</span>
-                    {i < 3 && (
+                    <span className="font-cormorant text-xl font-[700] text-accent">{String(item.stepNumber ?? i + 1).padStart(2, '0')}</span>
+                    {i < Math.min(processSteps.length, 4) - 1 && (
                       <div className="hidden lg:block absolute top-1/2 left-full w-full h-px bg-gradient-to-r from-accent/30 to-transparent -translate-y-1/2 ml-2" />
                     )}
                   </div>
                   <h3 className="font-cormorant text-xl font-[600] text-champagne mb-3">{item.title}</h3>
-                  <p className="font-sans text-sm text-warmgray leading-relaxed">{item.desc}</p>
+                  <p className="font-sans text-sm text-warmgray leading-relaxed">{item.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
+        {/* ── TESTIMONIALS ─────────────────────────────────────── */}
+        <TestimonialsSection testimonials={testimonials} />
+
         {/* ── FAQ SECTION ──────────────────────────────────────── */}
         <FAQSection maxItems={6} showViewAllButton={true} />
 
         {/* ── VIDEO SECTION ────────────────────────────────────── */}
-        <VideoSection featuredOnly={true} maxVideos={3} showCategories={false} />
+        <VideoSection
+          title="Wedding Films"
+          subtitle="Relive the emotion, colour and celebration of weddings we've had the honour to plan"
+          featuredOnly={true}
+          maxVideos={3}
+          showCategories={false}
+        />
 
         {/* ── CTA SECTION ──────────────────────────────────────── */}
         <section className="py-section relative overflow-hidden bg-primary">
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&h=800&fit=crop"
+              src={img('hero-grand-decor', 2000)}
               alt="Wedding celebration"
-              fill className="object-cover opacity-20"
+              fill sizes="100vw" className="object-cover opacity-20"
             />
             <div className="absolute inset-0 bg-primary/70" />
           </div>
@@ -513,7 +549,7 @@ export default async function Home() {
                 <span>Schedule a Consultation</span>
               </Link>
               <a
-                href="https://wa.me/919891106761?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20wedding%20planning%20services."
+                href={whatsappHref(settings.whatsappNumber, "Hi, I'd like to enquire about wedding planning services.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline-white flex items-center justify-center gap-2"
@@ -526,88 +562,70 @@ export default async function Home() {
         </section>
 
         {/* ── BLOG PREVIEW ─────────────────────────────────────── */}
-        <section className="py-section bg-ivory">
-          <div className="container-custom">
-            <div className="flex flex-col sm:flex-row justify-between items-end mb-12">
-              <div data-aos="fade-right">
-                <div className="eyebrow mb-3">Inspiration & Advice</div>
-                <h2 className="font-cormorant text-4xl sm:text-5xl font-[300] italic text-primary">
-                  From Our <span className="font-[600] not-italic">Journal</span>
-                </h2>
-              </div>
-              <Link
-                href="/blogs"
-                className="font-sans text-sm font-[500] text-accent hover:text-burgundy transition-colors mt-4 sm:mt-0"
-                data-aos="fade-left"
-              >
-                View All Articles →
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  category: 'Planning Tips',
-                  title: '10 Questions to Ask Your Wedding Planner Before Signing',
-                  excerpt: 'Choosing the right wedding planner is one of the most important decisions you\'ll make. Here are the key questions every couple should ask.',
-                  img: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=400&fit=crop',
-                  date: 'June 2025',
-                  readTime: '5 min read',
-                  slug: '#'
-                },
-                {
-                  category: 'Décor Trends',
-                  title: 'The Rise of Sustainable Weddings: Beautiful & Responsible',
-                  excerpt: 'Eco-conscious couples are redefining luxury with sustainable floral arrangements, zero-waste menus, and mindful venue choices.',
-                  img: 'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop',
-                  date: 'May 2025',
-                  readTime: '7 min read',
-                  slug: '#'
-                },
-                {
-                  category: 'Destination',
-                  title: 'Top 10 Royal Palaces in India for an Unforgettable Wedding',
-                  excerpt: 'From Udaipur\'s lake palaces to Jaipur\'s fort hotels — our curated guide to India\'s most spectacular wedding venues.',
-                  img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
-                  date: 'April 2025',
-                  readTime: '8 min read',
-                  slug: '#'
-                },
-              ].map((post, i) => (
+        {blogs.length > 0 && (
+          <section className="py-section bg-ivory">
+            <div className="container-custom">
+              <div className="flex flex-col sm:flex-row justify-between items-end mb-12">
+                <div data-aos="fade-right">
+                  <div className="eyebrow mb-3">Inspiration & Advice</div>
+                  <h2 className="font-cormorant text-4xl sm:text-5xl font-[300] italic text-primary">
+                    From Our <span className="font-[600] not-italic">Journal</span>
+                  </h2>
+                </div>
                 <Link
-                  key={post.title}
-                  href={post.slug === '#' ? '/blogs' : `/blogs/${post.slug}`}
-                  className="blog-card group"
-                  data-aos="fade-up"
-                  data-aos-delay={i * 100}
+                  href="/blogs"
+                  className="font-sans text-sm font-[500] text-accent hover:text-burgundy transition-colors mt-4 sm:mt-0"
+                  data-aos="fade-left"
                 >
-                  <div className="relative h-52 overflow-hidden">
-                    <Image src={post.img} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute top-4 left-4">
-                      <span className="glass-card rounded-full px-3 py-1 text-xs font-sans font-[500] text-accent">
-                        {post.category}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="font-sans text-xs text-warmgray">{post.date}</span>
-                      <span className="w-1 h-1 bg-champagne rounded-full" />
-                      <span className="font-sans text-xs text-warmgray">{post.readTime}</span>
-                    </div>
-                    <h3 className="font-cormorant text-xl font-[600] text-primary mb-3 group-hover:text-accent transition-colors leading-snug">
-                      {post.title}
-                    </h3>
-                    <p className="font-sans text-sm text-warmgray leading-relaxed line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    <div className="mt-4 link-gold text-sm">Read more →</div>
-                  </div>
+                  View All Articles →
                 </Link>
-              ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {blogs.map((post: any, i: number) => (
+                  <Link
+                    key={post._id}
+                    href={`/blogs/${post.slug}`}
+                    className="blog-card group"
+                    data-aos="fade-up"
+                    data-aos-delay={i * 100}
+                  >
+                    <div className="relative h-52 overflow-hidden">
+                      <Image
+                        src={post.featuredImage}
+                        alt={post.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <span className="glass-card rounded-full px-3 py-1 text-xs font-sans font-[500] text-accent">
+                          {post.category}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="font-sans text-xs text-warmgray">
+                          {new Date(post.publishedAt).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}
+                        </span>
+                        <span className="w-1 h-1 bg-champagne rounded-full" />
+                        <span className="font-sans text-xs text-warmgray">{post.readTime} min read</span>
+                      </div>
+                      <h3 className="font-cormorant text-xl font-[600] text-primary mb-3 group-hover:text-accent transition-colors leading-snug">
+                        {post.title}
+                      </h3>
+                      <p className="font-sans text-sm text-warmgray leading-relaxed line-clamp-2">
+                        {post.excerpt}
+                      </p>
+                      <div className="mt-4 link-gold text-sm">Read more →</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
 
       <Footer />

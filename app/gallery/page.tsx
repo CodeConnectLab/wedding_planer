@@ -1,10 +1,11 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { img } from '@/lib/images';
 
 interface Wedding {
   _id: string;
@@ -26,48 +27,34 @@ interface Category {
   slug: string;
 }
 
-const placeholderWeddings = [
-  { _id: '1', title: 'A Royal Rajput Affair', slug: '#', images: ['https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'], location: 'Udaipur, Rajasthan', year: 2024, clientName: 'Ananya & Vikram', weddingStyle: 'Royal Heritage' },
-  { _id: '2', title: 'Garden Enchantment', slug: '#', images: ['https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=800&fit=crop'], location: 'Bangalore', year: 2024, clientName: 'Priya & Arjun', weddingStyle: 'Garden Wedding' },
-  { _id: '3', title: 'Goa Beach Wedding', slug: '#', images: ['https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=800&fit=crop'], location: 'Goa', year: 2024, clientName: 'Meera & Rohit', weddingStyle: 'Destination' },
-  { _id: '4', title: 'Palace of Dreams', slug: '#', images: ['https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=800&fit=crop'], location: 'Jaipur, Rajasthan', year: 2023, clientName: 'Kavya & Siddharth', weddingStyle: 'Royal Heritage' },
-  { _id: '5', title: 'Backwaters Romance', slug: '#', images: ['https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=800&fit=crop'], location: 'Kerala', year: 2023, clientName: 'Nisha & Pranav', weddingStyle: 'Destination' },
-  { _id: '6', title: 'Delhi Winter Wedding', slug: '#', images: ['https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=800&fit=crop'], location: 'New Delhi', year: 2023, clientName: 'Riya & Kabir', weddingStyle: 'Intimate' },
-  { _id: '7', title: 'Himalayan Retreat', slug: '#', images: ['https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&h=800&fit=crop'], location: 'Mussoorie', year: 2023, clientName: 'Anjali & Nikhil', weddingStyle: 'Destination' },
-  { _id: '8', title: 'Heritage Haveli Celebration', slug: '#', images: ['https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&h=800&fit=crop'], location: 'Jodhpur', year: 2022, clientName: 'Deepa & Rahul', weddingStyle: 'Royal Heritage' },
-  { _id: '9', title: 'A Modern Mumbai Love Story', slug: '#', images: ['https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=800&fit=crop'], location: 'Mumbai', year: 2022, clientName: 'Simran & Aryan', weddingStyle: 'Modern' },
-];
-
-const filters = ['All', 'Royal Heritage', 'Destination', 'Garden Wedding', 'Modern', 'Intimate'];
-
 export default function GalleryPage() {
   const [weddings, setWeddings] = useState<Wedding[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [activeFilter, setActiveFilter] = useState('All');
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchWeddings = async () => {
+    const load = async () => {
       try {
-        const res = await fetch('/api/projects');
-        if (res.ok) {
-          const data = await res.json();
-          setWeddings(data.length > 0 ? data : placeholderWeddings as any);
-        } else {
-          setWeddings(placeholderWeddings as any);
-        }
-      } catch {
-        setWeddings(placeholderWeddings as any);
+        const [weddingsRes, categoriesRes] = await Promise.all([fetch('/api/projects'), fetch('/api/categories')]);
+        if (weddingsRes.ok) setWeddings(await weddingsRes.json());
+        if (categoriesRes.ok) setCategories(await categoriesRes.json());
+      } catch (error) {
+        console.error('Failed to load gallery:', error);
       } finally {
         setLoading(false);
       }
     };
-    fetchWeddings();
+    load();
   }, []);
+
+  // Only offer filters that actually have weddings behind them.
+  const filters = ['All', ...categories.map((c) => c.name).filter((name) => weddings.some((w) => w.category?.name === name))];
 
   const filtered = activeFilter === 'All'
     ? weddings
-    : weddings.filter((w) => w.weddingStyle === activeFilter || (w.category as any)?.name === activeFilter);
+    : weddings.filter((w) => w.category?.name === activeFilter);
 
   return (
     <>
@@ -89,6 +76,7 @@ export default function GalleryPage() {
         </section>
 
         {/* ── FILTER TABS ──────────────────────────────────────── */}
+        {filters.length > 1 && (
         <div className="sticky top-20 z-50 bg-ivory/95 backdrop-blur-sm border-b border-champagne/20 py-4">
           <div className="container-custom">
             <div className="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-thin">
@@ -108,6 +96,7 @@ export default function GalleryPage() {
             </div>
           </div>
         </div>
+        )}
 
         {/* ── GALLERY GRID ─────────────────────────────────────── */}
         <section className="py-section">
@@ -128,13 +117,13 @@ export default function GalleryPage() {
                   >
                     <div
                       className="relative overflow-hidden rounded-2xl cursor-pointer shadow-premium"
-                      onClick={() => setLightboxImg(wedding.images?.[0])}
+                      onClick={() => wedding.images?.[0] && setLightboxImg(wedding.images[0])}
                       style={{ aspectRatio: i % 3 === 0 ? '3/4' : '4/3' }}
                     >
                       <Image
-                        src={wedding.images?.[0] || 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=800&fit=crop'}
+                        src={wedding.images?.[0] || img('hero-mandap', 900)}
                         alt={wedding.title}
-                        fill className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       <div className="card-gallery-overlay" />
 
@@ -146,6 +135,14 @@ export default function GalleryPage() {
                           </span>
                         </div>
                       )}
+
+                      <Link
+                        href={`/gallery/${wedding.slug}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="absolute bottom-4 right-4 glass-dark rounded-full px-4 py-2 text-xs font-sans text-champagne uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      >
+                        View Story →
+                      </Link>
 
                       {/* Info overlay */}
                       {/* <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
@@ -163,10 +160,14 @@ export default function GalleryPage() {
 
             {!loading && filtered.length === 0 && (
               <div className="text-center py-20">
-                <p className="font-cormorant text-3xl font-[300] italic text-warmgray">No weddings found for this style.</p>
-                <button onClick={() => setActiveFilter('All')} className="mt-4 link-gold font-sans text-sm">
-                  View all weddings →
-                </button>
+                <p className="font-cormorant text-3xl font-[300] italic text-warmgray">
+                  {weddings.length === 0 ? 'Our latest celebrations will appear here soon.' : 'No weddings found for this style.'}
+                </p>
+                {weddings.length > 0 && (
+                  <button onClick={() => setActiveFilter('All')} className="mt-4 link-gold font-sans text-sm">
+                    View all weddings →
+                  </button>
+                )}
               </div>
             )}
           </div>
@@ -199,7 +200,7 @@ export default function GalleryPage() {
             <Image
               src={lightboxImg}
               alt="Wedding photo"
-              fill className="object-contain"
+              fill sizes="100vw" className="object-contain"
             />
           </div>
           <button

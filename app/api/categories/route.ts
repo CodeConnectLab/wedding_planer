@@ -3,16 +3,15 @@ import dbConnect from '@/lib/mongodb';
 import Category from '@/models/Category';
 import { verifyToken } from '@/utils/auth';
 import { slugify } from '@/utils/slugify';
-import { mockCategories } from '@/lib/mockData';
 
 export async function GET() {
   try {
     await dbConnect();
-    const categories = await Category.find();
+    const categories = await Category.find().sort({ name: 1 });
     return NextResponse.json(categories);
   } catch (error) {
-    console.log('Using mock data - MongoDB not connected');
-    return NextResponse.json(mockCategories);
+    console.error('Error fetching categories:', error);
+    return NextResponse.json({ error: 'Failed to fetch categories' }, { status: 500 });
   }
 }
 

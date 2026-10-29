@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState } from 'react';
 import AdminLayout from '@/components/AdminLayout';
@@ -26,13 +26,13 @@ export default function AdminDashboard() {
       try {
         const [projectsRes, contactsRes, slidersRes, adsSlidersRes, testimonialsRes, blogsRes, servicesRes] =
           await Promise.all([
-            fetch('/api/projects'),
+            fetch('/api/projects?admin=true'),
             fetch('/api/contact'),
-            fetch('/api/slider'),
-            fetch('/api/ads-slider'),
-            fetch('/api/testimonials'),
-            fetch('/api/blogs'),
-            fetch('/api/services'),
+            fetch('/api/slider?admin=true'),
+            fetch('/api/ads-slider?admin=true'),
+            fetch('/api/testimonials?admin=true'),
+            fetch('/api/blogs?admin=true&limit=1'),
+            fetch('/api/services?admin=true'),
           ]);
 
         const [weddings, contacts, sliders, adsSliders, testimonials, blogs, services] = await Promise.all([
@@ -41,7 +41,7 @@ export default function AdminDashboard() {
           slidersRes.ok ? slidersRes.json() : [],
           adsSlidersRes.ok ? adsSlidersRes.json() : [],
           testimonialsRes.ok ? testimonialsRes.json() : [],
-          blogsRes.ok ? blogsRes.json() : [],
+          blogsRes.ok ? blogsRes.json() : null,
           servicesRes.ok ? servicesRes.json() : [],
         ]);
 
@@ -52,7 +52,7 @@ export default function AdminDashboard() {
           sliders: Array.isArray(sliders) ? sliders.length : 0,
           adsSliders: Array.isArray(adsSliders) ? adsSliders.length : 0,
           testimonials: Array.isArray(testimonials) ? testimonials.length : 0,
-          blogs: Array.isArray(blogs) ? blogs.length : 0,
+          blogs: blogs?.pagination?.total ?? 0,
           services: Array.isArray(services) ? services.length : 0,
         });
       } catch (error) {
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
     { title: 'Videos', desc: 'Manage wedding video showcase', href: '/admin/videos', icon: FaVideo, color: 'bg-pink-600' },
     { title: 'Contact Inquiries', desc: 'View and respond to wedding inquiries', href: '/admin/contacts', icon: FaEnvelope, color: 'bg-red-600' },
     { title: 'Theme Settings', desc: 'Customise brand colours and fonts', href: '/admin/theme-settings', icon: FaPalette, color: 'bg-violet-600' },
-    { title: 'Footer & Brand', desc: 'Update company info, contacts, social links', href: '/admin/footer-settings', icon: FaCog, color: 'bg-gray-600' },
+    { title: 'Site & Contact Settings', desc: 'Phone, email, address, WhatsApp, social links & footer', href: '/admin/footer-settings', icon: FaCog, color: 'bg-gray-600' },
   ];
 
   return (

@@ -1,35 +1,22 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { FaBars, FaTimes, FaChevronDown, FaPhone } from 'react-icons/fa';
-
-const weddingServices = [
-  { label: 'Destination Weddings', href: '/destination-weddings', icon: '✈️' },
-  { label: 'Wedding Décor', href: '/services/wedding-decor', icon: '🌸' },
-  { label: 'Photography & Film', href: '/services/photography', icon: '📸' },
-  { label: 'Mehndi & Beauty', href: '/services/mehndi', icon: '🌿' },
-  { label: 'Catering', href: '/services/catering', icon: '🍽️' },
-  { label: 'Entertainment', href: '/services/entertainment', icon: '🎵' },
-  { label: 'Venue Management', href: '/services/venue-management', icon: '🏛️' },
-  { label: 'Invitation Design', href: '/services/invitations', icon: '✉️' },
-  { label: 'Bachelor Party', href: '/bachelor-party', icon: '🥂' },
-  { label: 'Honeymoon Packages', href: '/services/honeymoon', icon: '🌅' },
-  { label: 'Anniversary Party', href: '/services/anniversary', icon: '💍' },
-];
-
-const eventServices = [
-  
-  { label: 'Corporate Events', href: '/services/corporate-events', icon: '🎯' },
-  { label: 'Fashion Shows', href: '/services/fashion-shows', icon: '👗' },
-  { label: 'Award Nights', href: '/services/award-nights', icon: '🏆' },
-  { label: 'Conference & Expo', href: '/services/conference', icon: '📊' },
-];
+import useSiteConfig from '@/components/useSiteConfig';
+import { telHref } from '@/lib/siteDefaults';
 
 export default function Navbar() {
+  const { settings, services } = useSiteConfig();
+  const weddingServices = services.filter((s) => s.category === 'wedding');
+  const eventServices = services.filter((s) => s.category === 'event');
+  const phoneHref = telHref(settings.phone);
   const [isOpen, setIsOpen]           = useState(false);
   const [isScrolled, setIsScrolled]   = useState(false);
+  // Only the homepage has a full-bleed hero behind the navbar; other pages need the solid style.
+  const pathname = usePathname();
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServices, setMobileServices] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -60,9 +47,11 @@ export default function Navbar() {
     timeoutRef.current = setTimeout(() => setServicesOpen(false), 180);
   };
 
+  const solid = isScrolled || pathname !== '/';
+
   const navLinkClass = `
     relative font-sans text-sm font-[500] tracking-wide transition-colors duration-300
-    ${isScrolled ? 'text-primary hover:text-accent' : 'text-white hover:text-champagne'}
+    ${solid ? 'text-primary hover:text-accent' : 'text-white hover:text-champagne'}
     after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1.5px]
     after:bg-accent after:transition-all after:duration-300 hover:after:w-full
   `;
@@ -71,7 +60,7 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed top-0 left-0 w-full z-[200] transition-all duration-500 ${
-          isScrolled
+          solid
             ? 'bg-ivory/95 backdrop-blur-sm shadow-premium border-b border-champagne/30'
             : 'bg-transparent'
         }`}
@@ -82,11 +71,11 @@ export default function Navbar() {
             <Link href="/" className="flex items-center flex-shrink-0">
               <div className="relative w-40 sm:w-52 h-14">
                 <Image
-                  src="/logo.svg"
-                  alt="WAH Momentz"
+                  src={settings.logo}
+                  alt={settings.companyName}
                   fill
                   className={`object-contain object-left transition-all duration-500 ${
-                    isScrolled ? 'brightness-100' : 'brightness-0 invert'
+                    solid ? 'brightness-100' : 'brightness-0 invert'
                   }`}
                   priority
                 />
@@ -129,13 +118,13 @@ export default function Navbar() {
                         </p>
                         {weddingServices.map((s) => (
                           <Link
-                            key={s.href}
+                            key={`${s.category}-${s.href}`}
                             href={s.href}
                             className="flex items-center gap-2.5 py-2 px-2 rounded-lg text-sm text-warmgray hover:text-accent hover:bg-blush/40 transition-all duration-200 group"
                             onClick={() => setServicesOpen(false)}
                           >
                             <span className="text-base group-hover:scale-110 transition-transform">{s.icon}</span>
-                            <span className="font-sans font-[450]">{s.label}</span>
+                            <span className="font-sans font-[450]">{s.title}</span>
                           </Link>
                         ))}
                       </div>
@@ -145,13 +134,13 @@ export default function Navbar() {
                         </p>
                         {eventServices.map((s) => (
                           <Link
-                            key={s.href}
+                            key={`${s.category}-${s.href}`}
                             href={s.href}
                             className="flex items-center gap-2.5 py-2 px-2 rounded-lg text-sm text-warmgray hover:text-accent hover:bg-blush/40 transition-all duration-200 group"
                             onClick={() => setServicesOpen(false)}
                           >
                             <span className="text-base group-hover:scale-110 transition-transform">{s.icon}</span>
-                            <span className="font-sans font-[450]">{s.label}</span>
+                            <span className="font-sans font-[450]">{s.title}</span>
                           </Link>
                         ))}
                       </div>
@@ -182,18 +171,18 @@ export default function Navbar() {
 
               {/* Phone + CTA */}
               <a
-                href="tel:+919891106761"
+                href={phoneHref}
                 className={`flex items-center gap-1.5 text-sm font-[500] transition-colors duration-300 ${
-                  isScrolled ? 'text-accent' : 'text-champagne'
+                  solid ? 'text-accent' : 'text-champagne'
                 }`}
               >
                 <FaPhone className="text-xs" />
-                <span className="font-sans">+91 98911 06761</span>
+                <span className="font-sans">{settings.phone}</span>
               </a>
 
               <Link
                 href="/contact"
-                className={`btn-gold text-xs py-2.5 px-6 ${!isScrolled ? 'brightness-110' : ''}`}
+                className={`btn-gold text-xs py-2.5 px-6 ${!solid ? 'brightness-110' : ''}`}
               >
                 <span>Plan Your Wedding</span>
               </Link>
@@ -202,7 +191,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               className={`lg:hidden text-2xl transition-all duration-300 p-2 rounded-xl ${
-                isScrolled
+                solid
                   ? 'text-primary'
                   : 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]'
               }`}
@@ -233,7 +222,7 @@ export default function Navbar() {
           {/* Close button — sits below the fixed navbar (h-20 = 80px) */}
           <div className="flex justify-between items-center mb-6 mt-20">
             <div className="relative w-40 h-12">
-              <Image src="/logo.svg" alt="WAH Momentz" fill className="object-contain object-left" />
+              <Image src={settings.logo} alt={settings.companyName} fill className="object-contain object-left" />
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -275,13 +264,13 @@ export default function Navbar() {
               <div className="ml-4 space-y-1 border-l-2 border-champagne/50 pl-4">
                 {[...weddingServices, ...eventServices].map((s) => (
                   <Link
-                    key={s.href}
+                    key={`${s.category}-${s.href}`}
                     href={s.href}
                     className="flex items-center gap-2 py-2 px-3 text-sm text-warmgray hover:text-accent rounded-lg transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     <span>{s.icon}</span>
-                    <span className="font-sans">{s.label}</span>
+                    <span className="font-sans">{s.title}</span>
                   </Link>
                 ))}
               </div>
@@ -290,11 +279,11 @@ export default function Navbar() {
 
           <div className="mt-8 space-y-3">
             <a
-              href="tel:+919891106761"
+              href={phoneHref}
               className="flex items-center justify-center gap-2 py-3 px-6 rounded-full border-2 border-accent text-accent font-sans font-[600] text-sm"
             >
               <FaPhone className="text-xs" />
-              +91 98911 06761
+              {settings.phone}
             </a>
             <Link
               href="/contact"

@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import ProcessStep from '@/models/ProcessStep';
+import { requireAdmin, wantsAdminView } from '@/utils/auth';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await connectDB();
-    const processSteps = await ProcessStep.find({ isActive: true }).sort({ order: 1, stepNumber: 1 });
+    const processSteps = await ProcessStep.find(wantsAdminView(request) ? {} : { isActive: true }).sort({ order: 1, stepNumber: 1 });
     return NextResponse.json(processSteps);
   } catch (error) {
     console.error('Error fetching process steps:', error);
@@ -15,6 +16,8 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     const body = await request.json();
     const processStep = new ProcessStep(body);

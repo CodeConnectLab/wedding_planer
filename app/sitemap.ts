@@ -1,7 +1,10 @@
-﻿import { MetadataRoute } from 'next';
+import { MetadataRoute } from 'next';
 import dbConnect from '@/lib/mongodb';
 import Project from '@/models/Project';
 import Blog from '@/models/Blog';
+import Service from '@/models/Service';
+
+export const revalidate = 3600;
 
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
@@ -9,12 +12,19 @@ const baseUrl =
   'https://www.wahmomentz.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  await dbConnect();
-
-  const [projects, blogs] = await Promise.all([
-    Project.find({ isPublished: true }).select('slug updatedAt').lean(),
-    Blog.find({ isPublished: true }).select('slug updatedAt publishedAt').lean(),
-  ]);
+  let projects: any[] = [];
+  let blogs: any[] = [];
+  let services: any[] = [];
+  try {
+    await dbConnect();
+    [projects, blogs, services] = await Promise.all([
+      Project.find({ isPublished: true }).select('slug updatedAt').lean(),
+      Blog.find({ isPublished: true }).select('slug updatedAt publishedAt').lean(),
+      Service.find({ isActive: true, href: { $in: ['', null] } }).select('slug updatedAt').lean(),
+    ]);
+  } catch (error) {
+    console.error('Sitemap: database unavailable', error);
+  }
 
   const weddingUrls = (projects as any[]).map((p) => ({
     url: `${baseUrl}/gallery/${p.slug}`,
@@ -40,26 +50,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/blogs`, priority: 0.8, changeFrequency: 'daily' as const },
     { url: `${baseUrl}/faqs`, priority: 0.7, changeFrequency: 'monthly' as const },
     { url: `${baseUrl}/contact`, priority: 0.8, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/wedding-decor`, priority: 0.8, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/photography`, priority: 0.8, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/catering`, priority: 0.7, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/mehndi`, priority: 0.7, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/entertainment`, priority: 0.7, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/venue-management`, priority: 0.7, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/honeymoon`, priority: 0.6, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/bachelorette`, priority: 0.7, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/invitations`, priority: 0.6, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/anniversary`, priority: 0.6, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/corporate-events`, priority: 0.7, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/fashion-shows`, priority: 0.6, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/award-nights`, priority: 0.6, changeFrequency: 'monthly' as const },
-    { url: `${baseUrl}/services/conference`, priority: 0.6, changeFrequency: 'monthly' as const },
     { url: `${baseUrl}/privacy-policy`, priority: 0.3, changeFrequency: 'yearly' as const },
     { url: `${baseUrl}/terms`, priority: 0.3, changeFrequency: 'yearly' as const },
+    { url: `${baseUrl}/videos`, priority: 0.5, changeFrequency: 'monthly' as const },
   ];
+
+  const serviceUrls = (services as any[])
+    .filter((s) => s.slug)
+    .map((s) => ({
+      url: `${baseUrl}/services/${s.slug}`,
+      lastModified: s.updatedAt || new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
 
   return [
     ...staticPages.map((p) => ({ ...p, lastModified: new Date() })),
+    ...serviceUrls,
     ...weddingUrls,
     ...blogUrls,
   ];

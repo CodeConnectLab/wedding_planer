@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import AdminLayout from '@/components/AdminLayout';
 import Image from 'next/image';
 import { FaPlus, FaEdit, FaTrash, FaEye, FaEyeSlash, FaStar, FaRegStar, FaSearch, FaFilter } from 'react-icons/fa';
+import { BLOG_CATEGORIES } from '@/lib/constants';
 
 interface Blog {
   _id: string;
@@ -29,14 +30,15 @@ export default function BlogsAdmin() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const categories = ['Interior Design', 'Home Decor', 'Architecture', 'Tips & Guides', 'Trends', 'Case Studies'];
+  const categories = BLOG_CATEGORIES;
 
   const fetchBlogs = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
         page: currentPage.toString(),
-        limit: '10'
+        limit: '10',
+        admin: 'true'
       });
       
       if (categoryFilter) params.append('category', categoryFilter);

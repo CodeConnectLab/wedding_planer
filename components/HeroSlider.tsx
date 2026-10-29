@@ -10,6 +10,9 @@ interface Slide {
   image: string;
   title: string;
   subtitle: string;
+  eyebrow?: string;
+  buttonText?: string;
+  buttonLink?: string;
 }
 
 export default function HeroSlider({ slides }: { slides: Slide[] }) {
@@ -44,7 +47,10 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
       onMouseLeave={() => setPaused(false)}
     >
       {/* Slides */}
-      {slides.map((slide, idx) => (
+      {slides.map((slide, idx) => {
+        // Only one <h1> per page: the first slide carries it.
+        const HeadingTag = idx === 0 ? 'h1' : 'h2';
+        return (
         <div
           key={slide._id}
           className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
@@ -55,6 +61,7 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
             src={slide.image}
             alt={slide.title}
             fill
+            sizes="100vw"
             className={`object-cover transition-transform duration-[8000ms] ease-out ${
               idx === current ? 'scale-105' : 'scale-100'
             }`}
@@ -74,15 +81,15 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
                   className={`flex items-center gap-3 mb-6 transition-all duration-700 ${idx === current ? 'opacity-100 translate-y-0 delay-200' : 'opacity-0 translate-y-8'}`}
                 >
                   <div className="h-px w-10 bg-accent" />
-                  <span className="eyebrow text-champagne/80">Luxury Wedding Planners</span>
+                  <span className="eyebrow text-champagne/80">{slide.eyebrow || 'Luxury Wedding Planners'}</span>
                 </div>
 
                 {/* Headline */}
-                <h2
-                  className={`font-cormorant text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-[300] italic leading-[1.05] mb-6 transition-all duration-700 ${idx === current ? 'opacity-100 translate-y-0 delay-300' : 'opacity-0 translate-y-10'}`}
+                <HeadingTag
+                  className={`font-cormorant text-white text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-[300] italic leading-[1.05] mb-6 transition-all duration-700 ${idx === current ? 'opacity-100 translate-y-0 delay-300' : 'opacity-0 translate-y-10'}`}
                 >
                   {slide.title}
-                </h2>
+                </HeadingTag>
 
                 {/* Subtitle */}
                 <p
@@ -95,8 +102,8 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
                 <div
                   className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 ${idx === current ? 'opacity-100 translate-y-0 delay-700' : 'opacity-0 translate-y-8'}`}
                 >
-                  <Link href="/contact" className="btn-gold btn-shimmer relative">
-                    <span>Plan Your Wedding</span>
+                  <Link href={slide.buttonLink || '/contact'} className="btn-gold btn-shimmer relative">
+                    <span>{slide.buttonText || 'Plan Your Wedding'}</span>
                   </Link>
                   <Link href="/gallery" className="btn-outline-white">
                     View Our Weddings
@@ -118,7 +125,8 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
             </div>
           </div>
         </div>
-      ))}
+        );
+      })}
 
       {/* Side Nav Dots */}
       <div className="hidden lg:flex absolute left-7 top-1/2 -translate-y-1/2 flex-col gap-3 z-20">

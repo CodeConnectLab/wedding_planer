@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import ThemeSettings from '@/models/ThemeSettings';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     await connectDB();
@@ -10,9 +12,9 @@ export async function GET() {
     // Use default colors if no theme settings exist
     if (!themeSettings) {
       themeSettings = {
-        primaryColor: '#1f2937',
-        secondaryColor: '#f3f4f6',
-        accentColor: '#f59e0b'
+        primaryColor: '#2D1B4E',
+        secondaryColor: '#FEF0F8',
+        accentColor: '#C2185B'
       };
     }
     

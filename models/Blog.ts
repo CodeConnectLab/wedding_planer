@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { BLOG_CATEGORIES } from '@/lib/constants';
 
 const BlogSchema = new mongoose.Schema({
   title: {
@@ -28,12 +29,12 @@ const BlogSchema = new mongoose.Schema({
   },
   author: {
     type: String,
-    default: 'Urban Design India'
+    default: 'WAH Momentz'
   },
   category: {
     type: String,
     required: true,
-    enum: ['Interior Design', 'Home Decor', 'Architecture', 'Tips & Guides', 'Trends', 'Case Studies']
+    enum: BLOG_CATEGORIES
   },
   tags: [{
     type: String,
@@ -74,7 +75,6 @@ const BlogSchema = new mongoose.Schema({
 
 // Create index for better search performance
 BlogSchema.index({ title: 'text', content: 'text', tags: 'text' });
-BlogSchema.index({ slug: 1 });
 BlogSchema.index({ category: 1 });
 BlogSchema.index({ isPublished: 1 });
 BlogSchema.index({ publishedAt: -1 });

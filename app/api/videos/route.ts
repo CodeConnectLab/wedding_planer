@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
-import Video from '@/lib/models/Video';
+import Video from '@/models/Video';
+import { requireAdmin, wantsAdminView } from '@/utils/auth';
 
 // Helper function to extract YouTube video ID from URL
 function getYouTubeVideoId(url: string): string | null {
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category');
     const featured = searchParams.get('featured');
     
-    let query: any = { isActive: true };
+    let query: any = wantsAdminView(request) ? {} : { isActive: true };
     
     if (category && category !== 'all') {
       query.category = category;
@@ -48,6 +49,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
     await connectDB();
     
     const body = await request.json();
@@ -77,7 +80,7 @@ export async function POST(request: NextRequest) {
       description,
       youtubeUrl,
       thumbnailUrl,
-      category: category || 'Interior Design',
+      category: category || 'Wedding Films',
       isActive: isActive !== undefined ? isActive : true,
       isFeatured: isFeatured || false,
       order: order || 0

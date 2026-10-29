@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -420,7 +420,7 @@ export default function FooterSettingsAdmin() {
                   value={formData.copyrightText}
                   onChange={(e) => setFormData({ ...formData, copyrightText: e.target.value })}
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g., Urban Design India. All Rights Reserved"
+                  placeholder="e.g., WAH Momentz. All Rights Reserved."
                 />
               </div>
             </div>

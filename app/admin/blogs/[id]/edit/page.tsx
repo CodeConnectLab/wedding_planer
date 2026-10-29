@@ -17,6 +17,7 @@ const ReactQuill = dynamic(() => import('react-quill'), {
   )
 });
 import 'react-quill/dist/quill.snow.css';
+import { BLOG_CATEGORIES } from '@/lib/constants';
 
 export default function EditBlog() {
   const params = useParams();
@@ -32,8 +33,8 @@ export default function EditBlog() {
     excerpt: '',
     content: '',
     featuredImage: '',
-    author: 'Urban Design India',
-    category: 'Interior Design',
+    author: 'WAH Momentz',
+    category: BLOG_CATEGORIES[0] as string,
     tags: '',
     isPublished: false,
     isFeatured: false,
@@ -42,7 +43,7 @@ export default function EditBlog() {
     seoKeywords: ''
   });
 
-  const categories = ['Interior Design', 'Home Decor', 'Architecture', 'Tips & Guides', 'Trends', 'Case Studies'];
+  const categories = BLOG_CATEGORIES;
 
   const fetchBlog = useCallback(async () => {
     try {
